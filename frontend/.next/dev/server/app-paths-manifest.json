@@ -1,6 +1,0 @@
-{
-  "/career-coach/page": "app/career-coach/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/logout/page": "app/logout/page.js",
-  "/tokens/page": "app/tokens/page.js"
-}
