@@ -83,7 +83,7 @@ const openai = new OpenAI({
   apiKey: process.env.ELICE_API_KEY,
   baseURL: "https://mlapi.run/0e6857e3-a90b-4c99-93ac-1f9f887a193e/v1",
 })
-//tambah /v1
+//tambah /v1 biar works
 
 export async function handleChatMessage(req: Request, res: Response) {
   try {
