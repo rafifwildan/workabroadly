@@ -7,6 +7,9 @@ import mongoose from "mongoose"
 import roleplayRoutes from "./routes/roleplayRoutes"
 import scenarioRoutes from "./routes/scenarioRoutes"
 // import stripeRoutes from "./routes/stripe"
+import session from "express-session";
+import passport from "./config/passport";
+import authRoutes from "./routes/authRoutes";
 
 // Load environment variables
 dotenv.config()
@@ -14,7 +17,7 @@ dotenv.config()
 connectDB()
 
 const app: Express = express()
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3010 
 
 // Middleware
 app.use(
@@ -25,6 +28,26 @@ app.use(
 )
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// Session configuration
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Auth Routes (routes buat login/logout)
+app.use("/auth", authRoutes)
 
 // Health check endpoint
 app.get("/health", (req: Request, res: Response) => {
@@ -42,8 +65,9 @@ app.get("/api/test-db", async (req, res) => {
 
 // API Routes
 app.use("/api/chat", chatRoutes)
-app.use("/api/roleplay", roleplayRoutes);
+app.use("/api/roleplay", roleplayRoutes)
 app.use("/api/scenarios", scenarioRoutes)
+
 // app.use("/api/stripe", stripeRoutes)
 
 // 404 handler
@@ -56,6 +80,27 @@ app.use((err: Error, req: Request, res: Response, next: any) => {
   console.error("[Server Error]:", err)
   res.status(500).json({ error: "Internal server error", message: err.message })
 })
+
+// Debug: List all registered routes
+console.log("\nRegistered Routes:");
+app._router.stack.forEach((middleware: any) => {
+  if (middleware.route) {
+    // Routes registered directly on the app
+    console.log(`  ${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
+  } else if (middleware.name === 'router') {
+    // Router middleware
+    middleware.handle.stack.forEach((handler: any) => {
+      if (handler.route) {
+        const path = middleware.regexp.source
+          .replace('\\/?', '')
+          .replace('(?=\\/|$)', '')
+          .replace(/\\\//g, '/');
+        console.log(`  ${Object.keys(handler.route.methods)} ${path}${handler.route.path}`);
+      }
+    });
+  }
+});
+console.log("");
 
 // Start server
 app.listen(PORT, () => {
