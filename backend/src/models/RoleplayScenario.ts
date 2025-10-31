@@ -17,7 +17,7 @@ export interface IScenarioStep {
 export interface IRoleplayScenario extends Document {
   title: string;
   description: string;
-  category: "interview" | "workplace" | "daily" | "custom";
+  category: "interview" | "workplace" | "daily";
   language: "japanese" | "korean";
   difficulty: "beginner" | "intermediate" | "advanced";
   steps: IScenarioStep[];
@@ -43,8 +43,8 @@ const RoleplayScenarioSchema = new Schema<IRoleplayScenario>({
   description: String,
   category: {
     type: String,
-    enum: ["interview", "workplace", "daily", "custom"],
-    default: "custom",
+    enum: ["interview", "workplace", "daily"],
+    default: "daily",
   },
   language: { type: String, enum: ["japanese", "korean"], required: true },
   difficulty: {
