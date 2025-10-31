@@ -21,7 +21,7 @@ cp .env.example .env
 npm run dev
 \`\`\`
 
-Server will run on `http://localhost:8080`
+Server will run on `http://localhost:3010`
 
 ## API Endpoints
 
