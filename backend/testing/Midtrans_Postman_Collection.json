@@ -1,135 +1,202 @@
 {
-  "info": {
-    "name": "Midtrans Payment Gateway - WorkAbroadly",
-    "description": "Collection untuk testing Midtrans payment integration",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "1. Get Products",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:3010/api/midtrans/products",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3010",
-          "path": ["api", "midtrans", "products"]
-        },
-        "description": "Get list of available token packages"
-      }
-    },
-    {
-      "name": "2. Create Transaction - Bank Transfer",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"productId\": \"pro\",\n  \"userId\": \"YOUR_USER_ID_HERE\",\n  \"paymentType\": \"bank_transfer\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:3010/api/midtrans/create-transaction",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3010",
-          "path": ["api", "midtrans", "create-transaction"]
-        },
-        "description": "Create new transaction with BCA Virtual Account"
-      }
-    },
-    {
-      "name": "2b. Create Transaction - GoPay",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"productId\": \"basic\",\n  \"userId\": \"YOUR_USER_ID_HERE\",\n  \"paymentType\": \"gopay\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:3010/api/midtrans/create-transaction",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3010",
-          "path": ["api", "midtrans", "create-transaction"]
-        },
-        "description": "Create new transaction with GoPay"
-      }
-    },
-    {
-      "name": "2c. Create Transaction - QRIS",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"productId\": \"premium\",\n  \"userId\": \"YOUR_USER_ID_HERE\",\n  \"paymentType\": \"qris\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:3010/api/midtrans/create-transaction",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3010",
-          "path": ["api", "midtrans", "create-transaction"]
-        },
-        "description": "Create new transaction with QRIS"
-      }
-    },
-    {
-      "name": "3. Get Transaction Status",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:3010/api/midtrans/transaction/YOUR_ORDER_ID",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3010",
-          "path": ["api", "midtrans", "transaction", "YOUR_ORDER_ID"]
-        },
-        "description": "Check transaction status by Order ID"
-      }
-    },
-    {
-      "name": "4. Webhook Notification (Manual Test)",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"transaction_time\": \"2025-10-31 10:30:00\",\n  \"transaction_status\": \"settlement\",\n  \"transaction_id\": \"abc123-def456\",\n  \"status_message\": \"midtrans payment notification\",\n  \"status_code\": \"200\",\n  \"signature_key\": \"PASTE_FROM_DASHBOARD\",\n  \"payment_type\": \"bank_transfer\",\n  \"order_id\": \"YOUR_ORDER_ID\",\n  \"merchant_id\": \"G812220002\",\n  \"gross_amount\": \"200000.00\",\n  \"fraud_status\": \"accept\",\n  \"currency\": \"IDR\",\n  \"bank\": \"bca\",\n  \"va_numbers\": [\n    {\n      \"va_number\": \"12345678901\",\n      \"bank\": \"bca\"\n    }\n  ]\n}"
-        },
-        "url": {
-          "raw": "http://localhost:3010/api/midtrans/notification",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3010",
-          "path": ["api", "midtrans", "notification"]
-        },
-        "description": "Manually test webhook notification (copy JSON from Midtrans dashboard)"
-      }
-    }
-  ]
+	"info": {
+		"_postman_id": "36e3bf1a-b82d-4c97-9fa7-6032478246bd",
+		"name": "Midtrans Payment Gateway - WorkAbroadly",
+		"description": "Collection untuk testing Midtrans payment integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41813071"
+	},
+	"item": [
+		{
+			"name": "1. Get Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"products"
+					]
+				},
+				"description": "Get list of available token packages"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Create Transaction - Bank Transfer BCA",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": \"pro\",\n  \"userId\": \"6904113cec9388e4ecd632b3\",\n  \"paymentType\": \"bank_transfer\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/create-transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"create-transaction"
+					]
+				},
+				"description": "Create new transaction with BCA Virtual Account"
+			},
+			"response": []
+		},
+		{
+			"name": "2b. Create Transaction - GoPay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": \"basic\",\n  \"userId\": \"6904113cec9388e4ecd632b3\",\n  \"paymentType\": \"gopay\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/create-transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"create-transaction"
+					]
+				},
+				"description": "Create new transaction with GoPay"
+			},
+			"response": []
+		},
+		{
+			"name": "2c. Create Transaction - QRIS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": \"premium\",\n  \"userId\": \"6904113cec9388e4ecd632b3\",\n  \"paymentType\": \"qris\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/create-transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"create-transaction"
+					]
+				},
+				"description": "Create new transaction with QRIS"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get Transaction Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/transaction/ORDER-1761969016785-XVXIV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"transaction",
+						"ORDER-1761969016785-XVXIV"
+					]
+				},
+				"description": "Check transaction status by Order ID"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Webhook Notification (Response from Webhook) - Bank Transfer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"va_numbers\":[{\"va_number\":\"13413033058834190085180\",\"bank\":\"bca\"}],\"transaction_time\":\"2025-11-01 10:51:38\",\"transaction_status\":\"settlement\",\"transaction_id\":\"d382f9f0-764e-491e-b48d-81ef37a78cee\",\"status_message\":\"midtrans payment notification\",\"status_code\":\"200\",\"signature_key\":\"775265c6c05e58e59d19f86a98a745e215aabc5d232b5609a044f5e5bd878ee9af395584ad24e193608311d82d062b0ecd80b177356b8e7f9dccff571eddf835\",\"settlement_time\":\"2025-11-01 10:56:49\",\"payment_type\":\"bank_transfer\",\"payment_amounts\":[],\"order_id\":\"ORDER-1761969016785-XVXIV\",\"merchant_id\":\"G678813413\",\"gross_amount\":\"200000.00\",\"fraud_status\":\"accept\",\"expiry_time\":\"2025-11-02 10:51:38\",\"currency\":\"IDR\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/notification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"notification"
+					]
+				},
+				"description": "Manually test webhook notification (copy JSON from Midtrans dashboard)"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Verify Success Payment - Bank Transfer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/api/midtrans/transaction/ORDER-1761969016785-XVXIV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"midtrans",
+						"transaction",
+						"ORDER-1761969016785-XVXIV"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
