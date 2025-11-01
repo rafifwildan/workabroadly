@@ -6,6 +6,7 @@ import { connectDB } from "./config/db"
 import mongoose from "mongoose"
 import roleplayRoutes from "./routes/roleplayRoutes"
 import scenarioRoutes from "./routes/scenarioRoutes"
+import midtransRoutes from "./routes/midtransRoutes"
 // import stripeRoutes from "./routes/stripe"
 import session from "express-session";
 import passport from "./config/passport";
@@ -67,6 +68,7 @@ app.get("/api/test-db", async (req, res) => {
 app.use("/api/chat", chatRoutes)
 app.use("/api/roleplay", roleplayRoutes)
 app.use("/api/scenarios", scenarioRoutes)
+app.use("/api/midtrans", midtransRoutes)
 
 // app.use("/api/stripe", stripeRoutes)
 
