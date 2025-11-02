@@ -2,7 +2,10 @@ import { type NextRequest, NextResponse } from "next/server"
 
 const OPENAI_API_KEY =
   process.env.OPENAI_API_KEY
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e657cef8960702ca68c51f81483cb0a20afa17c
 const EXPAT_AI_PROMPT = `You are Expat AI, an intelligent assistant helping Indonesian professionals prepare to work abroad, specifically in Japan and South Korea.
 
 Your role is to guide users through all general preparations needed for working abroad, maintaining accuracy, empathy, and contextual relevance.
