@@ -6,9 +6,9 @@ import { IUser } from "../models/User";
 export const generateToken = (user: IUser): string => {
   // PAYLOAD - data yang akan di-encode dalam token
   const payload = {
-    id: user._id,           // User ID dari MongoDB
-    email: user.email,      // Email user
-    name: user.name,        // Nama user
+    id: String(user._id),  // ✅ Convert ObjectId to string dengan String()
+    email: user.email,
+    name: user.name,
   };
 
   // JWT SECRET - key untuk sign token (dari .env)
@@ -31,8 +31,18 @@ export const googleCallback = (req: Request, res: Response) => {
     // Ambil user dari request (sudah di-set oleh Passport)
     const user = req.user as IUser;
 
+    console.log("🔍 DEBUG - User object:", user); // ✅ Debug log
+    console.log("🔍 DEBUG - User _id:", user?._id); // ✅ Debug log
+
     if (!user) {
-      // Kalau user tidak ada, redirect ke frontend dengan error
+      console.error("❌ User object is null/undefined");
+      return res.redirect(
+        `${process.env.FRONTEND_URL}/login?error=authentication_failed`
+      );
+    }
+
+    if (!user._id) {
+      console.error("❌ User _id is null/undefined");
       return res.redirect(
         `${process.env.FRONTEND_URL}/login?error=authentication_failed`
       );
@@ -45,7 +55,6 @@ export const googleCallback = (req: Request, res: Response) => {
     console.log("🎫 Token generated:", token.substring(0, 20) + "...");
 
     // REDIRECT ke frontend dengan token di URL
-    // Frontend akan ambil token ini dan simpan ke localStorage
     res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${token}`);
 
   } catch (error) {
@@ -63,12 +72,13 @@ export const getCurrentUser = (req: Request, res: Response) => {
       return res.status(401).json({ error: "Not authenticated" });
     }
 
-    // Return user info (jangan return password kalau ada!)
+    // Return user info
     res.json({
-      id: user._id,
+      id: String(user._id),  // ✅ Convert to string
       email: user.email,
       name: user.name,
       picture: user.picture,
+      tokens: user.tokens,
     });
 
   } catch (error) {
