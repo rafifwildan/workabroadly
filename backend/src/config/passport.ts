@@ -21,11 +21,8 @@ passport.use(
         if (user) {
           // User sudah ada - RETURNING USER
           console.log("✅ Returning user:", user.email);
-          return done(null, {
-            id: user.id,
-            email: user.email,
-            name: user.name
-          });
+          // ✅ Return full user object, bukan plain object
+          return done(null, user);
         }
 
         // STEP 2: User belum ada - CREATE NEW USER
@@ -37,11 +34,8 @@ passport.use(
         });
 
         console.log("🆕 New user created:", user.email);
-        return done(null, {
-          id: user.id,
-          email: user.email,
-          name: user.name
-        });
+        // ✅ Return full user object
+        return done(null, user);
 
       } catch (error) {
         console.error("❌ Passport error:", error);
@@ -55,7 +49,7 @@ passport.use(
 // Dipanggil setelah user berhasil login
 passport.serializeUser((user: any, done) => {
   // Simpan hanya user ID ke session (bukan seluruh object)
-  done(null, user.id);
+  done(null, user._id || user.id);
 });
 
 // DESERIALIZE USER - ambil user dari session
@@ -66,11 +60,8 @@ passport.deserializeUser(async (id: string, done) => {
     if (!user) {
       return done(null, null);
     }
-    done(null, {
-      id: user.id,
-      email: user.email,
-      name: user.name
-    });
+    // ✅ Return full user document
+    done(null, user);
   } catch (error) {
     done(error, null);
   }
