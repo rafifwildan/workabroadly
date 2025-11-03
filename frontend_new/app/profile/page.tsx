@@ -73,9 +73,10 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-white flex">
-      <AppSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AppSidebar />
 
-      <div className="flex-1 flex flex-col pb-8">
+      <div className="flex-1 flex flex-col md:ml-64">
+        {/* Page Header */}
         <div className="bg-white border-b border-gray-200 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-4">
@@ -96,7 +97,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 pb-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div className="lg:col-span-1">
               <div className="soft-card rounded-2xl bg-white shadow-md p-4 space-y-2">
@@ -162,6 +163,7 @@ export default function ProfilePage() {
             <div className="lg:col-span-3 space-y-6">
               {activeTab === "profile" && (
                 <>
+                  {/* ... (Isi tab profile tidak berubah) ... */}
                   <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
                     <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-200">
                       <div className="relative">
@@ -299,6 +301,7 @@ export default function ProfilePage() {
 
               {activeTab === "activity" && (
                 <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
+                  {/* ... (Isi tab activity tidak berubah) ... */}
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-gray-900">Recent Activity</h3>
                     <Link href="/activity" className="text-sm text-gray-900 hover:text-gray-700 font-medium">
@@ -351,6 +354,7 @@ export default function ProfilePage() {
 
               {activeTab === "account" && (
                 <>
+                  {/* ... (Isi tab account tidak berubah) ... */}
                   <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
                     <h3 className="text-lg font-bold text-black mb-4">Change Password</h3>
                     <div className="space-y-4">
@@ -407,6 +411,7 @@ export default function ProfilePage() {
 
               {activeTab === "notifications" && (
                 <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
+                  {/* ... (Isi tab notifications tidak berubah) ... */}
                   <h3 className="text-lg font-bold text-black mb-6">Notification Preferences</h3>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between py-3 border-b border-gray-200">
@@ -487,6 +492,7 @@ export default function ProfilePage() {
 
               {activeTab === "privacy" && (
                 <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
+                  {/* ... (Isi tab privacy tidak berubah) ... */}
                   <h3 className="text-lg font-bold text-black mb-6">Privacy & Data</h3>
                   <div className="space-y-4">
                     <button className="w-full text-left rounded-full border-2 border-black/20 p-4 hover:border-black transition-colors">
@@ -507,12 +513,12 @@ export default function ProfilePage() {
 
               {activeTab === "billing" && (
                 <div className="space-y-6">
+                  {/* ... (Isi tab billing tidak berubah) ... */}
                   <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
                     <div className="flex items-center justify-between mb-6">
                       <h3 className="text-2xl font-bold text-black">Current Plan</h3>
                       <div className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full">
                         <Zap className="w-4 h-4" />
-                        <span className="font-bold">Professional</span>
                       </div>
                     </div>
 
@@ -619,14 +625,25 @@ export default function ProfilePage() {
                 <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
                   <h3 className="text-lg font-bold text-black mb-6">Help & Support</h3>
                   <div className="space-y-4">
-                    <button className="w-full text-left rounded-full border-2 border-black/20 p-4 hover:border-black transition-colors">
+                    <Link
+                      href="mailto:workabroadlyapp@gmail.com?subject=I%20Like%20to%20Know%20More%20About%20WorkAbroadly&body=Hi%20WorkAbroadly%20Team%2C%0A%0AI%E2%80%99m%20interested%20in%20your%20platform%20and%20would%20love%20to%20know%20more%20about%20how%20you%20can%20help%20me%20grow%20my%20career%20internationally.%0A%0ALooking%20forward%20to%20your%20reply!%0A"
+                      className="block w-full text-left rounded-full border-2 border-black/20 p-4 hover:border-black transition-colors"
+                    >
                       <p className="font-medium text-black">Contact Support</p>
                       <p className="text-sm text-black/70">Get help with any issues you're facing</p>
-                    </button>
-                    <button className="w-full text-left rounded-full border-2 border-black/20 p-4 hover:border-black transition-colors">
+                    </Link>
+
+                    {/* --- PERUBAHAN DI SINI --- */}
+                    {/* Mengganti <button> menjadi <Link> dengan href="/#faq" */}
+                    <Link
+                      href="/#faq"
+                      className="block w-full text-left rounded-full border-2 border-black/20 p-4 hover:border-black transition-colors"
+                    >
                       <p className="font-medium text-black">FAQs</p>
                       <p className="text-sm text-black/70">Find answers to common questions</p>
-                    </button>
+                    </Link>
+                    {/* --- AKHIR PERUBAHAN --- */}
+
                     <button className="w-full text-left rounded-full border-2 border-black/20 p-4 hover:border-black transition-colors">
                       <p className="font-medium text-black">Feedback</p>
                       <p className="text-sm text-black/70">Send us your thoughts and suggestions</p>
@@ -636,11 +653,12 @@ export default function ProfilePage() {
               )}
             </div>
           </div>
-        </div>
+        </main>
       </div>
 
       {showProfilePictureModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          {/* ... (Isi modal profile picture tidak berubah) ... */}
           <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">Change Profile Picture</h3>
@@ -674,6 +692,7 @@ export default function ProfilePage() {
 
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          {/* ... (Isi modal delete confirm tidak berubah) ... */}
           <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Delete Account?</h3>
             <p className="text-gray-600 mb-6">

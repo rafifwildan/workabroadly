@@ -35,9 +35,11 @@ export default function MyPlanPage() {
 
   return (
     <div className="min-h-screen bg-white flex">
-      <AppSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AppSidebar/>
 
-      <div className="flex-1 flex flex-col">
+      {/* --- PERUBAHAN DI SINI --- */}
+      {/* Menambahkan 'md:ml-64' */}
+      <div className="flex-1 flex flex-col md:ml-64">
         <main className="flex-1 overflow-auto pb-24 md:pb-0">
           <PageHeader
             title="My Plan"
@@ -96,8 +98,6 @@ export default function MyPlanPage() {
             </div>
           </div>
         </main>
-
-        <Footer />
       </div>
     </div>
   )

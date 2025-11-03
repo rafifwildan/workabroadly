@@ -26,6 +26,11 @@ export default function SignUpPage() {
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
+      {/* --- PERBAIKAN DI SINI --- */}
+      {/* Menambahkan spacer untuk Navbar 'fixed' */}
+      <div className="h-[73px]" />
+      {/* --- AKHIR PERBAIKAN --- */}
+
       <div className="flex flex-1">
         {/* Left Side - Decorative with Image */}
         <div className="hidden lg:flex lg:w-1/2 bg-black relative overflow-hidden items-center justify-center p-12">

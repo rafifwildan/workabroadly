@@ -33,6 +33,11 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
+      {/* --- PERBAIKAN DI SINI --- */}
+      {/* Menambahkan spacer untuk Navbar 'fixed'/'sticky' */}
+      <div className="h-[73px]" />
+      {/* --- AKHIR PERBAIKAN --- */}
+
       <div className="flex flex-1">
         {/* Left Side - Decorative with Image */}
         <div className="hidden lg:flex lg:w-1/2 bg-black relative overflow-hidden items-center justify-center p-12">
@@ -76,7 +81,7 @@ export default function LoginPage() {
                       />
                     </svg>
                   </div>
-                  <div className="flex-1">
+                  {/* <div className="flex-1">
                     <h3 className="text-sm font-semibold text-gray-900 mb-1">Try Demo Account</h3>
                     <p className="text-xs text-gray-700 mb-2">
                       Email: <span className="font-mono">demo@workabroadly.com</span>
@@ -89,7 +94,7 @@ export default function LoginPage() {
                     >
                       Use Demo Account
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

@@ -346,9 +346,11 @@ export default function RolePlayPage() {
 
   return (
     <div className="min-h-screen bg-white flex">
-      <AppSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AppSidebar/>
 
-      <div className="flex-1 flex flex-col">
+      {/* --- PERUBAHAN DI SINI --- */}
+      {/* Menambahkan 'md:ml-64' untuk memberi ruang bagi sidebar di desktop */}
+      <div className="flex-1 flex flex-col md:ml-64">
         <PageHeader
           title="Cultural Role-Play Scenarios"
           subtitle="Practice real-world situations and build confidence"
@@ -357,7 +359,8 @@ export default function RolePlayPage() {
           onMenuClick={() => setSidebarOpen(true)}
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* --- Mengganti 'div' menjadi 'main' dan menambahkan 'flex-1' --- */}
+        <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
               <div className="text-sm text-gray-600 mb-1">Completed</div>
@@ -625,7 +628,8 @@ export default function RolePlayPage() {
               ))}
             </div>
           </section>
-        </div>
+        </main>
+        {/* --- AKHIR PERUBAHAN (tag </main> penutup) --- */}
       </div>
     </div>
   )

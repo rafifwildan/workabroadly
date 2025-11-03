@@ -133,7 +133,6 @@ export default function ScenarioBriefPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      <Footer />
     </div>
   )
 }
