@@ -5,9 +5,21 @@ import UserProgress from "../models/UserProgress.js";
 
 export async function startRoleplay(req: Request, res: Response) {
   const { userId, scenarioId } = req.body;
-  if (!userId || !scenarioId) return res.status(400).json({ error: "Missing userId or scenarioId" });
+  if (!userId || !scenarioId)
+    return res.status(400).json({ error: "Missing userId or scenarioId" });
 
-  const session = await RoleplaySession.create({ userId, scenarioId, answers: [], totalScore: 0 });
+  // Cari progress user (buat kalau belum ada)
+  let progress = await UserProgress.findOne({ userId });
+  if (!progress) progress = await UserProgress.create({ userId });
+
+  // Buat session baru yang nempel ke progress
+  const session = await RoleplaySession.create({
+    progressId: progress._id,
+    scenarioId,
+    answers: [],
+    totalScore: 0,
+  });
+
   res.json(session);
 }
 
@@ -31,18 +43,23 @@ export async function answerStep(req: Request, res: Response) {
 
 export async function endRoleplay(req: Request, res: Response) {
   const { sessionId } = req.body;
-  const session = await RoleplaySession.findByIdAndUpdate(sessionId, { completed: true, endedAt: new Date() }, { new: true });
+  const session = await RoleplaySession.findByIdAndUpdate(
+    sessionId,
+    { completed: true, endedAt: new Date() },
+    { new: true }
+  );
   if (!session) return res.status(404).json({ error: "Session not found" });
 
-  await UserProgress.findOneAndUpdate(
-    { userId: session.userId },
-    {
-      $inc: { totalSessions: 1, totalScore: session.totalScore },
-      $addToSet: { completedScenarios: session.scenarioId },
-      $set: { lastUpdated: new Date() },
-    },
-    { upsert: true }
-  );
+  // Ambil progress terkait
+  const progress = await UserProgress.findById(session.progressId);
+  if (!progress) return res.status(404).json({ error: "User progress not found" });
+
+  progress.totalSessions += 1;
+  progress.totalScore += session.totalScore;
+  if (!progress.completedScenarios.includes(session.scenarioId))
+    progress.completedScenarios.push(session.scenarioId);
+  progress.lastUpdated = new Date();
+  await progress.save();
 
   res.json(session);
 }

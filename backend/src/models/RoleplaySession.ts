@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IUserAnswer {
   stepId: number;
@@ -8,7 +8,7 @@ export interface IUserAnswer {
 }
 
 export interface IRoleplaySession extends Document {
-  userId: string;
+  progressId: Types.ObjectId;      // ← referensi ke UserProgress
   scenarioId: string;
   answers: IUserAnswer[];
   totalScore: number;
@@ -25,7 +25,7 @@ const UserAnswerSchema = new Schema<IUserAnswer>({
 });
 
 const RoleplaySessionSchema = new Schema<IRoleplaySession>({
-  userId: { type: String, required: true },
+  progressId: { type: Schema.Types.ObjectId, ref: "UserProgress", required: true },
   scenarioId: { type: String, required: true },
   answers: [UserAnswerSchema],
   totalScore: { type: Number, default: 0 },
