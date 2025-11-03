@@ -1,9 +1,0 @@
-{
-  "/activity/page": "app/activity/page.js",
-  "/onboarding/page": "app/onboarding/page.js",
-  "/page": "app/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/role-play/page": "app/role-play/page.js",
-  "/scenario/[id]/page": "app/scenario/[id]/page.js",
-  "/signup/page": "app/signup/page.js"
-}
