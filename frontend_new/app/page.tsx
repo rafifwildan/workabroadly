@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { ArrowRight } from "lucide-react"
 import Footer from "@/components/Footer"
-import { Navbar } from "@/components/Navbar"
+import { Navbar } from "@/components/Navbar" 
 import PricingCard from "@/components/PricingCard"
 import { CREDIT_PACKAGES } from "@/lib/products"
 
@@ -41,7 +41,15 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+      
+      {/* --- PERUBAHAN DI SINI --- */}
+      {/* Memanggil komponen Navbar */}
       <Navbar />
+
+      {/* Spacer untuk kompensasi fixed navbar (Ini tetap di sini) */}
+      <div className="h-[97px]" />
+      {/* --- AKHIR PERUBAHAN NAVBAR --- */}
+
 
       {/* Hero Section */}
       <section className="relative max-w-7xl mx-auto px-6 py-24 bg-white overflow-hidden">
@@ -62,13 +70,23 @@ export default function LandingPage() {
               Help global talent enhance their careers without getting overwhelmed by cross-cultural barriers
             </p>
             <Link href="/signup">
-              <Button
-                size="lg"
-                className="bg-black text-white rounded-full px-10 py-7 text-lg font-semibold hover:bg-gray-800 transition-all flex items-center gap-3 w-fit border-2 border-gray-300"
-              >
-                Start Now
-                <ArrowRight className="w-5 h-5" />
-              </Button>
+           <Button
+              size="lg"
+              className="group 
+                        bg-black text-white 
+                        hover:bg-white hover:text-black 
+                        border-2 border-gray-300 
+                        rounded-full px-10 py-7 text-lg font-semibold 
+                        flex items-center 
+                        transition-colors duration-300 ease-in-out"
+            >
+              Start Now
+              <ArrowRight 
+                className="w-0 opacity-0 
+                          group-hover:w-5 group-hover:opacity-100 group-hover:ml-3 
+                          transition-all duration-300 ease-in-out"
+              />
+            </Button>
             </Link>
           </div>
 
@@ -145,7 +163,7 @@ export default function LandingPage() {
             <div className="inline-block bg-black text-white px-6 py-3 rounded-full text-sm font-semibold mb-6">
               About the Company
             </div>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+            <p className="text-lg text-gray-700 leading-relaxed mb-8 text-justify">
               WorkAbroadly is a cutting-edge Cultural Role-Play Platform & Expat AI Consultant that provides innovative
               solutions for businesses and individuals. Founded in 2022, we are committed to helping global talent
               navigate cross-cultural challenges through our customized and effective technology solutions. With over a
@@ -191,7 +209,7 @@ export default function LandingPage() {
               <ArrowRight className="w-6 h-6" />
             </div>
             <h4 className="text-2xl font-semibold text-gray-900 mb-4">Cultural Role-Play Simulation</h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-justify">
               Practice real workplace scenarios through interactive role-playing characters from different backgrounds.
               Learn proper business etiquette, communication styles, and cultural norms before your first day at work.
               Our AI-powered simulations adapt to your responses and provide instant feedback.
@@ -207,7 +225,7 @@ export default function LandingPage() {
               <ArrowRight className="w-6 h-6" />
             </div>
             <h4 className="text-2xl font-semibold text-gray-900 mb-4">Expat AI Consultant</h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-justify">
               Get 24/7 personalized guidance on visa requirements, job search strategies, workplace communication, and
               cultural adaptation from our AI consultant trained on real expat experiences. Ask questions anytime and
               receive expert advice tailored to your situation.
@@ -223,6 +241,7 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
       <section id="pricing" className="bg-gray-50 py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -238,25 +257,31 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="relative max-w-5xl mx-auto px-6 py-24 bg-white">
-        <div className="absolute right-0 top-1/4 w-80 h-80 -z-10">
-          <img
-            src="/person-looking-up-thoughtfully.jpg"
-            alt="FAQ"
-            className="rounded-2xl shadow-xl w-full h-full object-cover"
-          />
-        </div>
-
-        <div className="max-w-2xl">
-          <div className="mb-12">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Frequently Ask</h2>
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Questions</h2>
+      {/* FAQ Section (Layout 2 kolom) */}
+      <section id="faq" className="max-w-7xl mx-auto px-6 py-24 bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          
+          {/* KOLOM KIRI: Teks dan Gambar */}
+          <div>
+            <div className="mb-12">
+              <h2 className="text-5xl font-bold text-gray-900 mb-4">Frequently Asked</h2>
+              <h2 className="text-5xl font-bold text-gray-900 mb-4">Questions</h2>
+            </div>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              Can't find the answer you're looking for? Feel free to contact our support team. 
+              We're here to help you adapt and succeed abroad.
+            </p>
+            <img
+              src="/person-looking-up-thoughtfully.jpg"
+              alt="FAQ"
+              className="rounded-2xl shadow-xl w-full h-full object-cover aspect-video"
+            />
           </div>
 
-          <div className="space-y-4">
+          {/* KOLOM KANAN: Accordion/FAQ List */}
+          <div className="space-y-4 lg:mt-12">
             {faqs.map((faq, index) => (
-              <div key={index} className="border-2 border-gray-200 rounded-2xl overflow-hidden bg-white">
+              <div key={index} className="border-2 border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md">
                 <button
                   onClick={() => toggleFaq(index)}
                   className="w-full px-8 py-6 flex items-start justify-between text-left hover:bg-gray-50 transition-colors bg-white"

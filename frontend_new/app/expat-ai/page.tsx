@@ -173,7 +173,6 @@ export default function AIExpatChatPage() {
           <ChatInputBar onSendMessage={handleSendMessage} disabled={isTyping} currentRole={currentRole} />
         </div>
       </div>
-      <Footer />
     </div>
   )
 }
