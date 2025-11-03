@@ -1,0 +1,13 @@
+{
+  "/expat-ai/page": "app/expat-ai/page.js",
+  "/home/page": "app/home/page.js",
+  "/login/page": "app/login/page.js",
+  "/my-plan/page": "app/my-plan/page.js",
+  "/onboarding/page": "app/onboarding/page.js",
+  "/page": "app/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/role-play/page": "app/role-play/page.js",
+  "/scenario/[id]/page": "app/scenario/[id]/page.js",
+  "/scenario/[id]/simulation/page": "app/scenario/[id]/simulation/page.js",
+  "/signup/page": "app/signup/page.js"
+}
