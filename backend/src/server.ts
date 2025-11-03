@@ -2,13 +2,13 @@ import express, { type Express, type Request, type Response } from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import chatRoutes from "./routes/chatRoutes"
-import userRoutes from "./routes/userRoutes"  // NEW
+import userRoutes from "./routes/userRoutes"
+import activityRoutes from "./routes/activityRoutes" 
 import { connectDB } from "./config/db"
 import mongoose from "mongoose"
 import roleplayRoutes from "./routes/roleplayRoutes"
 import scenarioRoutes from "./routes/scenarioRoutes"
 import midtransRoutes from "./routes/midtransRoutes"
-// import stripeRoutes from "./routes/stripe"
 import session from "express-session";
 import passport from "./config/passport";
 import authRoutes from "./routes/authRoutes";
@@ -50,7 +50,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Auth Routes (routes buat login/logout)
-app.use("/auth", authRoutes)
+app.use("/api/auth", authRoutes)
 
 // Health check endpoint
 app.get("/health", (req: Request, res: Response) => {
@@ -67,7 +67,8 @@ app.get("/api/test-db", async (req, res) => {
 
 // API Routes
 app.use("/api/chat", chatRoutes)           // Chat routes (protected)
-app.use("/api/user", userRoutes)           // NEW: User routes (protected)
+app.use("/api/user", userRoutes)           // User routes (protected) - PHASE 2
+app.use("/api/activity", activityRoutes)   // Activity routes (protected) - PHASE 3
 app.use("/api/roleplay", roleplayRoutes)
 app.use("/api/scenarios", scenarioRoutes)
 app.use("/api/midtrans", midtransRoutes)
