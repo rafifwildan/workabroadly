@@ -21,10 +21,10 @@ export default function RolePlayPage() {
           language: s.language,
           difficulty:
             s.difficulty === "beginner"
-              ? "Easy"
+              ? "beginner"
               : s.difficulty === "intermediate"
-              ? "Medium"
-              : "Hard",
+              ? "intermediate"
+              : "advanced",
           difficultyColor:
             s.difficulty === "beginner"
               ? "bg-success/10 text-success"
@@ -35,7 +35,6 @@ export default function RolePlayPage() {
             s.language === "japanese"
               ? "bg-primary/10"
               : "bg-secondary/10",
-          tokens: s.steps?.length || 5,
           icon:
             s.category === "interview"
               ? "💼"
@@ -120,7 +119,6 @@ export default function RolePlayPage() {
                   <span className={`rounded-full px-3 py-1 ${scenario.difficultyColor}`}>
                     {scenario.difficulty}
                   </span>
-                  <span className="text-foreground">💎 {scenario.tokens} pts</span>
                 </div>
                 <button className="soft-button rounded-xl bg-primary text-primary-foreground w-full py-2 hover:bg-primary/90 transition-colors">
                   Start Scenario

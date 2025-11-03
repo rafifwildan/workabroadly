@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import IUserProgress  from "./UserProgress";
 
 // Interface untuk TypeScript - mendefinisikan struktur data User
 export interface IUser extends Document {
@@ -42,6 +43,18 @@ const UserSchema = new Schema<IUser>(
     timestamps: true,      // Otomatis add createdAt & updatedAt
   }
 );
+UserSchema.post("save", async function (doc, next) {
+  try {
+    // Cek apakah user sudah punya progress
+    const existingProgress = await IUserProgress.findOne({ userId: doc._id });
+    if (!existingProgress) {
+      await IUserProgress.create({ userId: doc._id });
+    }
+    next();
+  } catch (err: unknown) {
+    next(err as any);
+  }
+});
 
 // Export model untuk dipakai di file lain
 export default mongoose.model<IUser>("User", UserSchema);

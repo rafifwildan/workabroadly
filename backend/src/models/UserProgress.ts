@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUserProgress extends Document {
-  userId: string;
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true };
   completedScenarios: string[];
   totalSessions: number;
   totalTime: number;
