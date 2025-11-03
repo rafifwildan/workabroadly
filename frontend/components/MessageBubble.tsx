@@ -1,5 +1,7 @@
 "use client"
 
+import ReactMarkdown from 'react-markdown'
+
 interface Message {
   id: string
   content: string
@@ -33,10 +35,39 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
                 ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm shadow-md"
                 : "bg-muted text-foreground rounded-2xl rounded-bl-sm shadow-sm"
             }
-            text-sm leading-relaxed whitespace-pre-wrap
+            text-sm leading-relaxed
           `}
         >
-          {message.content}
+          {isUser ? (
+            // User messages: plain text with whitespace preserved
+            <div className="whitespace-pre-wrap">{message.content}</div>
+          ) : (
+            // AI messages: render markdown
+            <ReactMarkdown
+              components={{
+                div: ({ children }) => (
+                  <div className="prose prose-sm max-w-none
+                    prose-headings:font-bold prose-headings:text-foreground
+                    prose-h1:text-xl prose-h1:mb-2 prose-h1:mt-3
+                    prose-h2:text-lg prose-h2:mb-2 prose-h2:mt-3
+                    prose-h3:text-base prose-h3:mb-1 prose-h3:mt-2
+                    prose-p:mb-2 prose-p:leading-relaxed prose-p:text-foreground
+                    prose-ul:my-2 prose-ul:list-disc prose-ul:pl-5
+                    prose-ol:my-2 prose-ol:list-decimal prose-ol:pl-5
+                    prose-li:mb-1 prose-li:text-foreground
+                    prose-strong:font-bold prose-strong:text-foreground
+                    prose-em:italic prose-em:text-foreground
+                    prose-code:bg-muted/50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+                    prose-blockquote:border-l-4 prose-blockquote:border-primary/30 prose-blockquote:pl-4 prose-blockquote:italic"
+                  >
+                    {children}
+                  </div>
+                ),
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
+          )}
         </div>
 
         {/* Timestamp */}
