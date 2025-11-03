@@ -1,45 +1,65 @@
 import express from "express";
 import passport from "../config/passport";
-import { googleCallback, getCurrentUser, logout } from "../controllers/authController";
+import {
+  signup,
+  login,
+  googleCallback,
+  getCurrentUser,
+  logout,
+} from "../controllers/authController";
 import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router();
 
-// //Debug log
-// console.log("Auth routes loaded!");
+// ============================================================
+// NEW ROUTES: Email/Password Authentication
+// ============================================================
 
-// router.get("/google", (req, res, next) => {
-//   console.log(" /auth/google hit!");  // ← Add log
-//   passport.authenticate("google", {
-//     scope: ["profile", "email"],
-//   })(req, res, next);
-// });
+// ROUTE 1: User Signup (Register) dengan Email/Password
+// POST /api/auth/signup
+router.post("/signup", signup);
 
-// ROUTE 1: Initiate Google OAuth
+// ROUTE 2: User Login dengan Email/Password
+// POST /api/auth/login
+router.post("/login", login);
+
+// ============================================================
+// EXISTING ROUTES: Google OAuth Authentication
+// ============================================================
+
+// ROUTE 3: Initiate Google OAuth
+// GET /api/auth/google
 // User klik "Login with Google" → hit endpoint ini
 router.get(
   "/google",
   passport.authenticate("google", {
-    scope: ["profile", "email"],  // Data apa yang kita minta dari Google
+    scope: ["profile", "email"], // Data apa yang kita minta dari Google
   })
 );
 
-// ROUTE 2: Google OAuth Callback
+// ROUTE 4: Google OAuth Callback
+// GET /api/auth/google/callback
 // Google redirect user ke sini setelah login berhasil
 router.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: `${process.env.FRONTEND_URL}/login?error=authentication_failed`,
-    session: false,  // Kita pakai JWT, jadi tidak perlu session
+    session: false, // Kita pakai JWT, jadi tidak perlu session
   }),
-  googleCallback  // Handle success, generate JWT, redirect ke frontend
+  googleCallback // Handle success, generate JWT, redirect ke frontend
 );
 
-// ROUTE 3: Get Current User (Protected)
+// ============================================================
+// PROTECTED ROUTES: Require JWT Token
+// ============================================================
+
+// ROUTE 5: Get Current User Info
+// GET /api/auth/me
 // Frontend hit endpoint ini untuk get user info
 router.get("/me", authenticateToken, getCurrentUser);
 
-// ROUTE 4: Logout
+// ROUTE 6: Logout
+// POST /api/auth/logout
 router.post("/logout", authenticateToken, logout);
 
 export default router;
