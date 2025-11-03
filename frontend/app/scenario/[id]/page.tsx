@@ -4,6 +4,9 @@ import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { fetchScenarioById } from "@/lib/scenario"
 
+// ----------------------
+// Type Definitions
+// ----------------------
 interface Option {
   text: string
   score: number
@@ -28,6 +31,36 @@ interface Scenario {
   steps: Step[]
 }
 
+// ----------------------
+// Helper: Call AI Translator API
+// ----------------------
+async function translateText(text: string): Promise<string> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3010"}/api/translate`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // penting kalau kamu pakai session-based auth
+        body: JSON.stringify({ text }),
+      }
+    )
+
+    const data = await res.json()
+    if (res.ok && data.translation) {
+      return data.translation
+    } else {
+      throw new Error(data.message || "Failed to translate")
+    }
+  } catch (error) {
+    console.error("[Translate Error]", error)
+    return text // fallback ke original text kalau error
+  }
+}
+
+// ----------------------
+// Component
+// ----------------------
 export default function ScenarioDetailPage() {
   const { id } = useParams()
   const router = useRouter()
@@ -39,7 +72,11 @@ export default function ScenarioDetailPage() {
   const [totalScore, setTotalScore] = useState(0)
   const [loading, setLoading] = useState(true)
   const [showHint, setShowHint] = useState(false)
+  const [translations, setTranslations] = useState<Record<string, string>>({}) // cache terjemahan
 
+  // ----------------------
+  // Load Scenario Data
+  // ----------------------
   useEffect(() => {
     async function loadScenario() {
       try {
@@ -54,6 +91,9 @@ export default function ScenarioDetailPage() {
     loadScenario()
   }, [id])
 
+  // ----------------------
+  // Handlers
+  // ----------------------
   const handleBack = () => {
     router.push("/role-play")
   }
@@ -80,10 +120,29 @@ export default function ScenarioDetailPage() {
     }, 1500)
   }
 
-  const handleToggleHint = () => {
+  const handleToggleHint = async () => {
     setShowHint((prev) => !prev)
+
+    // Hanya translate kalau belum pernah diterjemahkan sebelumnya
+    if (!showHint && scenario) {
+      const current = scenario.steps[currentStepIndex]
+      const textsToTranslate = [
+        current.script,
+        ...(current.options?.map((o) => o.text) || []),
+      ]
+
+      for (const text of textsToTranslate) {
+        if (!translations[text]) {
+          const translated = await translateText(text)
+          setTranslations((prev) => ({ ...prev, [text]: translated }))
+        }
+      }
+    }
   }
 
+  // ----------------------
+  // UI Rendering
+  // ----------------------
   if (loading) {
     return <div className="text-center py-20 text-muted-foreground">Loading scenario...</div>
   }
@@ -98,7 +157,7 @@ export default function ScenarioDetailPage() {
   return (
     <div className="min-h-screen bg-background py-10">
       <div className="max-w-3xl mx-auto px-4">
-        {/* 🔹 Back Button di atas */}
+        {/* 🔹 Back Button */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={handleBack}
@@ -106,9 +165,7 @@ export default function ScenarioDetailPage() {
           >
             ← Back to Scenarios
           </button>
-          <div className="text-sm text-muted-foreground">
-            💎 Score: {totalScore}
-          </div>
+          <div className="text-sm text-muted-foreground">💎 Score: {totalScore}</div>
         </div>
 
         {/* Header */}
@@ -130,7 +187,7 @@ export default function ScenarioDetailPage() {
           </button>
         )}
 
-        {/* Main Section */}
+        {/* Main Content */}
         {!isFinished ? (
           <div className="border border-border rounded-2xl p-6 bg-card shadow-sm">
             <div className="mb-6">
@@ -143,7 +200,7 @@ export default function ScenarioDetailPage() {
                   {currentStep.speaker === "assistant" ? "Assistant" : "You"}:
                 </strong>{" "}
                 {showHint
-                  ? translateToEnglish(currentStep.script)
+                  ? translations[currentStep.script] || "Translating..."
                   : currentStep.script}
               </p>
             </div>
@@ -161,7 +218,9 @@ export default function ScenarioDetailPage() {
                         : "bg-card hover:bg-primary/10"
                     }`}
                   >
-                    {showHint ? translateToEnglish(option.text) : option.text}
+                    {showHint
+                      ? translations[option.text] || "Translating..."
+                      : option.text}
                   </button>
                 ))}
               </div>
@@ -180,7 +239,6 @@ export default function ScenarioDetailPage() {
               You’ve completed this scenario! Great job 🎯
             </p>
 
-            {/* 🔹 Tombol Back juga di akhir */}
             <button
               onClick={handleBack}
               className="bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition"
@@ -192,9 +250,4 @@ export default function ScenarioDetailPage() {
       </div>
     </div>
   )
-}
-
-/* Dummy translate */
-function translateToEnglish(text: string) {
-  return `${text} (English version)`
 }

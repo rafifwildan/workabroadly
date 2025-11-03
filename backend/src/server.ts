@@ -12,6 +12,7 @@ import midtransRoutes from "./routes/midtransRoutes"
 import session from "express-session";
 import passport from "./config/passport";
 import authRoutes from "./routes/authRoutes";
+import translateRoutes from "./routes/translateRoutes";
 
 // Load environment variables
 dotenv.config()
@@ -70,6 +71,7 @@ app.use("/api/user", userRoutes)           // NEW: User routes (protected)
 app.use("/api/roleplay", roleplayRoutes)
 app.use("/api/scenarios", scenarioRoutes)
 app.use("/api/midtrans", midtransRoutes)
+app.use("/api/translate", translateRoutes)
 
 // app.use("/api/stripe", stripeRoutes)
 
