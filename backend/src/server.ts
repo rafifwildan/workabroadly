@@ -2,6 +2,7 @@ import express, { type Express, type Request, type Response } from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import chatRoutes from "./routes/chatRoutes"
+import userRoutes from "./routes/userRoutes"  // NEW
 import { connectDB } from "./config/db"
 import mongoose from "mongoose"
 import roleplayRoutes from "./routes/roleplayRoutes"
@@ -63,9 +64,9 @@ app.get("/api/test-db", async (req, res) => {
   res.json({ connected: true, collections: collections.map(c => c.name) });
 });
 
-
 // API Routes
-app.use("/api/chat", chatRoutes)
+app.use("/api/chat", chatRoutes)           // Chat routes (protected)
+app.use("/api/user", userRoutes)           // NEW: User routes (protected)
 app.use("/api/roleplay", roleplayRoutes)
 app.use("/api/scenarios", scenarioRoutes)
 app.use("/api/midtrans", midtransRoutes)
