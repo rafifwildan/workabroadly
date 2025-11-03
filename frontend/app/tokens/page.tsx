@@ -1,14 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import { apiClient } from "@/lib/api"
 
 type Package = {
   id: string
   name: string
-  tokens: number
+  credits: number
   price: number
-  perToken: number
+  perCredit: number
   savings?: string
   features: string[]
   badge?: string
@@ -19,17 +20,17 @@ const packages: Package[] = [
   {
     id: "starter",
     name: "Starter",
-    tokens: 100,
+    credits: 100,
     price: 9.99,
-    perToken: 0.1,
+    perCredit: 0.1,
     features: ["10 career coach sessions", "2 role-play scenarios"],
   },
   {
     id: "professional",
     name: "Professional",
-    tokens: 500,
+    credits: 500,
     price: 39.99,
-    perToken: 0.08,
+    perCredit: 0.08,
     savings: "20% savings!",
     features: ["50 career coach sessions", "10 role-play scenarios", "Document generation included"],
     badge: "Most Popular",
@@ -38,9 +39,9 @@ const packages: Package[] = [
   {
     id: "premium",
     name: "Premium",
-    tokens: 1000,
+    credits: 1000,
     price: 69.99,
-    perToken: 0.07,
+    perCredit: 0.07,
     savings: "30% savings!",
     features: ["Everything included", "Priority support", "Unlimited document generation"],
     badge: "Best Value",
@@ -48,25 +49,43 @@ const packages: Package[] = [
   {
     id: "subscription",
     name: "Subscription",
-    tokens: 200,
+    credits: 200,
     price: 19.99,
-    perToken: 0.1,
-    features: ["200 tokens/month", "Auto-refill", "Cancel anytime"],
+    perCredit: 0.1,
+    features: ["200 credits/month", "Auto-refill", "Cancel anytime"],
     badge: "Save More",
   },
 ]
 
 const usageHistory = [
-  { date: "Oct 27, 2025", activity: "Career Coach Session", tokens: -5 },
-  { date: "Oct 26, 2025", activity: "Role-Play: First Day", tokens: -10 },
-  { date: "Oct 25, 2025", activity: "Document Generation", tokens: -3 },
-  { date: "Oct 24, 2025", activity: "Career Coach Session", tokens: -5 },
-  { date: "Oct 23, 2025", activity: "Role-Play: Interview", tokens: -10 },
+  { date: "Oct 27, 2025", activity: "Career Coach Session", credits: -10 },
+  { date: "Oct 26, 2025", activity: "Role-Play: First Day", credits: -20 },
+  { date: "Oct 25, 2025", activity: "Document Generation", credits: -5 },
+  { date: "Oct 24, 2025", activity: "Career Coach Session", credits: -10 },
+  { date: "Oct 23, 2025", activity: "Role-Play: Interview", credits: -20 },
 ]
 
 export default function TokensPage() {
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null)
+  const [currentCredits, setCurrentCredits] = useState<number>(0)
+  const [isLoadingCredits, setIsLoadingCredits] = useState(true)
+
+  // Fetch current credit balance
+  useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const response = await apiClient.get<{ credits: number }>("/api/user/credits")
+        setCurrentCredits(response.credits)
+      } catch (error) {
+        console.error("[Credits] Error fetching credits:", error)
+      } finally {
+        setIsLoadingCredits(false)
+      }
+    }
+
+    fetchCredits()
+  }, [])
 
   const handlePurchase = (pkg: Package) => {
     setSelectedPackage(pkg)
@@ -128,9 +147,11 @@ export default function TokensPage() {
           <div className="soft-card rounded-xl bg-muted p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">💎</span>
-              <span className="text-lg font-bold text-foreground">250</span>
+              <span className="text-lg font-bold text-foreground">
+                {isLoadingCredits ? "..." : currentCredits}
+              </span>
             </div>
-            <p className="text-xs text-muted-foreground mb-2">tokens remaining</p>
+            <p className="text-xs text-muted-foreground mb-2">credits remaining</p>
             <Link href="/tokens/buy" className="text-xs text-primary underline hover:text-primary/80">
               Buy More
             </Link>
@@ -143,8 +164,8 @@ export default function TokensPage() {
         <div className="p-8 space-y-12">
           {/* Page Header */}
           <div>
-            <h2 className="text-3xl font-bold text-foreground mb-3">Token Management</h2>
-            <p className="text-base text-muted-foreground">Manage your tokens and purchase more</p>
+            <h2 className="text-3xl font-bold text-foreground mb-3">Credit Management</h2>
+            <p className="text-base text-muted-foreground">Manage your credits and purchase more</p>
           </div>
 
           {/* Current Balance Card */}
@@ -152,15 +173,19 @@ export default function TokensPage() {
             <div className="flex items-center gap-6">
               <div className="text-6xl">💎</div>
               <div className="flex-1">
-                <div className="text-5xl font-bold mb-2">250 tokens</div>
-                <p className="text-lg opacity-90">≈ $12.50 remaining</p>
+                <div className="text-5xl font-bold mb-2">
+                  {isLoadingCredits ? "Loading..." : `${currentCredits} credits`}
+                </div>
+                <p className="text-lg opacity-90">
+                  ≈ ${(currentCredits * 0.05).toFixed(2)} value
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Token Packages Section */}
+          {/* Credit Packages Section */}
           <div>
-            <h3 className="text-2xl font-bold text-foreground mb-8">Purchase Token Packages</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-8">Purchase Credit Packages</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {packages.map((pkg) => (
                 <div
@@ -181,10 +206,10 @@ export default function TokensPage() {
                     </div>
                   )}
 
-                  <div className="text-3xl font-bold text-foreground mb-1">{pkg.tokens} tokens</div>
+                  <div className="text-3xl font-bold text-foreground mb-1">{pkg.credits} credits</div>
                   <div className="text-2xl text-foreground mb-2">${pkg.price}</div>
                   <div className="text-xs text-muted-foreground mb-4">
-                    ${pkg.perToken.toFixed(2)}/token
+                    ${pkg.perCredit.toFixed(2)}/credit
                     {pkg.savings && <span className="text-accent ml-1">({pkg.savings})</span>}
                   </div>
 
@@ -214,7 +239,7 @@ export default function TokensPage() {
 
           {/* Usage History Section */}
           <div>
-            <h3 className="text-xl font-bold text-foreground mb-6">Recent Token Usage</h3>
+            <h3 className="text-xl font-bold text-foreground mb-6">Recent Credit Usage</h3>
             <div className="soft-card rounded-2xl bg-card shadow-lg overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
@@ -222,7 +247,7 @@ export default function TokensPage() {
                     <tr>
                       <th className="text-left p-6 text-sm font-medium text-foreground">Date</th>
                       <th className="text-left p-6 text-sm font-medium text-foreground">Activity</th>
-                      <th className="text-right p-6 text-sm font-medium text-foreground">Tokens Used</th>
+                      <th className="text-right p-6 text-sm font-medium text-foreground">Credits Used</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -230,13 +255,16 @@ export default function TokensPage() {
                       <tr key={idx} className="border-b border-border hover:bg-muted/50 transition-colors">
                         <td className="p-6 text-sm text-muted-foreground">{item.date}</td>
                         <td className="p-6 text-sm text-foreground font-medium">{item.activity}</td>
-                        <td className="p-6 text-sm text-right text-destructive font-medium">{item.tokens} tokens</td>
+                        <td className="p-6 text-sm text-right text-destructive font-medium">{item.credits} credits</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             </div>
+            <p className="text-xs text-muted-foreground mt-4 text-center italic">
+              💡 Career Coach: 10 credits/message • Role-Play: 20 credits/session
+            </p>
           </div>
         </div>
       </main>

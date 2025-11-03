@@ -6,7 +6,7 @@ export interface IUser extends Document {
   email: string;           // Email dari Google (contoh: "user@gmail.com")
   name: string;            // Nama lengkap (contoh: "John Doe")
   picture?: string;        // URL foto profile (dari Google)
-  tokens: number;          // Jumlah tokens yang dimiliki user (untuk career coaching)
+  credits: number;         // Jumlah credits yang dimiliki user (untuk career coaching & roleplay)
   createdAt: Date;         // Kapan user dibuat
   updatedAt: Date;         // Kapan terakhir diupdate
 }
@@ -32,9 +32,10 @@ const UserSchema = new Schema<IUser>(
     picture: {
       type: String,        // Optional, boleh kosong
     },
-    tokens: {
+    credits: {
       type: Number,
-      default: 0,          // Default 0 tokens untuk user baru
+      default: 50,         // Default 50 credits untuk user baru (FREE!)
+      min: 0,              // Credits tidak boleh negatif
     },
   },
   {

@@ -31,7 +31,8 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "react-markdown": "^9.0.1",
-    "stripe": "^14.14.0"
+    "stripe": "^14.14.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -42,6 +43,7 @@
     "@types/node": "^20.11.5",
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.17",
+    "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.3.3"
