@@ -50,7 +50,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Auth Routes (routes buat login/logout)
-app.use("/api/auth", authRoutes)
+app.use("/auth", authRoutes)
 
 // Health check endpoint
 app.get("/health", (req: Request, res: Response) => {

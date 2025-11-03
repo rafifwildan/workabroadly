@@ -12,18 +12,6 @@ import { authenticateToken } from "../middleware/auth";
 const router = express.Router();
 
 // ============================================================
-// NEW ROUTES: Email/Password Authentication
-// ============================================================
-
-// ROUTE 1: User Signup (Register) dengan Email/Password
-// POST /api/auth/signup
-router.post("/signup", signup);
-
-// ROUTE 2: User Login dengan Email/Password
-// POST /api/auth/login
-router.post("/login", login);
-
-// ============================================================
 // EXISTING ROUTES: Google OAuth Authentication
 // ============================================================
 
@@ -48,6 +36,18 @@ router.get(
   }),
   googleCallback // Handle success, generate JWT, redirect ke frontend
 );
+
+// ============================================================
+// NEW ROUTES: Email/Password Authentication
+// ============================================================
+
+// ROUTE 1: User Signup (Register) dengan Email/Password
+// POST /api/auth/signup
+router.post("/signup", signup);
+
+// ROUTE 2: User Login dengan Email/Password
+// POST /api/auth/login
+router.post("/login", login);
 
 // ============================================================
 // PROTECTED ROUTES: Require JWT Token
