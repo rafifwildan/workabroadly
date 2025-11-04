@@ -21,7 +21,8 @@ const router = express.Router();
 router.get(
   "/google",
   passport.authenticate("google", {
-    scope: ["profile", "email"], // Data apa yang kita minta dari Google
+    scope: ["profile", "email"], 
+        prompt: "select_account", // Data apa yang kita minta dari Google
   })
 );
 

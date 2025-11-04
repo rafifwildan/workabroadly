@@ -1,394 +1,233 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Clock, X, ArrowRight, CheckCircle, AlertCircle, Lightbulb } from "lucide-react"
+import { useRouter, useParams } from "next/navigation"
+import { Clock, X, CheckCircle, ArrowRight } from "lucide-react"
+import { RoleplayAPI, ScenariosAPI } from "@/lib/api"
+import { getUserId } from "@/lib/user"
 
-type Message = {
-  type: "scene" | "character" | "user"
-  content: string
-  translation?: string
-}
-
-type ResponseOption = {
+type ScenarioStep = {
   id: string
-  text: string
-  translation?: string
-  culturalNote?: string
-  isAppropriate: boolean
+  question: string
+  options: {
+    text: string
+    feedback?: string
+    nextStep?: string
+    score?: number
+  }[]
 }
 
-const responseOptions: ResponseOption[] = [
-  {
-    id: "1",
-    text: "Hello, my name is John.",
-    translation: "こんにちは、私の名前はジョンです。",
-    culturalNote: "This is a casual greeting.",
-    isAppropriate: false,
-  },
-  {
-    id: "2",
-    text: "Good morning, Tanaka-san. My name is John.",
-    translation: "おはようございます、田中さん。私の名前はジョンです。",
-    culturalNote: "This is a formal greeting.",
-    isAppropriate: true,
-  },
-]
-
-export default function SimulationPage({ params }: { params: { id: string } }) {
+export default function SimulationPage() {
   const router = useRouter()
-  const [currentScene, setCurrentScene] = useState(1)
-  const totalScenes = 5
-  const [timeElapsed, setTimeElapsed] = useState(0)
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      type: "scene",
-      content: "Tanaka-san enters the room and greets you warmly. She gestures for you to sit down.",
-    },
-    {
-      type: "character",
-      content: "Good morning! Thank you for coming today. Could you please introduce yourself?",
-    },
-  ])
-  const [selectedResponse, setSelectedResponse] = useState<string | null>(null)
-  const [showFeedback, setShowFeedback] = useState(false)
-  const [feedback, setFeedback] = useState<{ type: "success" | "suggestion"; message: string } | null>(null)
-  const [isProcessing, setIsProcessing] = useState(false)
-  const [showExitConfirm, setShowExitConfirm] = useState(false)
-  const [correctAnswers, setCorrectAnswers] = useState(0)
-  const [totalAnswers, setTotalAnswers] = useState(0)
+  const params = useParams()
+  const scenarioId = Array.isArray(params?.id) ? params.id[0] : params?.id
+  const userId = getUserId() // ✅ Ambil dari lib/user
 
+  const [scenario, setScenario] = useState<any>(null)
+  const [sessionId, setSessionId] = useState<string | null>(null)
+  const [currentStep, setCurrentStep] = useState<ScenarioStep | null>(null)
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
+  const [feedback, setFeedback] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [timeElapsed, setTimeElapsed] = useState(0)
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
+
+  // 🕒 Timer simulasi
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeElapsed((prev) => prev + 1)
-    }, 1000)
-    return () => clearInterval(timer)
+    const t = setInterval(() => setTimeElapsed((v) => v + 1), 1000)
+    return () => clearInterval(t)
   }, [])
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins}:${secs.toString().padStart(2, "0")}`
-  }
+  // 🚀 Load scenario + start session di backend
+  useEffect(() => {
+    async function init() {
+      if (!scenarioId || scenarioId === "undefined") return
 
-  const handleResponseSelect = (optionId: string) => {
-    setSelectedResponse(optionId)
-  }
+      try {
+        console.log("🟢 Starting simulation:", { scenarioId, userId })
 
-  const handleSubmitResponse = () => {
-    const selected = responseOptions.find((opt) => opt.id === selectedResponse)
-    if (!selected) return
-
-    setIsProcessing(true)
-    setTotalAnswers((prev) => prev + 1)
-    if (selected.isAppropriate) {
-      setCorrectAnswers((prev) => prev + 1)
-    }
-
-    setMessages((prev) => [...prev, { type: "user", content: selected.text, translation: selected.translation }])
-
-    setTimeout(() => {
-      if (selected.isAppropriate) {
-        setFeedback({
-          type: "success",
-          message:
-            "Great job! Your greeting was appropriate. Using formal language shows respect in Japanese business culture. Next time, try adding a bow gesture.",
-        })
-      } else {
-        setFeedback({
-          type: "suggestion",
-          message:
-            "Let's improve this together: While your response shows good intent, in Japanese business culture, formal language is essential. Try using 'おはようございます' (Good morning) with the person's name and an honorific like '-san'. This shows respect and professionalism. You're learning - keep practicing!",
-        })
-      }
-      setShowFeedback(true)
-
-      setTimeout(() => {
-        setShowFeedback(false)
-        setSelectedResponse(null)
-        setIsProcessing(false)
-
-        if (currentScene < totalScenes) {
-          setCurrentScene((prev) => prev + 1)
-          setMessages((prev) => [
-            ...prev,
-            {
-              type: "scene",
-              content: "Tanaka-san nods approvingly and leans forward with interest.",
-            },
-            {
-              type: "character",
-              content: "Tell me about your experience with React and TypeScript.",
-            },
-          ])
-        } else {
-          router.push(`/scenario/${params.id}/results?correct=${correctAnswers}&total=${totalAnswers}`)
+        const scenarioData = await ScenariosAPI.get(scenarioId)
+        if (!scenarioData?._id && !scenarioData.id) {
+          setError("Scenario not found.")
+          setLoading(false)
+          return
         }
-      }, 5000)
-    }, 2000)
+        setScenario(scenarioData)
+
+        const session = await RoleplayAPI.start({
+          userId,
+          scenarioId: scenarioData._id || scenarioId,
+        })
+        setSessionId(session._id)
+        setCurrentStep(scenarioData.steps?.[0] || null)
+      } catch (err: any) {
+        console.error("❌ [FE] Error initializing simulation:", err)
+        setError("Failed to start simulation. Please try again later.")
+      } finally {
+        setLoading(false)
+      }
+    }
+    init()
+  }, [scenarioId, userId])
+
+  // 🔘 Saat user memilih opsi
+  const handleOptionSelect = (option: string) => {
+    setSelectedOption(option)
   }
 
-  const handleSkipScene = () => {
-    if (currentScene < totalScenes) {
-      setCurrentScene((prev) => prev + 1)
-      setShowFeedback(false)
-      setSelectedResponse(null)
-      setIsProcessing(false)
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: "scene",
-          content: "Tanaka-san nods approvingly and leans forward with interest.",
-        },
-        {
-          type: "character",
-          content: "Tell me about your experience with React and TypeScript.",
-        },
-      ])
-    } else {
-      router.push(`/scenario/${params.id}/results?correct=${correctAnswers}&total=${totalAnswers}`)
+  // 📤 Submit jawaban
+  const handleSubmitResponse = async () => {
+    if (!selectedOption || !sessionId || !currentStep) return
+    setIsSubmitting(true)
+
+    try {
+      const res = await RoleplayAPI.answer({
+        sessionId,
+        stepId: currentStep.id,
+        selectedOption,
+      })
+
+      setFeedback(res.feedback || "Good job!")
+
+      // Next step
+      const nextId = currentStep.options.find((o) => o.text === selectedOption)?.nextStep
+      const nextStep = scenario.steps.find((s: ScenarioStep) => s.id === nextId)
+
+      if (nextStep) {
+        setTimeout(() => {
+          setCurrentStep(nextStep)
+          setSelectedOption(null)
+          setFeedback(null)
+          setIsSubmitting(false)
+        }, 2500)
+      } else {
+        await RoleplayAPI.end({ sessionId })
+        router.push(`/scenario/${scenarioId}/results`)
+      }
+    } catch (err: any) {
+      console.error("❌ [FE] Error submitting answer:", err)
+      setFeedback("There was an error submitting your response. Try again.")
+      setIsSubmitting(false)
     }
   }
 
-  const handleExitClick = () => {
-    setShowExitConfirm(true)
+  const formatTime = (s: number) => {
+    const m = Math.floor(s / 60)
+    const sec = s % 60
+    return `${m}:${sec.toString().padStart(2, "0")}`
   }
 
-  const handleConfirmExit = () => {
-    router.push("/role-play")
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-gray-600">
+        Loading simulation...
+      </div>
+    )
+  }
+
+  if (error || !scenario || !currentStep) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-gray-600">
+        <p>{error || "Scenario not found or invalid."}</p>
+        <button
+          onClick={() => router.push("/role-play")}
+          className="mt-4 rounded-full bg-black text-white px-6 py-2 hover:bg-gray-800 transition"
+        >
+          Back to Scenarios
+        </button>
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {/* HEADER */}
       <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm p-4 z-50">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex-1">
-            <div className="text-sm text-gray-600 mb-1">
-              Scene {currentScene} of {totalScenes}
-            </div>
-            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-black rounded-full transition-all duration-300"
-                style={{ width: `${(currentScene / totalScenes) * 100}%` }}
-              />
-            </div>
+          <div>
+            <h2 className="text-sm text-gray-600 font-medium">Step: {currentStep.id}</h2>
+            <p className="text-lg font-bold text-gray-900">{scenario.title || "Roleplay Simulation"}</p>
           </div>
-          <div className="ml-6 flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <span className="text-sm text-gray-900 flex items-center gap-2">
               <Clock className="w-4 h-4" />
               {formatTime(timeElapsed)}
             </span>
-            <button
-              onClick={handleExitClick}
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-              aria-label="Exit simulation"
-            >
+            <button onClick={() => setShowExitConfirm(true)} className="text-gray-600 hover:text-gray-900">
               <X className="w-5 h-5" />
             </button>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 pt-28 pb-36">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3 space-y-6">
-            {/* Character Card */}
-            <div className="border border-gray-200 rounded-2xl bg-gray-50 p-6 shadow-sm">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 border-2 border-white shadow-md flex items-center justify-center text-2xl">
-                  👩‍💼
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900">Tanaka-san</h3>
-                  <p className="text-sm text-gray-600">HR Manager</p>
-                  <span className="inline-block mt-1 text-xs bg-white rounded-full px-3 py-1 border border-gray-200">
-                    Friendly
-                  </span>
-                </div>
-              </div>
-            </div>
+      {/* MAIN */}
+      <div className="flex-1 pt-24 pb-36">
+        <div className="max-w-3xl mx-auto px-4 space-y-6">
+          <h3 className="text-lg font-semibold text-gray-900">{currentStep.question}</h3>
 
-            {/* Messages */}
-            <div className="space-y-4">
-              {messages.map((message, index) => (
-                <div key={index}>
-                  {message.type === "scene" && (
-                    <div className="border border-gray-200 rounded-xl bg-gray-50 p-4">
-                      <div className="flex items-start gap-2">
-                        <Lightbulb className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
-                        <p className="text-sm text-gray-700 italic">{message.content}</p>
-                      </div>
-                    </div>
-                  )}
-                  {message.type === "character" && (
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl flex-shrink-0">
-                        👩‍💼
-                      </div>
-                      <div className="border border-gray-200 rounded-2xl rounded-bl-sm bg-gray-50 p-4 shadow-sm max-w-2xl">
-                        <p className="text-base text-gray-900">{message.content}</p>
-                      </div>
-                    </div>
-                  )}
-                  {message.type === "user" && (
-                    <div className="flex items-start gap-3 justify-end">
-                      <div className="border border-black rounded-2xl rounded-br-sm bg-black p-4 shadow-sm max-w-2xl">
-                        <p className="text-base text-white">{message.content}</p>
-                        {message.translation && (
-                          <p className="text-xs text-gray-300 italic mt-1">{message.translation}</p>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              {isProcessing && !showFeedback && (
+          <div className="space-y-3">
+            {currentStep.options.map((opt, i) => (
+              <button
+                key={i}
+                onClick={() => handleOptionSelect(opt.text)}
+                disabled={isSubmitting}
+                className={`w-full text-left border-2 rounded-xl p-4 transition-all ${
+                  selectedOption === opt.text
+                    ? "border-black bg-gray-50"
+                    : "border-gray-200 bg-white hover:border-gray-400"
+                }`}
+              >
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl flex-shrink-0">
-                    👩‍💼
-                  </div>
-                  <div className="border border-gray-200 rounded-2xl rounded-bl-sm bg-gray-50 p-4 shadow-sm">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-2 h-2 bg-gray-600 rounded-full animate-bounce"
-                        style={{ animationDelay: "0ms" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-gray-600 rounded-full animate-bounce"
-                        style={{ animationDelay: "150ms" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-gray-600 rounded-full animate-bounce"
-                        style={{ animationDelay: "300ms" }}
-                      ></div>
-                    </div>
-                  </div>
+                  <input
+                    type="radio"
+                    checked={selectedOption === opt.text}
+                    onChange={() => handleOptionSelect(opt.text)}
+                    className="mt-1"
+                  />
+                  <p className="text-gray-900 text-sm">{opt.text}</p>
                 </div>
-              )}
-
-              {!showFeedback && !isProcessing && (
-                <div className="pt-4">
-                  <h3 className="text-sm font-medium text-gray-900 mb-3">Your Response:</h3>
-                  <div className="space-y-3">
-                    {responseOptions.map((option) => (
-                      <button
-                        key={option.id}
-                        onClick={() => handleResponseSelect(option.id)}
-                        className={`w-full text-left border-2 rounded-xl p-4 transition-all ${
-                          selectedResponse === option.id
-                            ? "border-gray-900 bg-gray-50"
-                            : "border-gray-200 bg-white hover:border-gray-400 hover:shadow-md"
-                        }`}
-                      >
-                        <div className="flex items-start gap-3">
-                          <input
-                            type="radio"
-                            checked={selectedResponse === option.id}
-                            onChange={() => handleResponseSelect(option.id)}
-                            className="mt-1"
-                          />
-                          <div className="flex-1">
-                            <p className="text-sm text-gray-900">{option.text}</p>
-                            {option.translation && (
-                              <p className="text-xs text-gray-600 italic mt-1">{option.translation}</p>
-                            )}
-                            {option.culturalNote && (
-                              <p className="text-xs text-gray-600 mt-1 flex items-center gap-1">
-                                <AlertCircle className="w-3 h-3" />
-                                {option.culturalNote}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                  <div className="text-center mt-6">
-                    <button
-                      onClick={handleSubmitResponse}
-                      disabled={!selectedResponse}
-                      className="rounded-full bg-black text-white px-8 py-3 shadow-md hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors text-base font-medium"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {showFeedback && feedback && (
-                <div
-                  className={`border-2 rounded-2xl p-6 ${
-                    feedback.type === "success" ? "bg-gray-50 border-gray-900" : "bg-gray-50 border-gray-400"
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    {feedback.type === "success" ? (
-                      <CheckCircle className="w-6 h-6 text-gray-900 flex-shrink-0" />
-                    ) : (
-                      <Lightbulb className="w-6 h-6 text-gray-700 flex-shrink-0" />
-                    )}
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-2">
-                        {feedback.type === "success" ? "Great job!" : "Consider this..."}
-                      </h4>
-                      <p className="text-sm text-gray-700">{feedback.message}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+              </button>
+            ))}
           </div>
 
-          {/* Sidebar */}
-          <div className="hidden lg:block space-y-4">
-            <div className="border border-gray-200 rounded-xl bg-white shadow-sm p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <Lightbulb className="w-5 h-5 text-gray-900" />
-                <h4 className="text-sm font-bold text-gray-900">Cultural Note</h4>
-              </div>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                In Japan, formal introductions are important. Always use appropriate honorifics.
-              </p>
+          {selectedOption && !feedback && (
+            <div className="text-center mt-6">
+              <button
+                onClick={handleSubmitResponse}
+                disabled={isSubmitting}
+                className="rounded-full bg-black text-white px-8 py-3 shadow-md hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 transition"
+              >
+                Submit
+              </button>
             </div>
+          )}
 
-            <div className="border border-gray-200 rounded-xl bg-white shadow-sm p-4">
-              <h4 className="text-sm font-bold text-gray-900 mb-3">Key Phrases</h4>
-              <div className="space-y-2 text-xs text-gray-600">
-                <div>
-                  <strong className="text-gray-900">おはようございます</strong>
-                  <br />
-                  Good morning (formal)
-                </div>
-                <div>
-                  <strong className="text-gray-900">よろしくお願いします</strong>
-                  <br />
-                  Please treat me well
-                </div>
+          {feedback && (
+            <div className="border border-gray-300 rounded-2xl bg-gray-50 p-6 mt-6">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-6 h-6 text-gray-700 flex-shrink-0" />
+                <p className="text-sm text-gray-800">{feedback}</p>
               </div>
             </div>
-
-            <div className="border border-gray-200 rounded-xl bg-white shadow-sm p-4">
-              <div className="space-y-2 text-xs">
-                <div className="text-gray-900 font-semibold">Correct responses: {correctAnswers}/5</div>
-                <div className="text-gray-600">Scenes completed: {currentScene - 1}/5</div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6 shadow-lg z-50">
+      {/* FOOTER */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-50">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <button
-            onClick={handleSkipScene}
-            className="rounded-full bg-white border-2 border-gray-900 text-gray-900 px-6 py-2.5 hover:bg-gray-50 transition-colors text-sm font-medium"
+            onClick={() => setShowExitConfirm(true)}
+            className="rounded-full bg-white border-2 border-gray-900 text-gray-900 px-6 py-2.5 hover:bg-gray-50 transition text-sm font-medium"
           >
-            Skip Scene
+            Exit
           </button>
           <button
-            disabled={!showFeedback}
-            className="rounded-full bg-black text-white px-6 py-2.5 hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors flex items-center gap-2 text-sm font-medium shadow-md"
+            disabled={!feedback}
+            onClick={() => handleSubmitResponse()}
+            className="rounded-full bg-black text-white px-6 py-2.5 hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 transition flex items-center gap-2 text-sm font-medium shadow-md"
           >
             Continue
             <ArrowRight className="w-4 h-4" />
@@ -396,23 +235,22 @@ export default function SimulationPage({ params }: { params: { id: string } }) {
         </div>
       </div>
 
+      {/* EXIT CONFIRMATION MODAL */}
       {showExitConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Exit Practice?</h3>
-            <p className="text-gray-600 mb-6">
-              Are you sure you want to stop the practice? Your progress will not be saved.
-            </p>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Exit Simulation?</h3>
+            <p className="text-gray-600 mb-6">Are you sure you want to stop? Progress will not be saved.</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowExitConfirm(false)}
-                className="flex-1 rounded-full bg-white border-2 border-gray-900 text-gray-900 px-6 py-3 hover:bg-gray-50 transition-colors font-medium"
+                className="flex-1 rounded-full bg-white border-2 border-gray-900 text-gray-900 px-6 py-3 hover:bg-gray-50"
               >
-                Continue Practice
+                Continue
               </button>
               <button
-                onClick={handleConfirmExit}
-                className="flex-1 rounded-full bg-black text-white px-6 py-3 hover:bg-gray-800 transition-colors font-medium"
+                onClick={() => router.push("/role-play")}
+                className="flex-1 rounded-full bg-black text-white px-6 py-3 hover:bg-gray-800"
               >
                 Exit
               </button>
