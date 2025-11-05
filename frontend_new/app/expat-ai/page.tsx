@@ -7,7 +7,6 @@ import ChatArea from "@/components/ChatArea"
 import ChatInputBar from "@/components/ChatInputBar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import ReactMarkdown from "react-markdown"
 
 interface Message {
   id: string

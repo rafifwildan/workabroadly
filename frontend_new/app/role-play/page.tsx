@@ -49,12 +49,21 @@ export default function RolePlayPage() {
     loadData()
   }, [])
 
+  // ===============================
+  // 🔧 FILTER LOGIC (updated)
+  // ===============================
   const allFiltered = scenarios.filter((s) => {
     let ok = true
-    if (selectedCountry !== "both" && s.language !== selectedCountry) ok = false
+    // filter by culture (was: language)
+    if (selectedCountry !== "both" && s.culture !== selectedCountry) ok = false
+
+    // difficulty optional fallback
     if (filterDifficulty !== "all" && s.difficulty !== filterDifficulty) ok = false
+
+    // filter by completion status
     if (filterCompletion === "completed" && !completedIds.has(s._id)) ok = false
     if (filterCompletion === "notCompleted" && completedIds.has(s._id)) ok = false
+
     return ok
   })
 
@@ -62,10 +71,9 @@ export default function RolePlayPage() {
   const totalAvailable = scenarios.length
   const notYetCount = totalAvailable - completedCount
 
+  // no more categories in schema — show as one group
   const groupedByCategory = {
-    interview: allFiltered.filter((s) => s.category === "interview"),
-    workplace: allFiltered.filter((s) => s.category === "workplace"),
-    daily: allFiltered.filter((s) => s.category === "daily"),
+    general: allFiltered,
   }
 
   if (loading) {
@@ -88,6 +96,8 @@ export default function RolePlayPage() {
           title="Cultural Role-Play Scenarios"
           subtitle="Practice real-world situations and build confidence"
           breadcrumb="Dashboard > Cultural Role-Play"
+          sidebarOpen={false}                // default closed
+          onMenuClick={() => {}}     
         />
 
         <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
@@ -147,7 +157,7 @@ export default function RolePlayPage() {
                 <option value="japanese">Japan</option>
                 <option value="korean">Korea</option>
               </select>
-              <select
+              {/* <select
                 value={filterDifficulty}
                 onChange={(e) => setFilterDifficulty(e.target.value as any)}
                 className="rounded-full border-2 border-gray-200 bg-white px-6 py-2 text-sm text-gray-700 focus:border-gray-900 focus:outline-none shadow-sm hover:shadow-md transition-all"
@@ -156,15 +166,13 @@ export default function RolePlayPage() {
                 <option value="beginner">Beginner</option>
                 <option value="intermediate">Intermediate</option>
                 <option value="advanced">Advanced</option>
-              </select>
+              </select> */}
             </div>
           </div>
 
-          {/* ====== Sections (3 only) ====== */}
+          {/* ====== Scenario List ====== */}
           {Object.entries({
-            interview: "Interview Scenarios",
-            workplace: "Workplace Scenarios",
-            daily: "Daily Life Scenarios",
+            general: "All Cultural Scenarios",
           }).map(([key, title]) => {
             const section = groupedByCategory[key as keyof typeof groupedByCategory]
             if (!section.length) return null
@@ -213,7 +221,7 @@ export default function RolePlayPage() {
                             <Clock className="w-3 h-3" /> {s.duration ?? "10-15 min"}
                           </span>
                           <span className="rounded-full px-3 py-1 bg-gray-200 text-gray-700 font-medium">
-                            {s.difficulty}
+                            {s.difficulty ?? "General"}
                           </span>
                         </div>
                         <div className="rounded-full bg-black text-white w-full py-2 text-center font-medium">

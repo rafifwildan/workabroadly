@@ -1,59 +1,86 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+// ============================================================
+// 🧩 Option Schema
+// ============================================================
 export interface IScenarioOption {
-  text: string;
-  score: number;
-  feedback?: string;
-  nextStep?: number;
-}
-
-export interface IScenarioStep {
-  id: number;
-  speaker: "assistant" | "user";
-  script: string;
-  options?: IScenarioOption[];
-}
-
-export interface IRoleplayScenario extends Document {
-  title: string;
-  description: string;
-  category: "interview" | "workplace" | "daily";
-  language: "japanese" | "korean";
-  difficulty: "beginner" | "intermediate" | "advanced";
-  steps: IScenarioStep[];
-  createdAt: Date;
+  text: string;        // teks pilihan yang muncul di UI
+  note: string;        // catatan / feedback langsung setelah user memilih
 }
 
 const OptionSchema = new Schema<IScenarioOption>({
   text: { type: String, required: true },
-  score: { type: Number, required: true },
-  feedback: String,
-  nextStep: Number,
+  note: { type: String, required: true },
 });
 
-const StepSchema = new Schema<IScenarioStep>({
-  id: { type: Number, required: true },
-  speaker: { type: String, enum: ["assistant", "user"], required: true },
-  script: { type: String, required: true },
-  options: [OptionSchema],
-});
+// ============================================================
+// 🎬 Scene Schema
+// ============================================================
+export interface IScenarioScene {
+  order: number;       // urutan scene (1, 2, 3, ...)
+  title: string;       // judul singkat scene (e.g. "The First Meeting")
+  situation: string;   // deskripsi konteks (narasi situasi)
+  dialogue: string;    // ucapan karakter lain / latar
+  options: IScenarioOption[]; // daftar opsi jawaban user
+  insight: string;     // insight budaya / penjelasan setelah memilih
+}
 
-const RoleplayScenarioSchema = new Schema<IRoleplayScenario>({
+const SceneSchema = new Schema<IScenarioScene>({
+  order: { type: Number, required: true },
   title: { type: String, required: true },
-  description: String,
-  category: {
-    type: String,
-    enum: ["interview", "workplace", "daily"],
-    default: "daily",
-  },
-  language: { type: String, enum: ["japanese", "korean"], required: true },
-  difficulty: {
-    type: String,
-    enum: ["beginner", "intermediate", "advanced"],
-    default: "beginner",
-  },
-  steps: [StepSchema],
-  createdAt: { type: Date, default: Date.now },
+  situation: { type: String, required: true },
+  dialogue: { type: String, required: true },
+  options: { type: [OptionSchema], default: [] },
+  insight: { type: String, required: true },
 });
 
-export default mongoose.model<IRoleplayScenario>("RoleplayScenario", RoleplayScenarioSchema);
+// ============================================================
+// 🧭 Brief Schema
+// ============================================================
+export interface IScenarioBrief {
+  overview: string;             // deskripsi singkat skenario
+  context: string;              // konteks budaya atau profesional
+  culturalTips: string[];       // daftar tips singkat
+  learningObjectives: string[]; // hal-hal yang akan dipelajari
+}
+
+const BriefSchema = new Schema<IScenarioBrief>({
+  overview: { type: String, required: true },
+  context: { type: String, required: true },
+  culturalTips: { type: [String], default: [] },
+  learningObjectives: { type: [String], default: [] },
+});
+
+// ============================================================
+// 🌏 Roleplay Scenario Schema (root)
+// ============================================================
+export interface IRoleplayScenario extends Document {
+  title: string;                // judul penuh skenario
+  culture: "japanese" | "korean"; // budaya yang disimulasikan
+  location: string;             // lokasi setting (e.g. "indonesia")
+  language: string;             // bahasa utama (e.g. "english")
+  brief: IScenarioBrief;        // brief sebelum simulasi dimulai
+  scenes: IScenarioScene[];     // urutan langkah-langkah interaksi
+  createdAt: Date;              // tanggal pembuatan
+  updatedAt: Date;              // tanggal update terakhir
+}
+
+const RoleplayScenarioSchema = new Schema<IRoleplayScenario>(
+  {
+    title: { type: String, required: true },
+    culture: { type: String, enum: ["japanese", "korean"], required: true },
+    location: { type: String, default: "indonesia" },
+    language: { type: String, default: "english" },
+    brief: { type: BriefSchema, required: true },
+    scenes: { type: [SceneSchema], default: [] },
+  },
+  { timestamps: true } // otomatis buat createdAt & updatedAt
+);
+
+// ============================================================
+// ✅ Export Model
+// ============================================================
+export default mongoose.model<IRoleplayScenario>(
+  "RoleplayScenario",
+  RoleplayScenarioSchema
+);
