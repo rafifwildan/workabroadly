@@ -49,7 +49,15 @@ const profiles = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, role = "default", language = "en", conversationHistory = [] } = await request.json()
+    type RequestBody = {
+      message: string
+      role?: keyof typeof profiles
+      language?: "en" | "id" | "ja" | "ko"
+      conversationHistory?: { role: string; content: string }[]
+    }
+
+    const { message, role = "default", language = "en", conversationHistory = [] } =
+      (await request.json()) as RequestBody
 
     if (!message || typeof message !== "string") {
       return NextResponse.json({ error: "Message is required and must be a string" }, { status: 400 })

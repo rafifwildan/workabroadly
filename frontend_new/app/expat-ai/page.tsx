@@ -27,7 +27,7 @@ export default function AIExpatChatPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const [currentRole, setCurrentRole] = useState<string>("default")
+  const [currentRole, setCurrentRole] = useState<string>("user")
   const [selectedLanguage, setSelectedLanguage] = useState("en")
 
   const handleSendMessage = async (content: string) => {
@@ -47,17 +47,18 @@ export default function AIExpatChatPage() {
         content: msg.content,
       }))
 
-      const response = await fetch("/api/chat", {
+      const theBody = JSON.stringify({
+        message: content,
+        role: currentRole,
+        language: selectedLanguage,
+      });
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          message: content,
-          role: currentRole,
-          language: selectedLanguage,
-          conversationHistory,
-        }),
+        body: theBody,
       })
 
       if (!response.ok) {
