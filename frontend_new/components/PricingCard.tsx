@@ -1,122 +1,207 @@
-import type { CreditPackage } from "@/lib/products"
+import React, { useState, useEffect } from 'react';
+import { Check } from 'lucide-react';
+import ButtonPill from './ButtonPill';
 
-interface PricingCardProps {
-  package: CreditPackage
-  showPurchaseButton?: boolean
-  ctaText?: string
-  ctaLink?: string
+type CardType = 'cyan' | 'yellow' | 'purple' | 'pink';
+
+interface CreditPackage {
+  id: string;
+  name: string;
+  priceInCents: number;
+  credits: number;
+  features: string[];
+  popular?: boolean;
 }
 
-export default function PricingCard({
+interface BackgroundImages {
+  default: string;
+  hover?: string;
+  clicked?: string;
+}
+
+interface PricingCardProps {
+  package: CreditPackage;
+  type?: CardType;
+  backgroundImages?: BackgroundImages;
+  showPurchaseButton?: boolean;
+  ctaText?: string;
+  ctaLink?: string;
+  onSubscribe?: () => void;
+  className?: string;
+}
+
+// Default background images for each type
+const DEFAULT_BACKGROUND_IMAGES: Record<CardType, BackgroundImages> = {
+  cyan: {
+    default: '/images/CardPricingBG/CyanNormalCardBG.png',
+    hover: '/images/CardPricingBG/CyanHoverCardBG.png',
+    clicked: '/images/CardPricingBG/CyanClickedCardBG.png'
+  },
+  yellow: {
+    default: '/images/CardPricingBG/YellowNormalCardBG.png',
+    hover: '/images/CardPricingBG/YellowHoverCardBG.png',
+    clicked: '/images/CardPricingBG/YellowClickedCardBG.png'
+  },
+  purple: {
+    default: '/images/CardPricingBG/PurpleNormalCardBG.png',
+    hover: '/images/CardPricingBG/PurpleHoverCardBG.png',
+    clicked: '/images/CardPricingBG/PurpleClickedCardBG.png'
+  },
+  pink: {
+    default: '/images/CardPricingBG/PinkNormalCardBG.png',
+    hover: '/images/CardPricingBG/PinkHoverCardBG.png',
+    clicked: '/images/CardPricingBG/PinkClickedCardBG.png'
+  }
+};
+
+
+
+const PricingCard: React.FC<PricingCardProps> = ({
   package: pkg,
+  type = 'cyan',
+  backgroundImages,
   showPurchaseButton = false,
   ctaText = "Get Started",
   ctaLink,
-}: PricingCardProps) {
-  const priceDisplay = pkg.priceInCents === 0 ? "0" : (pkg.priceInCents / 100).toFixed(2)
-  const perCredit = pkg.credits > 0 ? (pkg.priceInCents / 100 / pkg.credits).toFixed(3) : null
-  const isEnterprise = pkg.id === "enterprise-pack"
-  const isFree = pkg.id === "free-tier"
+  onSubscribe,
+  className = ''
+}) => {
+  const [isClicked, setIsClicked] = useState(false);
 
-  // Determine button link
-  const buttonLink = ctaLink || (showPurchaseButton ? `/my-plan/buy?package=${pkg.id}` : "/signup")
+  const bgImages = backgroundImages || DEFAULT_BACKGROUND_IMAGES[type];
+
+  const priceDisplay = pkg.priceInCents === 0 ? "0" : (pkg.priceInCents / 100).toFixed(2);
+  const perCredit =
+    pkg.credits > 0 ? (pkg.priceInCents / 100 / pkg.credits).toFixed(3) : null;
+  const isEnterprise = pkg.id === "enterprise-pack";
+  const isFree = pkg.id === "free-tier";
+
+  const buttonLink =
+    ctaLink || (showPurchaseButton ? `/my-plan/buy?package=${pkg.id}` : "/signup");
+  const buttonText = "Purchase";
+
+  const handleClick = () => {
+    onSubscribe?.();
+  };
+
+  // preload images for smooth experience
+  useEffect(() => {
+    [bgImages.default, bgImages.hover, bgImages.clicked].forEach((src) => {
+      if (!src) return;
+      const img = new Image();
+      img.src = src;
+    });
+  }, [bgImages]);
 
   return (
     <div
-      className={`rounded-3xl p-8 relative transition-all duration-300 overflow-hidden ${
-        pkg.popular
-          ? "bg-black text-white shadow-xl scale-105"
-          : isFree
-          ? "bg-[#C5DDD8] shadow-lg hover:shadow-2xl"
-          : "bg-white shadow-lg border-2 border-gray-200 hover:border-gray-900"
-      }`}
+      className={`
+        group
+        relative w-[180px] h-[340px] rounded-3xl overflow-hidden
+        transition-all duration-300 ease-out
+        ${className}
+      `}
+      onMouseDown={() => setIsClicked(true)}
+      onMouseUp={() => setIsClicked(false)}
+      onMouseLeave={() => setIsClicked(false)}
     >
-      {/* Decorative background curves untuk Free Plan */}
-      {isFree && (
-        <>
-          {/* Curve kanan atas (ungu/lavender) */}
-          <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#D4C5E2] rounded-full opacity-60"></div>
-          
-          {/* Curve tengah (teal) */}
-          <div className="absolute top-1/4 -right-10 w-60 h-60 bg-[#7FC8BC] rounded-full opacity-50"></div>
-          
-          {/* Curve kanan bawah (lavender) */}
-          <div className="absolute -bottom-32 right-0 w-96 h-96 bg-[#D4C5E2] rounded-full opacity-60"></div>
-        </>
+
+      {/* ✅ DEFAULT BACKGROUND */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${bgImages.default})` }}
+      />
+
+      {/* ✅ HOVER BACKGROUND */}
+      {bgImages.hover && (
+        <div
+          className="
+            absolute inset-0 bg-cover bg-center bg-no-repeat
+            opacity-0 transition-opacity duration-200
+            group-hover:opacity-100
+          "
+          style={{ backgroundImage: `url(${bgImages.hover})` }}
+        />
       )}
 
-      {/* Content wrapper dengan z-index lebih tinggi */}
-      <div className="relative z-10">
-        {pkg.popular && (
-          <div className="absolute top-4 right-4 bg-white text-black px-3 py-1 rounded-full text-xs font-bold">
-            POPULAR
-          </div>
-        )}
+      {/* ✅ CLICK BACKGROUND */}
+      {bgImages.clicked && (
+        <div
+          className={`
+            absolute inset-0 bg-cover bg-center bg-no-repeat
+            transition-opacity duration-150
+            ${isClicked ? 'opacity-100' : 'opacity-0'}
+          `}
+          style={{ backgroundImage: `url(${bgImages.clicked})` }}
+        />
+      )}
 
-        <h3 className={`text-3xl font-bold mb-1 ${pkg.popular ? "text-white" : "text-gray-900"}`}>
-          {pkg.name}
-        </h3>
+      {/* ✅ CONTENT (unchanged) */}
+      {pkg.popular && (
+        <div className="absolute top-4 right-4 z-20 bg-white text-black px-2 py-1 rounded-full text-[10px] font-bold">
+          POPULAR
+        </div>
+      )}
 
-        {/* Teks tambahan untuk "For personal" */}
-        {isFree && <p className="text-gray-900 text-lg mb-6">For personal</p>}
+      <div className="relative z-10 h-full flex flex-col p-5">
+        {/* Header */}
+        <div className="mb-3">
+          <h3 className="text-base font-bold text-gray-900 mb-0.5">{pkg.name}</h3>
+          {isFree && <p className="text-xs text-gray-700">For personal</p>}
+        </div>
 
-        <div className="mb-8">
+        {/* Price */}
+        <div className="mb-3">
           {isEnterprise ? (
-            <span className={`text-3xl font-bold ${pkg.popular ? "text-white" : "text-gray-900"}`}>
-              Custom
-            </span>
+            <span className="text-2xl font-bold text-gray-900">Custom</span>
           ) : (
-            <>
-              <span className={`text-7xl font-bold ${pkg.popular ? "text-white" : "text-gray-900"}`}>
-                ${priceDisplay}
-              </span>
-              {!isFree && <span className={pkg.popular ? "text-gray-400" : "text-gray-600"}>/mo</span>}
-            </>
+            <div className="flex items-baseline">
+              <span className="text-sm font-medium text-gray-900">$</span>
+              <span className="text-4xl font-bold text-gray-900">{priceDisplay}</span>
+              {!isFree && <span className="text-xs text-gray-700 ml-1">/mo</span>}
+            </div>
           )}
         </div>
 
+        {/* Credits */}
         {showPurchaseButton && !isFree && !isEnterprise && (
-          <>
-            <div className={`text-sm mb-2 ${pkg.popular ? "text-white" : "text-gray-900"}`}>
-              {pkg.credits} credits
-            </div>
-            {perCredit && (
-              <div className={`text-xs mb-4 ${pkg.popular ? "text-gray-400" : "text-gray-600"}`}>
-                ${perCredit}/credit
-              </div>
-            )}
-          </>
+          <div className="mb-3">
+            <div className="text-xs text-gray-900">{pkg.credits} credits</div>
+            {perCredit && <div className="text-[10px] text-gray-700">${perCredit}/credit</div>}
+          </div>
         )}
 
-        <ul className="space-y-4 mb-10">
-          {pkg.features.map((feature, idx) => (
-            <li key={idx} className={`flex items-center gap-3 ${pkg.popular ? "text-white" : "text-gray-900"}`}>
-              <span
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                  pkg.popular ? "bg-white text-black" : "bg-gray-900 text-white"
-                }`}
-              >
-                ✓
-              </span>
-              <span className="text-base">{feature}</span>
-            </li>
+        {/* Features */}
+        <div className="flex-1 mb-4 space-y-1.5">
+          {pkg.features.map((feature, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <div className="flex-shrink-0 w-4 h-4 rounded-full bg-gray-900 flex items-center justify-center">
+                <Check size={10} className="text-white" strokeWidth={3} />
+              </div>
+              <span className="text-xs text-gray-900 leading-tight">{feature}</span>
+            </div>
           ))}
-        </ul>
+        </div>
 
-        <a href={buttonLink}>
-          <button
-            className={`w-full rounded-full font-semibold py-4 px-6 transition-all duration-300 text-lg ${
-              pkg.popular
-                ? "bg-white text-black border-2 border-white hover:bg-black hover:text-white"
-                : isFree
-                ? "bg-gray-900 text-white hover:bg-gray-800"
-                : "bg-black text-white border-2 border-black hover:bg-white hover:text-black"
-            }`}
-          >
-            {showPurchaseButton && !isFree && !isEnterprise ? "Purchase" : "Subscribe now"}
-          </button>
-        </a>
+        {/* CTA Button */}
+        <div className="mt-auto">
+          {buttonLink ? (
+            <a href={buttonLink}>
+              <ButtonPill type="type3" size="sm" onClick={handleClick}>
+                {buttonText}
+              </ButtonPill>
+            </a>
+          ) : (
+            <ButtonPill type="type3" size="sm" onClick={handleClick}>
+              {buttonText}
+            </ButtonPill>
+          )}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default PricingCard;
+export { DEFAULT_BACKGROUND_IMAGES };
+export type { CardType, BackgroundImages };

@@ -1,1 +1,10 @@
-[00:00:02.369] Server  LOG      ✓ Ready in 1546ms
+[00:00:02.286] Server  LOG      ✓ Ready in 1509ms
+[00:00:05.357] Server  LOG      ○ Compiling / ...
+[00:03:35.061] Server  LOG      ✓ Compiled in 252ms
+[00:10:32.821] Server  LOG      ✓ Compiled in 218ms
+[00:12:43.269] Server  LOG      ✓ Compiled in 362ms
+[00:32:37.890] Server  LOG      ✓ Compiled in 233ms
+[00:32:42.502] Server  LOG      ✓ Compiled in 215ms
+[00:34:08.567] Server  LOG      ✓ Compiled in 181ms
+[00:35:16.824] Server  LOG      ✓ Compiled in 186ms
+[00:38:14.050] Server  LOG      ✓ Compiled in 207ms

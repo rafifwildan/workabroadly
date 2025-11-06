@@ -8,6 +8,8 @@ import Footer from "@/components/Footer"
 import { Navbar } from "@/components/Navbar" 
 import PricingCard from "@/components/PricingCard"
 import { CREDIT_PACKAGES } from "@/lib/products"
+import ButtonPill from "@/components/ButtonPill"
+import type { CardType } from '@/components/PricingCard';
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -38,6 +40,14 @@ export default function LandingPage() {
         "No prior experience is needed! WorkAbroadly is designed for everyone from complete beginners to experienced professionals. Our platform adapts to your level and provides guidance tailored to your background and goals.",
     },
   ]
+
+  // Define package type mapping
+  const PACKAGE_TYPES: Record<string, CardType> = {
+  'free-tier': 'cyan',
+  'professional-pack': 'yellow',
+  'premium-pack': 'purple',
+  'enterprise-pack': 'pink'
+};
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
@@ -70,23 +80,9 @@ export default function LandingPage() {
               Help global talent enhance their careers without getting overwhelmed by cross-cultural barriers
             </p>
             <Link href="/signup">
-           <Button
-              size="lg"
-              className="group 
-                        bg-black text-white 
-                        hover:bg-white hover:text-black 
-                        border-2 border-gray-300 
-                        rounded-full px-10 py-7 text-lg font-semibold 
-                        flex items-center 
-                        transition-colors duration-300 ease-in-out"
-            >
+            <ButtonPill type="type1" size="lg">
               Start Now
-              <ArrowRight 
-                className="w-0 opacity-0 
-                          group-hover:w-5 group-hover:opacity-100 group-hover:ml-3 
-                          transition-all duration-300 ease-in-out"
-              />
-            </Button>
+            </ButtonPill>
             </Link>
           </div>
 
@@ -241,21 +237,17 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="bg-gray-50 py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-gray-600">Choose the plan that works best for you</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {CREDIT_PACKAGES.map((pkg) => (
-              <PricingCard key={pkg.id} package={pkg} ctaText="Get Started" />
-            ))}
-          </div>
+        {/* Pricing Section */}
+        <div className="flex flex-wrap justify-center gap-6">
+          {CREDIT_PACKAGES.map((pkg) => (
+            <PricingCard 
+              key={pkg.id}
+              package={pkg}
+              type={PACKAGE_TYPES[pkg.id]}
+              showPurchaseButton={pkg.priceInCents > 0}
+            />
+          ))}
         </div>
-      </section>
 
       {/* FAQ Section (Layout 2 kolom) */}
       <section id="faq" className="max-w-7xl mx-auto px-6 py-24 bg-white">
