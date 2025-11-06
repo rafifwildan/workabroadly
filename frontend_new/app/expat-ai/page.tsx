@@ -5,8 +5,6 @@ import { MessageSquare, Menu, X, Globe } from "lucide-react"
 import ChatSidebar from "@/components/ChatSidebar"
 import ChatArea from "@/components/ChatArea"
 import ChatInputBar from "@/components/ChatInputBar"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
 
 interface Message {
   id: string
@@ -14,13 +12,6 @@ interface Message {
   sender: "user" | "ai"
   timestamp: string
 }
-
-const languages = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "id", name: "Indonesia", flag: "🇮🇩" },
-  { code: "ja", name: "Japan", flag: "🇯🇵" },
-  { code: "ko", name: "Korea", flag: "🇰🇷" },
-]
 
 export default function AIExpatChatPage() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -119,9 +110,6 @@ export default function AIExpatChatPage() {
     }
   }
 
-  const currentLanguage =
-    languages.find((lang) => lang.code === selectedLanguage) || languages[0]
-
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <div className="flex flex-1">
@@ -148,33 +136,6 @@ export default function AIExpatChatPage() {
             <h1 className="text-base font-semibold flex-1">
               Expat AI Consultant
             </h1>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-2 rounded-full bg-transparent"
-                >
-                  <Globe className="w-4 h-4" />
-                  <span className="text-lg">{currentLanguage.flag}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {languages.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang.code}
-                    onClick={() => setSelectedLanguage(lang.code)}
-                    className={`cursor-pointer ${
-                      selectedLanguage === lang.code ? "bg-accent" : ""
-                    }`}
-                  >
-                    <span className="text-lg mr-2">{lang.flag}</span>
-                    <span>{lang.name}</span>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
 
           {/* Desktop header */}
@@ -192,36 +153,6 @@ export default function AIExpatChatPage() {
               <MessageSquare className="w-5 h-5" />
               <h1 className="text-lg font-semibold">Expat AI Consultant</h1>
             </div>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-2 rounded-full bg-transparent"
-                >
-                  <Globe className="w-4 h-4" />
-                  <span className="text-lg">{currentLanguage.flag}</span>
-                  <span className="hidden sm:inline">
-                    {currentLanguage.name}
-                  </span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {languages.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang.code}
-                    onClick={() => setSelectedLanguage(lang.code)}
-                    className={`cursor-pointer ${
-                      selectedLanguage === lang.code ? "bg-accent" : ""
-                    }`}
-                  >
-                    <span className="text-lg mr-2">{lang.flag}</span>
-                    <span>{lang.name}</span>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
 
           {/* Chat Area */}

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   startRoleplay,
   answerScene,
@@ -8,24 +8,25 @@ import {
 } from "../controllers/roleplayController.js";
 import { getUserProgress } from "../controllers/progressController.js";
 
-const router = express.Router();
+const router: Router = express.Router();
 
-// 🚀 Mulai sesi roleplay
+// 🚀 Mulai sesi roleplay baru
 router.post("/start", startRoleplay);
 
-// 💬 Jawab satu scene
+// 💬 Kirim jawaban user untuk 1 scene
 router.post("/answer", answerScene);
 
 // 🏁 Akhiri sesi roleplay
 router.post("/end", endRoleplay);
 
-// 🔍 Ambil data session tertentu
+// 🔍 Ambil detail session berdasarkan ID
 router.get("/session/:sessionId", getSessionById);
+
+// ⚠️ PENTING: taruh progress dahulu sebelum "/:userId" agar tidak bentrok
+// 📊 Ambil progress user
+router.get("/progress/:userId", getUserProgress);
 
 // 📜 Ambil semua sesi roleplay milik user
 router.get("/:userId", getUserRoleplays);
-
-// 📊 Ambil progress user
-router.get("/progress/:userId", getUserProgress);
 
 export default router;

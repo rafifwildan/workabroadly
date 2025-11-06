@@ -137,7 +137,6 @@ export default function ChatSidebar({ isOpen = true, onClose, onRoleChange }: Ch
         </div>
 
         <div className="p-4 border-t border-border">
-          <UserPlanBadge usage={userUsage} showDetails={true} />
           <Link
             href="/my-plan"
             className="block mt-3 text-center text-sm text-primary hover:text-primary/80 hover:underline"

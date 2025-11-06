@@ -43,19 +43,6 @@ export default function ChatArea({ messages, isTyping = false }: ChatAreaProps) 
             Ask me anything about preparing to work in Korea and Japan. I will help you with information from official
             documents.
           </p>
-
-          {/* Suggestion Chips */}
-          <div className="flex flex-wrap justify-center gap-2 mt-6">
-            <button className="rounded-full bg-primary/5 text-primary px-4 py-2 text-sm cursor-pointer hover:bg-primary/10 transition-colors">
-              Visa requirements
-            </button>
-            <button className="rounded-full bg-primary/5 text-primary px-4 py-2 text-sm cursor-pointer hover:bg-primary/10 transition-colors">
-              Document checklist
-            </button>
-            <button className="rounded-full bg-primary/5 text-primary px-4 py-2 text-sm cursor-pointer hover:bg-primary/10 transition-colors">
-              Interview tips
-            </button>
-          </div>
         </div>
       </div>
     )

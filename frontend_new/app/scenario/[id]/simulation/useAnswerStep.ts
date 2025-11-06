@@ -10,15 +10,16 @@ interface UseAnswerStepProps {
 export function useAnswerStep({ sessionId }: UseAnswerStepProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [feedback, setFeedback] = useState<{ message: string; insight: string } | null>(null)
+  const [nextScene, setNextScene] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   async function submitAnswer({
-    stepOrder,
+    sceneOrder,
     selectedOption,
     optionNote,
     sceneInsight,
   }: {
-    stepOrder: number
+    sceneOrder: number
     selectedOption: string
     optionNote?: string
     sceneInsight?: string
@@ -27,18 +28,22 @@ export function useAnswerStep({ sessionId }: UseAnswerStepProps) {
       setIsSubmitting(true)
       setError(null)
 
-      // kirim jawaban user ke backend
-      await RoleplayAPI.answer({
+      if (!sessionId) throw new Error("Missing sessionId")
+
+      // backend mengembalikan { feedback?, culturalInsight?, nextScene?, isLastScene? }
+      const res = await RoleplayAPI.answer({
         sessionId,
-        stepId: stepOrder, // sesuai controller backend
+        sceneOrder,
         selectedOption,
       })
 
-      // simpan feedback & insight buat ditampilkan di UI
       setFeedback({
-        message: optionNote || "Good response!",
-        insight: sceneInsight || "",
+        message: res.feedback || optionNote || "Good response!",
+        insight: res.culturalInsight || sceneInsight || "",
       })
+
+      // simpan nextScene jika diberikan backend (angka urutan scene berikutnya)
+      setNextScene(res.nextScene ?? null)
     } catch (err: any) {
       console.error("❌ Error submitting answer:", err)
       setError(err.message || "Failed to submit answer.")
@@ -49,6 +54,7 @@ export function useAnswerStep({ sessionId }: UseAnswerStepProps) {
 
   function clearFeedback() {
     setFeedback(null)
+    setNextScene(null)
   }
 
   return {
@@ -57,5 +63,6 @@ export function useAnswerStep({ sessionId }: UseAnswerStepProps) {
     clearFeedback,
     isSubmitting,
     error,
+    nextScene, // <<— penting: expose ke page.tsx
   }
 }
