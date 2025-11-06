@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, type KeyboardEvent } from "react"
-import { Briefcase, ClipboardList } from "lucide-react"
 
 interface ChatInputBarProps {
   onSendMessage: (message: string) => void
@@ -43,27 +42,6 @@ export default function ChatInputBar({ onSendMessage, disabled = false, currentR
   return (
     <div className="border-t border-border bg-card p-4 lg:p-6 shadow-lg">
       <div className="max-w-4xl mx-auto">
-        {currentRole === "default" && (
-          <div className="flex gap-2 mb-3 flex-wrap">
-            <button
-              onClick={() => handleQuickMenu("career")}
-              disabled={disabled}
-              className="px-4 py-2 rounded-full bg-muted hover:bg-card border border-border text-sm text-foreground transition-all hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-            >
-              <Briefcase className="w-4 h-4" />
-              <span>Career Consultation</span>
-            </button>
-            <button
-              onClick={() => handleQuickMenu("visa")}
-              disabled={disabled}
-              className="px-4 py-2 rounded-full bg-muted hover:bg-card border border-border text-sm text-foreground transition-all hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-            >
-              <ClipboardList className="w-4 h-4" />
-              <span>Visa Info</span>
-            </button>
-          </div>
-        )}
-
         {/* Input Row */}
         <div className="flex items-center gap-3">
           {/* Text Input */}

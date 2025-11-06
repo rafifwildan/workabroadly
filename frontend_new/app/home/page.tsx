@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Home, Drama, User, MessageSquare, Menu } from "lucide-react"
 import { getMockUserUsage } from "@/lib/usage-calculator"
 import { Button } from "@/components/ui/button"
@@ -10,9 +11,78 @@ import AppSidebar from "@/components/AppSidebar"
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  const router = useRouter()
+  const params = useSearchParams()
   const userUsage = getMockUserUsage()
 
-  // Deteksi scroll untuk efek shadow header
+  // ✅ 1. Handle token dari Google callback
+  useEffect(() => {
+    const token = params.get("token")
+    if (token) {
+      localStorage.setItem("token", token)
+      router.replace("/home") // bersihkan query param
+    }
+  }, [params, router])
+
+  // ✅ 2. Ambil data user dari backend (/auth/me)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token")
+      if (!token) {
+        setLoading(false)
+        return
+      }
+
+      try {
+        const res = await fetch("http://localhost:3010/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        if (!res.ok) throw new Error("Failed to fetch user info")
+
+        const data = await res.json()
+        setUser(data) // backend mengembalikan objek user langsung
+      } catch (err: any) {
+        console.error(err)
+        setError("Failed to load user info")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUser()
+  }, [])
+
+  // ✅ 3. Logout handler
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      router.push("/login")
+      return
+    }
+
+    try {
+      await fetch("http://localhost:3010/auth/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    } catch (err) {
+      console.error("Logout error:", err)
+    } finally {
+      localStorage.removeItem("token")
+      router.push("/login")
+    }
+  }
+
+  // Efek shadow pada scroll
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0)
     window.addEventListener("scroll", handleScroll)
@@ -22,12 +92,11 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
-      <AppSidebar />
+      <AppSidebar user={user} onLogout={handleLogout} />
 
-      {/* Konten utama */}
+      {/* Main content */}
       <div className="flex-1 flex flex-col md:ml-64">
-
-        {/* HEADER sticky */}
+        {/* HEADER */}
         <div
           className={`bg-black p-8 sticky top-0 z-50 transition-shadow ${
             isScrolled ? "shadow-lg shadow-gray-800/30" : ""
@@ -47,22 +116,32 @@ export default function DashboardPage() {
               <div>
                 <h2 className="text-3xl font-bold text-white mb-1">Home</h2>
                 <p className="text-gray-300">
-                  Welcome back! Choose your AI assistant
+                  {loading
+                    ? "Loading user..."
+                    : user
+                    ? `Welcome back, ${user.name || "User"}!`
+                    : "Welcome back! Choose your AI assistant"}
                 </p>
               </div>
             </div>
+
+            {/* User info + Logout */}
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden">
-                  <User className="w-6 h-6 text-gray-900" />
-                </div>
-                <div className="text-white">
-                  <div className="font-semibold">Sarah Johnson</div>
-                  <div className="text-xs text-gray-300">
-                    Professional Member
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                    <User className="w-6 h-6 text-gray-900" />
+                  </div>
+                  <div className="text-white">
+                    <div className="font-semibold">{user.name}</div>
+                    <div className="text-xs text-gray-300">
+                      {user.planTier || "Starter"} • {user.credits ?? 0} credits
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="text-white text-sm">Not logged in</div>
+              )}
             </div>
           </div>
         </div>
@@ -70,7 +149,7 @@ export default function DashboardPage() {
         {/* MAIN CONTENT */}
         <main className="flex-1 overflow-auto pb-24 md:pb-0">
           <div className="p-8 space-y-12">
-            {/* 2 Cards */}
+            {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Role-Play Card */}
               <div className="bg-white rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200">

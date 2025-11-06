@@ -66,11 +66,11 @@ app.get("/api/test-db", async (req, res) => {
 });
 
 // API Routes
+app.use("/api/scenarios", scenarioRoutes)
+app.use("/api/roleplay", roleplayRoutes)
 app.use("/api/chat", chatRoutes)           // Chat routes (protected)
 app.use("/api/user", userRoutes)           // User routes (protected) - PHASE 2
 app.use("/api/activity", activityRoutes)   // Activity routes (protected) - PHASE 3
-app.use("/api/roleplay", roleplayRoutes)
-app.use("/api/scenarios", scenarioRoutes)
 app.use("/api/midtrans", midtransRoutes)
 app.use("/api/translate", translateRoutes)
 
