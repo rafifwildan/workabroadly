@@ -35,7 +35,7 @@ export default function SignUpPage() {
         {/* Left Side - Decorative with Image */}
         <div className="h-full w-full flex flex-col cover items-center justify-center">
            <img
-              src="/REGISTER.svg"
+              src="images/REGISTER.svg"
               alt="register image"
               className=""
             />

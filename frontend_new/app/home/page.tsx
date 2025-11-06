@@ -72,7 +72,7 @@ export default function DashboardPage() {
           <div className="p-8 space-y-12">
             {/* 2 Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Role-Play Card */}
+              {/* Role-Play Card
               <div className="bg-white rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200">
                 <div className="flex items-start justify-between mb-6">
                   <div>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
                 >
                   Start Practice
                 </Button>
-              </div>
+              </div> */}
 
               {/* Expat AI Chat Bot Card */}
               <div className="bg-white rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200">

@@ -42,7 +42,7 @@ export default function LoginPage() {
         {/* Left Side - Decorative with Image */}
         <div className="h-full w-full flex flex-col cover items-center justify-center">
         <img
-              src="\LOGIN.svg"
+              src="images\LOGIN.svg"
               alt="login image"
             />
         </div>
