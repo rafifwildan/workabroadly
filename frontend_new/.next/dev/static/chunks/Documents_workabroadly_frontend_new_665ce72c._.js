@@ -691,6 +691,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$house$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Home$3e$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/lucide-react/dist/esm/icons/house.js [app-client] (ecmascript) <export default as Home>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$drama$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Drama$3e$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/lucide-react/dist/esm/icons/drama.js [app-client] (ecmascript) <export default as Drama>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/lucide-react/dist/esm/icons/user.js [app-client] (ecmascript) <export default as User>");
@@ -702,6 +703,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -730,7 +732,7 @@ function DashboardPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$components$2f$AppSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                lineNumber: 25,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -865,60 +867,90 @@ function DashboardPage() {
                                     className: "grid grid-cols-1 md:grid-cols-2 gap-8",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "bg-white rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200",
+                                            className: "bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200 overflow-hidden",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-start justify-between mb-6",
+                                                    className: "relative w-full h-[170px] bg-gradient-to-br from-gray-100 to-teal-50 rounded-t-3xl overflow-hidden",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                        src: "/images/role-play.png",
+                                                        alt: "Illustration for role-play practice",
+                                                        fill: true,
+                                                        style: {
+                                                            objectFit: 'cover',
+                                                            objectPosition: 'center 10%' // Fokus ke bagian atas-tengah
+                                                        },
+                                                        className: "rounded-t-3xl"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                        lineNumber: 79,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                    lineNumber: 78,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "p-6",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                className: "text-2xl font-bold text-gray-900 mb-2",
-                                                                children: "Role-Play Culture Practice"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                lineNumber: 79,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        }, void 0, false, {
+                                                            className: "flex items-start justify-between mb-4",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                                        className: "text-2xl font-bold text-gray-900 mb-2",
+                                                                        children: "Role-Play Cultural Practice"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                        lineNumber: 95,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                    lineNumber: 94,
+                                                                    columnNumber: 21
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "p-2 rounded-lg bg-gray-100 flex items-center justify-center",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$drama$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Drama$3e$__["Drama"], {
+                                                                        className: "w-6 h-6 text-gray-900"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                        lineNumber: 100,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                    lineNumber: 99,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 78,
+                                                            lineNumber: 93,
                                                             columnNumber: 19
                                                         }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$drama$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Drama$3e$__["Drama"], {
-                                                                className: "w-8 h-8 text-gray-900"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                lineNumber: 84,
-                                                                columnNumber: 21
-                                                            }, this)
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-gray-600 mb-6 leading-relaxed text-sm",
+                                                            children: "Practice cultural scenarios through interactive role-playing with AI characters from different backgrounds."
                                                         }, void 0, false, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 83,
+                                                            lineNumber: 103,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                            onClick: ()=>window.location.href = "/role-play",
+                                                            className: "w-full rounded-full bg-black text-white hover:bg-gray-800 font-semibold",
+                                                            children: "Start Practice"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                            lineNumber: 107,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 77,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-gray-600 mb-6 leading-relaxed",
-                                                    children: "Practice cultural scenarios through interactive role-playing with AI characters from different backgrounds."
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 87,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                    onClick: ()=>window.location.href = "/role-play",
-                                                    className: "w-full rounded-full bg-black text-white hover:bg-gray-800 font-semibold",
-                                                    children: "Start Practice"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 91,
+                                                    lineNumber: 92,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
@@ -928,66 +960,96 @@ function DashboardPage() {
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "bg-white rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200",
+                                            className: "bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200 overflow-hidden",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-start justify-between mb-6",
+                                                    className: "relative w-full h-[170px] bg-gradient-to-br from-pink-100 to-pink-200 rounded-t-3xl overflow-hidden",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                        src: "/images/expat-AI.png",
+                                                        alt: "Illustration for Expat AI Consultant",
+                                                        fill: true,
+                                                        style: {
+                                                            objectFit: 'cover',
+                                                            objectPosition: 'center 10%' // Fokus ke atas agar kepala terlihat
+                                                        },
+                                                        className: "rounded-t-3xl"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                        lineNumber: 120,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                    lineNumber: 119,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "p-6",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                className: "text-2xl font-bold text-gray-900 mb-2",
-                                                                children: "Expat AI Chat Bot"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                lineNumber: 103,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        }, void 0, false, {
+                                                            className: "flex items-start justify-between mb-4",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                                        className: "text-2xl font-bold text-gray-900 mb-2",
+                                                                        children: "Expat AI Consultant"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                        lineNumber: 136,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                    lineNumber: 135,
+                                                                    columnNumber: 21
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "p-2 rounded-lg bg-gray-100 flex items-center justify-center",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__["MessageSquare"], {
+                                                                        className: "w-6 h-6 text-gray-900"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                        lineNumber: 141,
+                                                                        columnNumber: 23
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                                    lineNumber: 140,
+                                                                    columnNumber: 21
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 102,
+                                                            lineNumber: 134,
                                                             columnNumber: 19
                                                         }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__["MessageSquare"], {
-                                                                className: "w-8 h-8 text-gray-900"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                lineNumber: 108,
-                                                                columnNumber: 21
-                                                            }, this)
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-gray-600 mb-6 leading-relaxed text-sm",
+                                                            children: "Get instant help with expat-life challenges, visa questions, and local adaptation advice."
                                                         }, void 0, false, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 107,
+                                                            lineNumber: 144,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                            onClick: ()=>window.location.href = "/expat-ai",
+                                                            className: "w-full rounded-full bg-black text-white hover:bg-gray-800 font-semibold",
+                                                            children: "Subscribe now"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
+                                                            lineNumber: 148,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 101,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-gray-600 mb-6 leading-relaxed",
-                                                    children: "Get instant help with expat-life challenges, visa questions, and local adaptation advice."
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 111,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                    onClick: ()=>window.location.href = "/expat-ai",
-                                                    className: "w-full rounded-full bg-black text-white hover:bg-gray-800 font-semibold",
-                                                    children: "Start Chat"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 133,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 117,
                                             columnNumber: 15
                                         }, this)
                                     ]
@@ -1006,22 +1068,22 @@ function DashboardPage() {
                                                     children: "Recent Activity"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 127,
+                                                    lineNumber: 161,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                    href: "/profile?tab=activity",
+                                                    href: "/activity",
                                                     className: "text-sm text-gray-900 hover:text-gray-700 font-medium",
                                                     children: "View All"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 130,
+                                                    lineNumber: 164,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                            lineNumber: 126,
+                                            lineNumber: 160,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1036,12 +1098,12 @@ function DashboardPage() {
                                                                 className: "w-5 h-5 text-gray-900"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                lineNumber: 140,
+                                                                lineNumber: 174,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 139,
+                                                            lineNumber: 173,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1052,7 +1114,7 @@ function DashboardPage() {
                                                                     children: "Completed Japanese Business Meeting scenario"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                    lineNumber: 143,
+                                                                    lineNumber: 177,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1060,19 +1122,19 @@ function DashboardPage() {
                                                                     children: "2 hours ago • Role-Play Practice"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                    lineNumber: 146,
+                                                                    lineNumber: 180,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 142,
+                                                            lineNumber: 176,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 138,
+                                                    lineNumber: 172,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1084,12 +1146,12 @@ function DashboardPage() {
                                                                 className: "w-5 h-5 text-gray-900"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                lineNumber: 154,
+                                                                lineNumber: 188,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 153,
+                                                            lineNumber: 187,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1100,7 +1162,7 @@ function DashboardPage() {
                                                                     children: "Asked about visa renewal process"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                    lineNumber: 157,
+                                                                    lineNumber: 191,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1108,31 +1170,31 @@ function DashboardPage() {
                                                                     children: "5 hours ago • Expat AI Chat"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                                    lineNumber: 160,
+                                                                    lineNumber: 194,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                            lineNumber: 156,
+                                                            lineNumber: 190,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                                    lineNumber: 152,
+                                                    lineNumber: 186,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                            lineNumber: 137,
+                                            lineNumber: 171,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 125,
+                                    lineNumber: 159,
                                     columnNumber: 13
                                 }, this)
                             ]
@@ -1149,7 +1211,7 @@ function DashboardPage() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                lineNumber: 28,
+                lineNumber: 29,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -1165,7 +1227,7 @@ function DashboardPage() {
                                     className: "w-5 h-5 text-gray-900"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 209,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1173,13 +1235,13 @@ function DashboardPage() {
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 176,
+                                    lineNumber: 210,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                            lineNumber: 174,
+                            lineNumber: 208,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1190,7 +1252,7 @@ function DashboardPage() {
                                     className: "w-5 h-5 text-gray-600"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 179,
+                                    lineNumber: 213,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1198,13 +1260,13 @@ function DashboardPage() {
                                     children: "Chat Bot"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 180,
+                                    lineNumber: 214,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                            lineNumber: 178,
+                            lineNumber: 212,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1215,7 +1277,7 @@ function DashboardPage() {
                                     className: "w-5 h-5 text-gray-600"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 217,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1223,13 +1285,13 @@ function DashboardPage() {
                                     children: "Role-Play"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 184,
+                                    lineNumber: 218,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                            lineNumber: 182,
+                            lineNumber: 216,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1240,7 +1302,7 @@ function DashboardPage() {
                                     className: "w-5 h-5 text-gray-600"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 187,
+                                    lineNumber: 221,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1248,30 +1310,30 @@ function DashboardPage() {
                                     children: "Profile"
                                 }, void 0, false, {
                                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                                    lineNumber: 188,
+                                    lineNumber: 222,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                            lineNumber: 186,
+                            lineNumber: 220,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                    lineNumber: 173,
+                    lineNumber: 207,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-                lineNumber: 172,
+                lineNumber: 206,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Documents/workabroadly/frontend_new/app/home/page.tsx",
-        lineNumber: 23,
+        lineNumber: 24,
         columnNumber: 5
     }, this);
 }

@@ -90,13 +90,13 @@ export default function ActivityPage() {
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "chat":
-        return <MessageSquare className="w-6 h-6 text-white" />
+        return <MessageSquare className="w-6 h-6 text-gray-600" />
       case "roleplay":
-        return <Drama className="w-6 h-6 text-white" />
+        return <Drama className="w-6 h-6 text-gray-600" />
       case "purchase":
-        return <CreditCard className="w-6 h-6 text-white" />
+        return <CreditCard className="w-6 h-6 text-gray-600" />
       default:
-        return <MessageSquare className="w-6 h-6 text-white" />
+        return <MessageSquare className="w-6 h-6 text-gray-600" />
     }
   }
 
@@ -104,10 +104,6 @@ export default function ActivityPage() {
     <div className="min-h-screen bg-white flex">
       <AppSidebar />
 
-      {/* --- PERUBAHAN DI SINI --- */}
-      {/* Tambahkan 'md:ml-64' agar konten tidak tertutup sidebar di desktop.
-        Hapus 'pb-8' karena padding sudah diatur di tag <main> di bawah.
-      */}
       <div className="flex-1 flex flex-col md:ml-64">
         {/* Page Header */}
         <div className="bg-white border-b border-gray-200 py-8">
@@ -137,10 +133,6 @@ export default function ActivityPage() {
           </div>
         </div>
 
-        {/* --- PERUBAHAN DI SINI --- */}
-        {/* Ganti 'div' menjadi 'main' untuk semantic HTML yang lebih baik.
-          Tambahkan 'flex-1' agar konten mengisi ruang dan footer tetap di bawah.
-        */}
         <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8">
           {/* Filter Buttons */}
           <div className="flex flex-wrap gap-3 mb-8">
@@ -197,7 +189,7 @@ export default function ActivityPage() {
                   key={activity.id}
                   className="flex items-start gap-4 p-6 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
                 >
-                  <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
                     {getActivityIcon(activity.type)}
                   </div>
                   <div className="flex-1">
@@ -220,7 +212,6 @@ export default function ActivityPage() {
             )}
           </div>
         </main>
-        {/* --- AKHIR PERUBAHAN --- */}
       </div>
     </div>
   )

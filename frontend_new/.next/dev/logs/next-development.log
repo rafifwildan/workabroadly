@@ -1,6 +1,18 @@
-[00:00:00.826] Server  LOG      ✓ Ready in 600ms
-[00:00:16.514] Server  LOG      ○ Compiling / ...
-[00:00:20.656] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:00.984] Server  LOG      ✓ Ready in 764ms
+[01:44:22.798] Server  LOG      ✓ Compiled in 163ms
+[01:45:16.919] Server  LOG      ✓ Compiled in 59ms
+[01:46:54.922] Server  LOG      ✓ Compiled in 89ms
+[01:54:50.550] Server  LOG      ✓ Compiled in 185ms
+[02:04:08.984] Server  LOG      ✓ Compiled in 322ms
+[02:18:24.340] Server  LOG      ✓ Compiled in 518ms
+[02:20:06.780] Server  LOG      ✓ Compiled in 649ms
+[02:21:29.311] Server  LOG      ✓ Compiled in 128ms
+[02:25:19.197] Server  LOG      ✓ Compiled in 241ms
+[02:27:13.412] Server  LOG      ✓ Compiled in 113ms
+[02:28:50.329] Server  LOG      ✓ Compiled in 169ms
+[02:30:14.339] Server  LOG      ✓ Compiled in 129ms
+[02:31:47.394] Server  LOG      ✓ Compiled in 234ms
+[02:33:48.385] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -18,7 +30,7 @@ It can also happen if the client has a browser extension installed which messes 
         <ReplaySsrOnlyErrors>
         <DevRootHTTPAccessFallbackBoundary>
           <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
-            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+            <HTTPAccessFallbackErrorBoundary pathname="/profile" notFound={<NotAllowedRootHTTPFallbackError>} ...>
               <RedirectBoundary>
                 <RedirectErrorBoundary router={{...}}>
                   <Head>
@@ -37,3 +49,272 @@ It can also happen if the client has a browser extension installed which messes 
                           >
                   ...
 
+[02:34:25.328] Server  LOG      ✓ Compiled in 239ms
+[02:36:02.580] Server  LOG      ✓ Compiled in 170ms
+[02:37:52.139] Server  LOG      ✓ Compiled in 267ms
+[02:42:24.848] Server  LOG      ✓ Compiled in 131ms
+[02:42:29.444] Server  LOG      ✓ Compiled in 114ms
+[02:42:36.840] Server  LOG      ✓ Compiled in 103ms
+[02:53:50.579] Server  LOG      ✓ Compiled in 423ms
+[02:56:24.085] Server  LOG      ✓ Compiled in 141ms
+[03:02:38.070] Server  LOG      ✓ Compiled in 236ms
+[03:03:05.924] Server  LOG      ✓ Compiled in 106ms
+[03:09:56.655] Server  LOG      ✓ Compiled in 391ms
+[03:09:57.056] Browser ERROR   ./Documents/workabroadly/frontend_new/app/home/page.tsx:205:19
+Parsing ecmascript source code failed
+  203 |             <User className="w-5 h-5 text-gray-600" />
+  204 |             <span className="text-xs text-gray-600">Profile</span>
+> 205 |           </Topik>
+      |                   ^
+> 206 |         </div>
+      | ^^^^^^^^^
+  207 |       </nav>
+  208 |     </div>
+  209 |   )
+
+Expected '</', got 'jsx text (
+        )'
+
+Import traces:
+  Client Component Browser:
+    ./Documents/workabroadly/frontend_new/app/home/page.tsx [Client Component Browser]
+    ./Documents/workabroadly/frontend_new/app/home/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./Documents/workabroadly/frontend_new/app/home/page.tsx [Client Component SSR]
+    ./Documents/workabroadly/frontend_new/app/home/page.tsx [Server Component]
+[03:12:10.008] Server  LOG      ✓ Compiled in 106ms
+[03:14:57.307] Server  LOG      ✓ Compiled in 192ms
+[03:15:16.654] Server  LOG      ✓ Compiled in 110ms
+[03:17:18.277] Server  LOG      ✓ Compiled in 167ms
+[03:19:44.689] Server  LOG      ✓ Compiled in 292ms
+[03:19:56.803] Server  LOG      ✓ Compiled in 179ms
+[15:08:09.982] Server  LOG      ✓ Compiled in 1028ms
+[15:08:16.286] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[15:08:16.286] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/home" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Documents...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html lang="en">
+                          <head>
+                          <body
+                            style={{fontFamily:"'Noto Sans..."}}
+-                           data-new-gr-c-s-check-loaded="14.1260.0"
+-                           data-gr-ext-installed=""
+                          >
+                  ...
+
+[15:08:47.850] Server  LOG      ✓ Compiled in 76ms
+[15:10:44.148] Server  LOG      ✓ Compiled in 177ms
+[15:10:52.644] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[15:11:08.967] Server  LOG      ✓ Compiled in 68ms
+[15:11:15.351] Server  LOG      ✓ Compiled in 55ms
+[15:11:18.352] Server  LOG      ✓ Compiled in 48ms
+[15:11:28.957] Server  LOG      ✓ Compiled in 63ms
+[15:13:30.106] Server  LOG      ✓ Compiled in 109ms
+[15:14:03.643] Server  LOG      ✓ Compiled in 73ms
+[15:14:15.509] Server  LOG      ✓ Compiled in 107ms
+[15:15:52.497] Server  LOG      ✓ Compiled in 202ms
+[15:16:08.839] Server  LOG      ✓ Compiled in 84ms
+[15:17:00.858] Server  LOG      ✓ Compiled in 80ms
+[15:17:25.379] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[15:19:44.344] Server  LOG      ✓ Compiled in 185ms
+[15:19:51.095] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[15:22:17.937] Server  LOG      ✓ Compiled in 88ms
+[15:22:43.906] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[15:22:57.740] Server  LOG      ✓ Compiled in 88ms
+[15:23:03.305] Server  LOG      ✓ Compiled in 144ms
+[15:26:57.063] Server  LOG      ✓ Compiled in 102ms
+[15:27:09.923] Server  LOG      ✓ Compiled in 77ms
+[15:36:49.194] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[16:19:09.775] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[16:19:13.992] Browser WARN    Image with src "http://localhost:3001/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[16:33:22.293] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[16:35:45.445] Server  LOG      ✓ Compiled in 270ms
+[16:36:06.328] Server  LOG      ✓ Compiled in 95ms
+[16:36:49.551] Server  LOG      ✓ Compiled in 72ms
+[17:16:48.758] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[17:30:22.510] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[17:31:46.609] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[17:31:46.609] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/home" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Documents...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html lang="en">
+                          <head>
+                          <body
+                            style={{fontFamily:"'Noto Sans..."}}
+-                           data-new-gr-c-s-check-loaded="14.1260.0"
+-                           data-gr-ext-installed=""
+                          >
+                  ...
+
+[17:32:09.050] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/expat-ai" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Documents...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html lang="en">
+                          <head>
+                          <body
+                            style={{fontFamily:"'Noto Sans..."}}
+-                           data-new-gr-c-s-check-loaded="14.1260.0"
+-                           data-gr-ext-installed=""
+                          >
+                  ...
+
+[17:32:09.050] Browser WARN    Image with src "http://localhost:3001/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[17:32:14.708] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[17:52:23.246] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[17:53:35.713] Browser WARN    Image with src "http://localhost:3001/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[18:07:52.497] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[18:08:16.426] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[18:09:39.590] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[18:15:34.857] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[18:19:36.240] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[18:21:08.833] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[18:35:28.627] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[18:45:44.294] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[18:45:44.294] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/home" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Documents...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html lang="en">
+                          <head>
+                          <body
+                            style={{fontFamily:"'Noto Sans..."}}
+-                           data-new-gr-c-s-check-loaded="14.1260.0"
+-                           data-gr-ext-installed=""
+                          >
+                  ...
+
+[18:48:14.312] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[18:48:16.881] Browser WARN    Image with src "http://localhost:3001/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[19:58:01.707] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[19:58:08.570] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[19:58:35.817] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[26:02:05.399] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[26:02:11.090] Browser WARN    Image with src "/images/role-play.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[26:02:13.185] Browser WARN    Image with src "http://localhost:3001/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[39:07:47.628] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[39:14:09.669] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[40:45:34.171] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[42:08:16.563] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[42:18:49.850] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[42:18:49.891] Browser ERROR   A param property was accessed directly with `params.id`. `params` is a Promise and must be unwrapped with `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+[42:18:54.173] Server  LOG      ○ Compiling /scenario/[id]/results ...
+[67:07:14.524] Server  LOG      ✓ Compiled in 528ms
+[67:07:42.191] Server  LOG      ✓ Compiled in 76ms
+[67:08:44.027] Server  LOG      ✓ Compiled in 228ms

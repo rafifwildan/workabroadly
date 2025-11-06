@@ -841,149 +841,239 @@ __turbopack_context__.s([
     ()=>PricingCard
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/workabroadly/frontend_new/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
-;
 ;
 function PricingCard({ package: pkg, showPurchaseButton = false, ctaText = "Get Started", ctaLink }) {
     const priceDisplay = pkg.priceInCents === 0 ? "0" : (pkg.priceInCents / 100).toFixed(2);
     const perCredit = pkg.credits > 0 ? (pkg.priceInCents / 100 / pkg.credits).toFixed(3) : null;
     const isEnterprise = pkg.id === "enterprise-pack";
     const isFree = pkg.id === "free-tier";
-    // Determine button link
+    // Tentukan link tombol
     const buttonLink = ctaLink || (showPurchaseButton ? `/my-plan/buy?package=${pkg.id}` : "/signup");
+    // --- Penyiapan Style Dinamis ---
+    let cardStyle = {};
+    let buttonClasses = "";
+    const checkmarkClasses = "bg-gray-900 text-white";
+    const popularLabelClasses = "bg-gray-900 text-white";
+    if (isFree) {
+        // Starter (Hijau)
+        cardStyle = {
+            backgroundImage: `url('/images/card1.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+    } else if (pkg.popular) {
+        // Professional (Kuning)
+        cardStyle = {
+            backgroundImage: `url('/images/card2.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-white text-gray-900 hover:bg-gray-100";
+    } else if (isEnterprise) {
+        // Enterprise (Pink)
+        cardStyle = {
+            backgroundImage: `url('/images/card4.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+    } else {
+        // Premium (Ungu)
+        cardStyle = {
+            backgroundImage: `url('/images/card3.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+    }
+    // --- Akhir Penyiapan Style ---
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: `rounded-2xl p-8 relative transition-all ${pkg.popular ? "bg-black text-white shadow-xl scale-105" : "bg-white shadow-lg border-2 border-gray-200 hover:border-gray-900"}`,
-        children: [
-            pkg.popular && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute top-4 right-4 bg-white text-black px-3 py-1 rounded-full text-xs font-bold",
-                children: "POPULAR"
-            }, void 0, false, {
-                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 34,
-                columnNumber: 9
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                className: `text-2xl font-bold mb-2 ${pkg.popular ? "text-white" : "text-gray-900"}`,
-                children: pkg.name
-            }, void 0, false, {
-                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 39,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mb-6",
-                children: isEnterprise ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: `text-3xl font-bold ${pkg.popular ? "text-white" : "text-gray-900"}`,
-                    children: "Custom"
-                }, void 0, false, {
-                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                    lineNumber: 43,
-                    columnNumber: 11
-                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+        className: "rounded-3xl p-8 relative transition-all duration-300 overflow-hidden shadow-lg text-gray-900",
+        style: cardStyle,
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "relative z-10 flex flex-col h-full",
+            children: [
+                " ",
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative mb-1",
                     children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: `text-5xl font-bold ${pkg.popular ? "text-white" : "text-gray-900"}`,
+                        " ",
+                        pkg.popular && // PERBAIKAN: Posisi label 'POPULAR'
+                        // Dibuat absolute di tengah atas, dan ada margin-bottom
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: `absolute -top-4 left-1/2 -translate-x-1/2 ${popularLabelClasses} px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap`,
+                            children: "POPULAR"
+                        }, void 0, false, {
+                            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                            lineNumber: 80,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-3xl font-bold mt-4",
                             children: [
-                                "$",
-                                priceDisplay
+                                " ",
+                                pkg.name
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                            lineNumber: 46,
-                            columnNumber: 13
-                        }, this),
-                        !isFree && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: pkg.popular ? "text-gray-400" : "text-gray-600",
-                            children: "/mo"
-                        }, void 0, false, {
-                            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                            lineNumber: 49,
-                            columnNumber: 25
+                            lineNumber: 84,
+                            columnNumber: 11
                         }, this)
                     ]
-                }, void 0, true)
-            }, void 0, false, {
-                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 41,
-                columnNumber: 7
-            }, this),
-            showPurchaseButton && !isFree && !isEnterprise && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `text-sm mb-2 ${pkg.popular ? "text-white" : "text-gray-900"}`,
-                        children: [
-                            pkg.credits,
-                            " credits"
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 56,
-                        columnNumber: 11
-                    }, this),
-                    perCredit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `text-xs mb-4 ${pkg.popular ? "text-gray-400" : "text-gray-600"}`,
-                        children: [
-                            "$",
-                            perCredit,
-                            "/credit"
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 58,
-                        columnNumber: 13
-                    }, this)
-                ]
-            }, void 0, true),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                className: "space-y-3 mb-8",
-                children: pkg.features.map((feature, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                        className: `flex items-center gap-2 ${pkg.popular ? "text-white" : "text-gray-700"}`,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: `w-5 h-5 rounded-full flex items-center justify-center text-xs ${pkg.popular ? "bg-white text-black" : "bg-black text-white"}`,
-                                children: "✓"
-                            }, void 0, false, {
-                                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 66,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                children: feature
-                            }, void 0, false, {
-                                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 73,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, idx, true, {
-                        fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 65,
-                        columnNumber: 11
-                    }, this))
-            }, void 0, false, {
-                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 63,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                href: buttonLink,
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    className: `w-full rounded-full font-semibold py-3 transition-all ${pkg.popular ? "bg-white text-black hover:bg-gray-100" : isEnterprise ? "bg-black text-white hover:bg-gray-800" : "bg-white text-black border-2 border-black hover:bg-black hover:text-white"}`,
-                    children: showPurchaseButton && !isFree && !isEnterprise ? "Purchase" : ctaText
+                }, void 0, true, {
+                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                    lineNumber: 76,
+                    columnNumber: 9
+                }, this),
+                isFree && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-lg mb-6 text-gray-700",
+                    children: "For personal"
                 }, void 0, false, {
                     fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                    lineNumber: 79,
+                    lineNumber: 90,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `mb-8 flex ${isEnterprise ? 'justify-center' : 'items-baseline'} min-h-[80px]`,
+                    children: isEnterprise ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-6xl font-bold",
+                        children: "Custom"
+                    }, void 0, false, {
+                        fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                        lineNumber: 96,
+                        columnNumber: 13
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-6xl font-bold",
+                                children: [
+                                    "$",
+                                    priceDisplay
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                                lineNumber: 101,
+                                columnNumber: 15
+                            }, this),
+                            !isFree && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-2xl ml-1 font-medium",
+                                children: "/mo"
+                            }, void 0, false, {
+                                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                                lineNumber: 104,
+                                columnNumber: 27
+                            }, this)
+                        ]
+                    }, void 0, true)
+                }, void 0, false, {
+                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                    lineNumber: 94,
+                    columnNumber: 9
+                }, this),
+                showPurchaseButton && !isFree && !isEnterprise && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "mb-4",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-sm mb-2",
+                            children: [
+                                pkg.credits,
+                                " credits"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                            lineNumber: 111,
+                            columnNumber: 13
+                        }, this),
+                        perCredit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-xs",
+                            children: [
+                                "$",
+                                perCredit,
+                                "/credit"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                            lineNumber: 115,
+                            columnNumber: 15
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                    lineNumber: 110,
+                    columnNumber: 11
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                    className: "space-y-4 mb-10 flex-grow",
+                    children: pkg.features.map((feature, idx)=>{
+                        const match = feature.match(/^(.*?)\s*(\(.*?\))?$/);
+                        const mainText = match ? match[1] : feature;
+                        const subText = match ? match[2] : null;
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                            className: "flex items-center gap-3",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: `w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${checkmarkClasses}`,
+                                    children: "✓"
+                                }, void 0, false, {
+                                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                                    lineNumber: 131,
+                                    columnNumber: 17
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-base",
+                                    children: [
+                                        mainText,
+                                        subText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-gray-600 ml-1",
+                                            children: subText
+                                        }, void 0, false, {
+                                            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                                            lineNumber: 138,
+                                            columnNumber: 31
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                                    lineNumber: 136,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, idx, true, {
+                            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                            lineNumber: 130,
+                            columnNumber: 15
+                        }, this);
+                    })
+                }, void 0, false, {
+                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                    lineNumber: 123,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                    href: buttonLink,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: `w-full rounded-full font-semibold py-4 px-6 transition-all duration-300 text-lg ${buttonClasses}`,
+                        children: showPurchaseButton && !isFree && !isEnterprise ? "Purchase" : "Subscribe now"
+                    }, void 0, false, {
+                        fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                        lineNumber: 147,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+                    lineNumber: 146,
                     columnNumber: 9
                 }, this)
-            }, void 0, false, {
-                fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 78,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+            ]
+        }, void 0, true, {
+            fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
+            lineNumber: 73,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/Documents/workabroadly/frontend_new/components/PricingCard.tsx",
-        lineNumber: 26,
+        lineNumber: 68,
         columnNumber: 5
     }, this);
 }

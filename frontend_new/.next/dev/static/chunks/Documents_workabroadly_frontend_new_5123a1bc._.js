@@ -235,7 +235,7 @@ function Footer() {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$workabroadly$2f$frontend_new$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                                href: "mailto:petra.andriyani22@gmail.com?subject=I%20Like%20to%20Know%20More%20About%20WorkAbroadly&body=Hi%20WorkAbroadly%20Team%2C%0A%0AI%E2%80%99m%20interested%20in%20your%20platform%20and%20would%20love%20to%20know%20more%20about%20how%20you%20can%20help%20me%20grow%20my%20career%20internationally.%0A%0ALooking%20forward%20to%20your%20reply!",
+                                                href: "mailto:workabroadlyapp@gmail.com?subject=I%20Like%20to%20Know%20More%20About%20WorkAbroadly&body=Hi%20WorkAbroadly%20Team%2C%0A%0AI%E2%80%99m%20interested%20in%20your%20platform%20and%20would%20love%20to%20know%20more%20about%20how%20you%20can%20help%20me%20grow%20my%20career%20internationally.%0A%0ALooking%20forward%20to%20your%20reply!",
                                                 className: "text-gray-400 hover:text-white transition-colors",
                                                 children: "Contact Us"
                                             }, void 0, false, {
