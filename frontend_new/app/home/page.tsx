@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Home, Drama, User, MessageSquare, Menu } from "lucide-react"
-import { getMockUserUsage } from "@/lib/usage-calculator"
+//import { getMockUserUsage } from "@/lib/usage-calculator"  Untuk testing, nanti diganti dengan data dari database
 import { Button } from "@/components/ui/button"
 import AppSidebar from "@/components/AppSidebar"
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
-  const userUsage = getMockUserUsage()
+  //const userUsage = getMockUserUsage()  Untuk testing, nanti diganti dengan data dari database
 
   // Deteksi scroll untuk efek shadow header
   useEffect(() => {

@@ -5,11 +5,11 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Drama, User, MessageSquare, LogOut, Menu, X } from "lucide-react"
 import UserPlanBadge from "@/components/UserPlanBadge"
-import { getMockUserUsage } from "@/lib/usage-calculator"
+ // import { getMockUserUsage } from "@/lib/usage-calculator" diganti yang sudah ada di database
 
 export default function AppSidebar() {
   const pathname = usePathname()
-  const userUsage = getMockUserUsage()
+ // const userUsage = getMockUserUsage()  diganti yang sudah ada di database
   const [isOpen, setIsOpen] = useState(true) // <--- Tambah state
 
   const navItems = [
@@ -74,7 +74,7 @@ export default function AppSidebar() {
         {/* Bottom section: Plan + Logout */}
         <div className={`p-6 border-t border-gray-200 space-y-4 ${isOpen ? "opacity-100" : "opacity-0 md:opacity-100"} transition-opacity`}>
           <div>
-            <UserPlanBadge usage={userUsage} showDetails={true} />
+            {/*<UserPlanBadge usage={userUsage} showDetails={true} /> Menggunakan userUsage dari database */}
             <Link
               href="/my-plan"
               className="block mt-2 text-center text-sm text-gray-900 hover:text-gray-700 hover:underline"

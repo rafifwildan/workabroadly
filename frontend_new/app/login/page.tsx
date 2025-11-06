@@ -40,10 +40,11 @@ export default function LoginPage() {
 
       <div className="flex flex-1">
         {/* Left Side - Decorative with Image */}
-        <div className="h-full w-full flex flex-col cover items-center justify-center">
+        <div className="hidden lg:flex flex-1 items-center justify-center bg-gray-50 aspect-[1508/1321]">
         <img
               src="images\LOGIN.svg"
               alt="login image"
+              className="w-full h-full object-contain"
             />
         </div>
 
@@ -57,7 +58,7 @@ export default function LoginPage() {
                 <p className="text-gray-600">Sign in to continue your journey</p>
               </div>
 
-              <div className="mb-6 p-4 bg-gray-100 border border-gray-300 rounded-full">
+              <div className="flex-1 w-full lg:w-1/2 flex flex-col justify-center px-6 py-12">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 mt-0.5">
                     <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
