@@ -33,24 +33,12 @@ export default function SignUpPage() {
 
       <div className="flex flex-1">
         {/* Left Side - Decorative with Image */}
-        <div className="hidden lg:flex lg:w-1/2 bg-black relative overflow-hidden items-center justify-center p-12">
-          {/* Large Yellow Organic Blob Shape */}
-          <div
-            className="absolute w-[600px] h-[600px] bg-[#FFD93D]"
-            style={{
-              borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%",
-              transform: "rotate(-15deg)",
-            }}
-          />
-
-          {/* Blue Oval Frame with Image */}
-          <div className="relative z-10 w-[400px] h-[500px] bg-black rounded-[50%] flex items-center justify-center shadow-2xl">
-            <img
-              src="/colorful-hot-air-balloon-in-sky.jpg"
-              alt="Hot air balloon"
-              className="w-[90%] h-[90%] object-cover rounded-[50%]"
+        <div className="h-full w-full flex flex-col cover items-center justify-center">
+           <img
+              src="/REGISTER.svg"
+              alt="register image"
+              className=""
             />
-          </div>
         </div>
 
         {/* Right Side - Form */}
