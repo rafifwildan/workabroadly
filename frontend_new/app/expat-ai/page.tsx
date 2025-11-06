@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { MessageSquare, Menu, X, Globe } from "lucide-react"
+import { MessageSquare, Menu, X, Globe, Users } from "lucide-react"
 import ChatSidebar from "@/components/ChatSidebar"
 import ChatArea from "@/components/ChatArea"
 import ChatInputBar from "@/components/ChatInputBar"
@@ -29,6 +29,7 @@ export default function AIExpatChatPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [currentRole, setCurrentRole] = useState<string>("user")
   const [selectedLanguage, setSelectedLanguage] = useState("en")
+  const [selectedCulture, setSelectedCulture] = useState("ko")
 
   const handleSendMessage = async (content: string) => {
     const newMessage: Message = {
@@ -51,6 +52,7 @@ export default function AIExpatChatPage() {
         message: content,
         role: currentRole,
         language: selectedLanguage,
+        culture: selectedCulture
       });
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
@@ -91,6 +93,7 @@ export default function AIExpatChatPage() {
   }
 
   const currentLanguage = languages.find((lang) => lang.code === selectedLanguage) || languages[0]
+  const currentCulture = languages.find((lang) => lang.code === selectedCulture) || languages[0]
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -108,6 +111,27 @@ export default function AIExpatChatPage() {
             </button>
             <MessageSquare className="w-5 h-5" />
             <h1 className="text-base font-semibold flex-1">Expat AI Consultant</h1>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2 rounded-full bg-transparent">
+                  <Users className="w-4 h-4" />
+                  <span className="hidden sm:inline">{currentCulture.name} Culture</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setSelectedCulture(lang.code)}
+                    className={`cursor-pointer ${selectedCulture === lang.code ? "bg-accent" : ""}`}
+                  >
+                    <span className="text-lg mr-2">{lang.flag}</span>
+                    <span>{lang.name}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -146,6 +170,27 @@ export default function AIExpatChatPage() {
               <MessageSquare className="w-5 h-5" />
               <h1 className="text-lg font-semibold">Expat AI Consultant</h1>
             </div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2 rounded-full bg-transparent">
+                  <Users className="w-4 h-4" />
+                  <span className="hidden sm:inline">{currentCulture.name} Culture</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setSelectedCulture(lang.code)}
+                    className={`cursor-pointer ${selectedCulture === lang.code ? "bg-accent" : ""}`}
+                  >
+                    <span className="text-lg mr-2">{lang.flag}</span>
+                    <span>{lang.name}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
