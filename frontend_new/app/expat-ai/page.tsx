@@ -55,7 +55,7 @@ export default function AIExpatChatPage() {
 
     // Tambahkan dua pesan langsung (user + AI placeholder)
     setIsTyping(true)
-    setMessages((prev) => [...prev, userMessage, aiMessage])
+    setMessages((prev) => [...prev, userMessage])
 
     try {
       const theBody = JSON.stringify({
@@ -87,6 +87,9 @@ export default function AIExpatChatPage() {
       const reader = response.body.getReader()
       const decoder = new TextDecoder()
       let fullText = ""
+      
+      setIsTyping(false)
+      setMessages((prev) => [...prev, aiMessage])
 
       while (true) {
         const { done, value } = await reader.read()

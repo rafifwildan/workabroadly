@@ -1,6 +1,31 @@
 globalThis.__BUILD_MANIFEST = {
   "pages": {
-    "/_app": []
+    "/_app": [
+      "static/chunks/31253_next_dist_compiled_6530eb75._.js",
+      "static/chunks/31253_next_dist_shared_lib_a1932e5f._.js",
+      "static/chunks/31253_next_dist_client_2b77e7b7._.js",
+      "static/chunks/31253_next_dist_5135d901._.js",
+      "static/chunks/31253_next_app_5c8905d9.js",
+      "static/chunks/[next]_entry_page-loader_ts_61d30853._.js",
+      "static/chunks/4aac0_react-dom_e8f94116._.js",
+      "static/chunks/b56f8__pnpm_cb3fcf7d._.js",
+      "static/chunks/[root-of-the-server]__c535c6c9._.js",
+      "static/chunks/all_6 Nov workabroadly_workabroadly_frontend_new_pages__app_2da965e7._.js",
+      "static/chunks/turbopack-all_6 Nov workabroadly_workabroadly_frontend_new_pages__app_2fc424dd._.js"
+    ],
+    "/_error": [
+      "static/chunks/31253_next_dist_compiled_6530eb75._.js",
+      "static/chunks/31253_next_dist_shared_lib_3947be35._.js",
+      "static/chunks/31253_next_dist_client_2b77e7b7._.js",
+      "static/chunks/31253_next_dist_54f4ae5c._.js",
+      "static/chunks/31253_next_error_1790da0e.js",
+      "static/chunks/[next]_entry_page-loader_ts_8ae98dc6._.js",
+      "static/chunks/4aac0_react-dom_e8f94116._.js",
+      "static/chunks/b56f8__pnpm_cb3fcf7d._.js",
+      "static/chunks/[root-of-the-server]__c4d61f75._.js",
+      "static/chunks/all_6 Nov workabroadly_workabroadly_frontend_new_pages__error_2da965e7._.js",
+      "static/chunks/turbopack-all_6 Nov workabroadly_workabroadly_frontend_new_pages__error_af626081._.js"
+    ]
   },
   "devFiles": [],
   "polyfillFiles": [

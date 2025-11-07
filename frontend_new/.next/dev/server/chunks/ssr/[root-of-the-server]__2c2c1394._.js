@@ -1332,6 +1332,45 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
     }, [
         bgImages
     ]);
+    // --- Penyiapan Style Dinamis ---
+    let cardStyle = {};
+    let buttonClasses = "";
+    const checkmarkClasses = "bg-gray-900 text-white";
+    const popularLabelClasses = "bg-gray-900 text-white";
+    if (isFree) {
+        // Starter (Hijau)
+        cardStyle = {
+            backgroundImage: `url('/images/card1.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+    } else if (pkg.popular) {
+        // Professional (Kuning)
+        cardStyle = {
+            backgroundImage: `url('/images/card2.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-white text-gray-900 hover:bg-gray-100";
+    } else if (isEnterprise) {
+        // Enterprise (Pink)
+        cardStyle = {
+            backgroundImage: `url('/images/card4.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+    } else {
+        // Premium (Ungu)
+        cardStyle = {
+            backgroundImage: `url('/images/card3.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+        };
+        buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+    }
+    // --- Akhir Penyiapan Style ---
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `
         group
@@ -1350,7 +1389,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                 }
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 110,
+                lineNumber: 153,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             bgImages.hover && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1360,7 +1399,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                 }
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 117,
+                lineNumber: 160,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             bgImages.clicked && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1374,7 +1413,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                 }
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 129,
+                lineNumber: 172,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             pkg.popular && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1382,7 +1421,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                 children: "POPULAR"
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 141,
+                lineNumber: 184,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1396,7 +1435,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                 children: pkg.name
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 149,
+                                lineNumber: 192,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             isFree && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1404,13 +1443,13 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                 children: "For personal"
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 150,
+                                lineNumber: 193,
                                 columnNumber: 22
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 148,
+                        lineNumber: 191,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1420,7 +1459,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                             children: "Custom"
                         }, void 0, false, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                            lineNumber: 156,
+                            lineNumber: 199,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex items-baseline",
@@ -1430,7 +1469,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                     children: "$"
                                 }, void 0, false, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                    lineNumber: 159,
+                                    lineNumber: 202,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1438,7 +1477,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                     children: priceDisplay
                                 }, void 0, false, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                    lineNumber: 160,
+                                    lineNumber: 203,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 !isFree && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1446,18 +1485,18 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                     children: "/mo"
                                 }, void 0, false, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                    lineNumber: 161,
+                                    lineNumber: 204,
                                     columnNumber: 27
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                            lineNumber: 158,
+                            lineNumber: 201,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 154,
+                        lineNumber: 197,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     showPurchaseButton && !isFree && !isEnterprise && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1471,7 +1510,7 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 169,
+                                lineNumber: 212,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             perCredit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1483,13 +1522,13 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 170,
+                                lineNumber: 213,
                                 columnNumber: 27
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 168,
+                        lineNumber: 211,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1505,12 +1544,12 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                             strokeWidth: 3
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                            lineNumber: 179,
+                                            lineNumber: 222,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                        lineNumber: 178,
+                                        lineNumber: 221,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1518,18 +1557,18 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                         children: feature
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                        lineNumber: 181,
+                                        lineNumber: 224,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, index, true, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 177,
+                                lineNumber: 220,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 175,
+                        lineNumber: 218,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1543,12 +1582,12 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                                 children: buttonText
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                                lineNumber: 190,
+                                lineNumber: 233,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                            lineNumber: 189,
+                            lineNumber: 232,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$components$2f$ButtonPill$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             type: "type3",
@@ -1557,24 +1596,24 @@ const PricingCard = ({ package: pkg, type = 'cyan', backgroundImages, showPurcha
                             children: buttonText
                         }, void 0, false, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                            lineNumber: 195,
+                            lineNumber: 238,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                        lineNumber: 187,
+                        lineNumber: 230,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-                lineNumber: 146,
+                lineNumber: 189,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/components/PricingCard.tsx",
-        lineNumber: 97,
+        lineNumber: 140,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1710,14 +1749,14 @@ function LandingPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$components$2f$Navbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navbar"], {}, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 57,
+                lineNumber: 56,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "h-[97px]"
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 60,
+                lineNumber: 59,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1727,7 +1766,7 @@ function LandingPage() {
                         className: "absolute -left-20 top-20 w-64 h-64 bg-gray-200 rounded-full opacity-100 -z-10"
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 66,
+                        lineNumber: 64,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1737,7 +1776,7 @@ function LandingPage() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 67,
+                        lineNumber: 65,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1751,7 +1790,7 @@ function LandingPage() {
                                         children: "Your Cultural Role-Play Platform & Expat AI Consultant"
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 73,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1759,7 +1798,7 @@ function LandingPage() {
                                         children: "Speak the Culture, Win at Work"
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 78,
+                                        lineNumber: 76,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1767,7 +1806,7 @@ function LandingPage() {
                                         children: "Help global talent enhance their careers without getting overwhelmed by cross-cultural barriers"
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 77,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1778,18 +1817,18 @@ function LandingPage() {
                                             children: "Start Now"
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 83,
+                                            lineNumber: 81,
                                             columnNumber: 13
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 82,
+                                        lineNumber: 80,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 74,
+                                lineNumber: 72,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1805,12 +1844,12 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 93,
+                                                lineNumber: 91,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 90,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1821,12 +1860,12 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 100,
+                                                lineNumber: 98,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 99,
+                                            lineNumber: 97,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1837,12 +1876,12 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 107,
+                                                lineNumber: 105,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 106,
+                                            lineNumber: 104,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1853,12 +1892,12 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 114,
+                                                lineNumber: 112,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 111,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1869,12 +1908,12 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 121,
+                                                lineNumber: 119,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 118,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1885,12 +1924,12 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 128,
+                                                lineNumber: 126,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 125,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1901,35 +1940,35 @@ function LandingPage() {
                                                 className: "w-full h-full object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 135,
+                                                lineNumber: 133,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 134,
+                                            lineNumber: 132,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 89,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 90,
+                                lineNumber: 88,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 72,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 65,
+                lineNumber: 63,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1940,7 +1979,7 @@ function LandingPage() {
                         className: "absolute right-0 top-20 w-48 h-48 bg-gray-200 rounded-2xl opacity-100 -z-10 transform rotate-12"
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 148,
+                        lineNumber: 146,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1954,12 +1993,12 @@ function LandingPage() {
                                     className: "rounded-2xl shadow-xl w-full"
                                 }, void 0, false, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 152,
+                                    lineNumber: 150,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 151,
+                                lineNumber: 149,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1969,7 +2008,7 @@ function LandingPage() {
                                         children: "About the Company"
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 159,
+                                        lineNumber: 157,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1977,7 +2016,7 @@ function LandingPage() {
                                         children: "WorkAbroadly is a cutting-edge Cultural Role-Play Platform & Expat AI Consultant that provides innovative solutions for businesses and individuals. Founded in 2022, we are committed to helping global talent navigate cross-cultural challenges through our customized and effective technology solutions. With over a decade of experience, we have built a reputation for delivering high-quality services to our clients."
                                     }, void 0, false, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 160,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1990,7 +2029,7 @@ function LandingPage() {
                                                         children: "2022"
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 170,
+                                                        lineNumber: 168,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1998,13 +2037,13 @@ function LandingPage() {
                                                         children: "Founded"
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 171,
+                                                        lineNumber: 169,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 169,
+                                                lineNumber: 167,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2014,7 +2053,7 @@ function LandingPage() {
                                                         children: "96"
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 174,
+                                                        lineNumber: 172,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2022,13 +2061,13 @@ function LandingPage() {
                                                         children: "Clients"
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 175,
+                                                        lineNumber: 173,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 173,
+                                                lineNumber: 171,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2038,7 +2077,7 @@ function LandingPage() {
                                                         children: "140"
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 178,
+                                                        lineNumber: 176,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2046,37 +2085,37 @@ function LandingPage() {
                                                         children: "Projects done"
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 177,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 177,
+                                                lineNumber: 175,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 168,
+                                        lineNumber: 166,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 158,
+                                lineNumber: 156,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 150,
+                        lineNumber: 148,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 147,
+                lineNumber: 145,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2088,24 +2127,24 @@ function LandingPage() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                 className: "text-5xl font-bold text-gray-900 mb-4",
-                                children: "Powerful Features"
+                                children: "Role Play Simulation Features"
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 189,
+                                lineNumber: 187,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-xl text-gray-600",
-                                children: "Two core solutions to help you succeed abroad"
+                                children: "The core solutions to help you succeed abroad"
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 190,
+                                lineNumber: 188,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 188,
+                        lineNumber: 186,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2113,18 +2152,20 @@ function LandingPage() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "relative rounded-2xl overflow-hidden shadow-xl",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: "/person-practicing-business-conversation.jpg",
-                                    alt: "Cultural Role-Play Simulation",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                                    src: "/images/Role-Play.mp4",
+                                    autoPlay: true,
+                                    loop: true,
+                                    muted: true,
                                     className: "w-full h-full object-cover"
                                 }, void 0, false, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 196,
+                                    lineNumber: 194,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 195,
+                                lineNumber: 193,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2178,87 +2219,13 @@ function LandingPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 194,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "order-2 lg:order-1",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center gap-3 mb-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-3xl font-bold text-gray-900",
-                                                children: "Feature 2"
-                                            }, void 0, false, {
-                                                fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 220,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$454$2e$0_react$40$19$2e$2$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
-                                                className: "w-6 h-6"
-                                            }, void 0, false, {
-                                                fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 221,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 219,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                        className: "text-2xl font-semibold text-gray-900 mb-4",
-                                        children: "Expat AI Consultant"
-                                    }, void 0, false, {
-                                        fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 223,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-gray-700 leading-relaxed text-justify",
-                                        children: "Get 24/7 personalized guidance on visa requirements, job search strategies, workplace communication, and cultural adaptation from our AI consultant trained on real expat experiences. Ask questions anytime and receive expert advice tailored to your situation."
-                                    }, void 0, false, {
-                                        fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                        lineNumber: 224,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 218,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: "/ai-consultant-helping-professional.jpg",
-                                    alt: "Expat AI Consultant",
-                                    className: "w-full h-full object-cover"
-                                }, void 0, false, {
-                                    fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 231,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                lineNumber: 230,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 217,
+                        lineNumber: 192,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 187,
+                lineNumber: 185,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2269,12 +2236,12 @@ function LandingPage() {
                         showPurchaseButton: pkg.priceInCents > 0
                     }, pkg.id, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                        lineNumber: 243,
+                        lineNumber: 222,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 241,
+                lineNumber: 220,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2293,7 +2260,7 @@ function LandingPage() {
                                             children: "Frequently Asked"
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 259,
+                                            lineNumber: 238,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2301,13 +2268,13 @@ function LandingPage() {
                                             children: "Questions"
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 260,
+                                            lineNumber: 239,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 258,
+                                    lineNumber: 237,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2315,22 +2282,13 @@ function LandingPage() {
                                     children: "Can't find the answer you're looking for? Feel free to contact our support team. We're here to help you adapt and succeed abroad."
                                 }, void 0, false, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 262,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: "/person-looking-up-thoughtfully.jpg",
-                                    alt: "FAQ",
-                                    className: "rounded-2xl shadow-xl w-full h-full object-cover aspect-video"
-                                }, void 0, false, {
-                                    fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 266,
+                                    lineNumber: 241,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                            lineNumber: 257,
+                            lineNumber: 236,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2353,7 +2311,7 @@ function LandingPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                            lineNumber: 282,
+                                                            lineNumber: 257,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2361,13 +2319,13 @@ function LandingPage() {
                                                             children: faq.question
                                                         }, void 0, false, {
                                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                            lineNumber: 283,
+                                                            lineNumber: 258,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                    lineNumber: 281,
+                                                    lineNumber: 256,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2379,12 +2337,12 @@ function LandingPage() {
                                                             children: "−"
                                                         }, void 0, false, {
                                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                            lineNumber: 288,
+                                                            lineNumber: 263,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 287,
+                                                        lineNumber: 262,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-8 h-8 rounded-full bg-black flex items-center justify-center",
@@ -2393,23 +2351,23 @@ function LandingPage() {
                                                             children: "+"
                                                         }, void 0, false, {
                                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                            lineNumber: 292,
+                                                            lineNumber: 267,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                        lineNumber: 291,
+                                                        lineNumber: 266,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                    lineNumber: 285,
+                                                    lineNumber: 260,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 277,
+                                            lineNumber: 252,
                                             columnNumber: 17
                                         }, this),
                                         openFaq === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2419,39 +2377,39 @@ function LandingPage() {
                                                 children: faq.answer
                                             }, void 0, false, {
                                                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                                lineNumber: 299,
+                                                lineNumber: 274,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                            lineNumber: 298,
+                                            lineNumber: 273,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                                    lineNumber: 276,
+                                    lineNumber: 251,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                            lineNumber: 274,
+                            lineNumber: 249,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                    lineNumber: 254,
+                    lineNumber: 233,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 253,
+                lineNumber: 232,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$components$2f$Footer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/page.tsx",
-                lineNumber: 308,
+                lineNumber: 283,
                 columnNumber: 7
             }, this)
         ]

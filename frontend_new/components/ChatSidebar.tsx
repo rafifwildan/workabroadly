@@ -5,7 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { LogOut, Bot, MessageSquare } from "lucide-react"
 import UserPlanBadge from "./UserPlanBadge"
-import { getMockUserUsage } from "@/lib/usage-calculator"
+// import { getMockUserUsage } from "@/lib/usage-calculator"
 
 interface ChatSession {
   id: string
@@ -28,7 +28,7 @@ export default function ChatSidebar({ isOpen = true, onClose, onRoleChange }: Ch
   const [activeSession, setActiveSession] = useState<string>("1")
   const [selectedRole, setSelectedRole] = useState<string>("default")
 
-  const userUsage = getMockUserUsage()
+  // const userUsage = getMockUserUsage()
 
   const handleNewSession = () => {
     const newSession: ChatSession = {
@@ -137,7 +137,7 @@ export default function ChatSidebar({ isOpen = true, onClose, onRoleChange }: Ch
         </div>
 
         <div className="p-4 border-t border-border">
-          <UserPlanBadge usage={userUsage} showDetails={true} />
+          {/* <UserPlanBadge usage={userUsage} showDetails={true} /> */}
           <Link
             href="/my-plan"
             className="block mt-3 text-center text-sm text-primary hover:text-primary/80 hover:underline"
