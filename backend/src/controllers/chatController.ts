@@ -96,113 +96,103 @@ const CREDIT_COST_PER_MESSAGE = 10; // 10 credits per chat message
  */
 export async function handleChatMessage(req: Request, res: Response) {
   try {
+    console.log(`[Chat] Stream handler called:`, req.body);
 
-    console.log(`[Chat] Dummy handler called: `, req.body);
-
+    // =============== LANGUAGE SELECTION ===============
     let languageInstruction = "\n\nIMPORTANT: ";
-
     switch (req.body.language) {
-      case 'id':
+      case "id":
         languageInstruction += "Respond in Indonesian (Bahasa Indonesia).";
         break;
-      case 'en':
+      case "en":
         languageInstruction += "Respond in English.";
         break;
-      case 'ja':
+      case "ja":
         languageInstruction += "Respond in Japanese (日本語).";
         break;
-      case 'ko':
+      case "ko":
         languageInstruction += "Respond in Korean (한국어).";
         break;
       default:
         break;
     }
 
+    // =============== CULTURE PROMPT SETUP ===============
     let whichCulture = "";
     let theReflection = "";
     switch (req.body.culture) {
-      case 'id':
-        whichCulture += "Indonesian";
-        theReflection += "Reflect Indonesian values such as gotong royong (mutual cooperation), respect for hierarchy, religion, and harmony in social interactions.";
+      case "id":
+        whichCulture = "Indonesian";
+        theReflection =
+          "Reflect Indonesian values such as gotong royong (mutual cooperation), respect for hierarchy, religion, and harmony in social interactions.";
         break;
-      case 'en':
-        whichCulture += "English";
-        theReflection += "Reflect English values such as directness balanced with tact, equality, fairness, and respect for individualism.";
+      case "en":
+        whichCulture = "English";
+        theReflection =
+          "Reflect English values such as directness balanced with tact, equality, fairness, and respect for individualism.";
         break;
-      case 'ja':
-        whichCulture += "Japanese";
-        theReflection += "Reflect Japanese values such as humility, harmony (wa), politeness, and respect for hierarchy.";
+      case "ja":
+        whichCulture = "Japanese";
+        theReflection =
+          "Reflect Japanese values such as humility, harmony (wa), politeness, and respect for hierarchy.";
         break;
-      case 'ko':
-        whichCulture += "Korean";
-        theReflection += "Reflect Korean values such as respect for elders, collectivism, strong work ethic, education focus, avoiding public confrontation or embarrassment, emotional connection, empathy, loyalty among people, and maintaining social harmony.";
+      case "ko":
+        whichCulture = "Korean";
+        theReflection =
+          "Reflect Korean values such as respect for elders, collectivism, strong work ethic, education focus, avoiding public confrontation or embarrassment, emotional connection, empathy, loyalty among people, and maintaining social harmony.";
         break;
       default:
-        break;
+        whichCulture = "English";
     }
 
-    const EXPAT_AI_DYNAMIC_PROMPT = `You are a ${whichCulture} Culture 
-Coach and conversational partner. Your purpose is to help the user understand, practice, and internalize ${whichCulture} 
-workplace culture, etiquette, and communication styles through interactive conversation. \n\nGuidelines:\n1. Respond naturally as if you are a ${whichCulture} 
-colleague or mentor who has deep knowledge of ${whichCulture} 
-business culture.
-\n2. Keep the tone polite, calm, and respectful. ${theReflection}
-\n3. After each user message, provide two parts:\n   a) A natural conversational reply (short and realistic, like a chat between coworkers).
-\n   b) A short “Culture Insight” (1–3 sentences) that explains the ${whichCulture} 
-cultural perspective behind your response — for example, etiquette, phrasing, or how ${whichCulture} 
-professionals would express that idea politely.\n4. Encourage the user to rephrase their messages in a more culturally appropriate or respectful way when needed, but always explain *why* it’s preferred.\n5. If the user makes a direct or overly casual statement, gently reframe it into a more polite or indirect ${whichCulture}-style 
-phrasing.\n6. Avoid lecture-style answers — focus on practical, real-life conversation examples that feel natural.\n
-\nExample behavior:\nUser: “Can you help me finish this report quickly?”\nCoach: “Of course! Would you like me to review the draft first?”\nCulture Insight: “In Japan, it’s polite to offer help by suggesting a process rather than agreeing immediately. This shows thoughtfulness and cooperation.”\n\nYour goal is to guide the user toward sounding respectful, cooperative, and culturally sensitive when communicating in or with Japanese workplaces.`;
+    const new_EXPAT_AI_PROMPT = `You are a professional Culture Coach AI specialized in workplace communication and behavior. You can only operate within one culture: ${whichCulture}. You must NOT reference or discuss any other cultures outside this one.
 
-    const new_EXPAT_AI_PROMPT = `You are a professional Culture Coach AI specialized in workplace communication and behavior. You can only operate within one culture: ${whichCulture}. You must NOT reference or discuss any other cultures outside these one.\n\nWhen explaining expressions or examples from non-English languages (Indonesian, Korean, or Japanese), you must ALWAYS:\n- Provide the **${whichCulture} transliteration** (romanized spelling)\n- Provide the **English translation in parentheses**\n- NEVER leave text in another script without explanation (for example, do not show 수고 많으셨습니다 without adding '(sugo manheushyeotseumnida — you’ve worked hard)')\n\nYour goal is to help users understand, adapt, and respond appropriately according to each culture’s norms in professional settings.\n\nAlways:\n- Explain the cultural reasoning behind each behavior or communication style.\n- Provide practical examples in work-related situations (meetings, feedback, greetings, teamwork, etc.).\n- Use a polite and educational tone.\n- When comparing, emphasize both similarities and differences in ${whichCulture} culture.\n- Avoid stereotypes, and focus on values like ${theReflection}\n- If asked about cultures beyond ${whichCulture} culture, politely decline and remind the user that your scope is limited.\n\nYour answer format:\n1. Cultural Context: Explain the cultural background.\n2. Recommended Behavior or Phrasing: Give practical workplace examples.\n3. Key Values: Mention core values (e.g., harmony, respect, individualism).\n\nExample:\nSituation: Giving feedback to a senior colleague.\nJapan: Use indirect and respectful phrasing (e.g., 'Perhaps we could consider another approach'). Values: hierarchy, humility, harmony.\nKorea: Show deference; avoid direct criticism. Values: respect, collectivism, harmony.\nIndonesia: Use a soft tone and gratitude before feedback. Values: respect, tolerance, rukun.\nEnglish: Be direct yet polite (e.g., 'I think there’s a better way'). Values: clarity, equality, individualism.`;
+When explaining expressions or examples from non-English languages (Indonesian, Korean, or Japanese), you must ALWAYS:
+- Provide the ${whichCulture} transliteration (romanized spelling)
+- Provide the English translation in parentheses
+- NEVER leave text in another script without explanation
 
+Your goal is to help users understand, adapt, and respond appropriately according to ${whichCulture} cultural norms in professional settings.
 
+Always:
+- Explain the cultural reasoning behind each behavior or communication style.
+- Provide practical examples in workplace situations (meetings, feedback, greetings, teamwork, etc.).
+- Use a polite and educational tone.
+- Avoid stereotypes, and focus on values like ${theReflection}
+- If asked about cultures beyond ${whichCulture}, politely decline.
 
+Your answer format:
+1. Cultural Context
+2. Recommended Behavior or Phrasing
+3. Key Values`;
+
+    // =============== OPENAI STREAM REQUEST ===============
     const apiMessages = [
       { role: "system", content: new_EXPAT_AI_PROMPT },
       { role: req.body.role, content: req.body.message + languageInstruction },
-      // ...conversationHistory,
     ];
+
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Transfer-Encoding", "chunked");
+    res.setHeader("Cache-Control", "no-cache");
 
     const startTime = Date.now();
     const completion = await openai.chat.completions.create({
-      model: process.env.GPT_5_MODEL || "",
+      model: process.env.GPT_5_MODEL || "gpt-5",
       messages: apiMessages as any,
+      stream: true,
     });
 
-    const aiReply = completion.choices[0]?.message?.content ||
-      "Maaf, saya tidak bisa memproses permintaan Anda saat ini.";
+    for await (const chunk of completion) {
+      const delta = chunk.choices[0]?.delta?.content || "";
+      if (delta) res.write(delta);
+    }
 
-    const duration = Date.now() - startTime;
-    console.log(`[Chat] AI responded in ${duration}ms`);
-
-    // STEP 12: Return response
-    res.json({
-      reply: aiReply,
-      sessionId: "dummy-session-id-007",
-      creditsRemaining: 100,
-      creditsUsed: CREDIT_COST_PER_MESSAGE,
-    });
+    res.end(); // Tutup stream setelah selesai
+    console.log(`[Chat] Stream finished in ${Date.now() - startTime}ms`);
 
   } catch (error: any) {
     console.error("[Chat Error]:", error);
-
-    // Handle OpenAI API errors
-    if (error.status === 401) {
-      return res.status(401).json({
-        error: "Invalid API key",
-        message: "AI service configuration error. Please contact administrator."
-      });
-    }
-
-    if (error.status === 429) {
-      return res.status(429).json({
-        error: "Rate limit exceeded",
-        message: "Too many requests to AI service. Please try again later."
-      });
-    }
-
-    // Generic error
     res.status(500).json({
       error: "Failed to process chat message",
       message: error.message || "An unexpected error occurred",
