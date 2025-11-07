@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { MessageSquare } from "lucide-react"
 import MessageBubble, { TypingIndicator } from "./MessageBubble"
 
@@ -18,10 +18,39 @@ interface ChatAreaProps {
 
 export default function ChatArea({ messages, isTyping = false }: ChatAreaProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [searchMessage, setSearchMessage] = useState("Searching documents...");
+  const [elapsedTime, setElapsedTime] = useState(0);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages, isTyping])
+
+  useEffect(() => {
+    if (isTyping) {
+      setElapsedTime(0);
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        const elapsedSeconds = (Date.now() - startTime) / 1000;
+        setElapsedTime(elapsedSeconds);
+
+        if (elapsedSeconds > 45) {
+          setSearchMessage("Searching expert opinions...");
+        } else if (elapsedSeconds > 35) {
+          setSearchMessage("Searching related fields...");
+        } else if (elapsedSeconds > 25) {
+          setSearchMessage("Searching on website...");
+        } else if (elapsedSeconds > 15) {
+          setSearchMessage("Searching database...");
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    } else {
+      setElapsedTime(0);
+      setSearchMessage("Searching documents...");
+    }
+  }, [isTyping])
+
 
   if (messages.length === 0 && !isTyping) {
     return (
@@ -64,9 +93,17 @@ export default function ChatArea({ messages, isTyping = false }: ChatAreaProps) 
         {messages.map((message) => (
           <MessageBubble key={message.id} message={message} />
         ))}
-        {isTyping && <TypingIndicator />}
+        {isTyping && (
+          <>
+            <TypingIndicator />
+            <div className="text-sm text-muted-foreground text-center mt-2">
+              {searchMessage} ({elapsedTime.toFixed(1)}s);
+            </div>
+          </>
+        )}
         <div ref={messagesEndRef} />
       </div>
     </div>
   )
 }
+
