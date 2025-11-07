@@ -621,15 +621,15 @@ function SignUpPage() {
                 className: "flex flex-1",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "h-full w-full flex flex-col cover items-center justify-center",
+                        className: "hidden lg:flex flex-1 items-center justify-center bg-gray-50 aspect-[1508/1321]",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$all_6__Nov__workabroadly$2f$workabroadly$2f$frontend_new$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$0_react$40$19$2e$2$2e$0_$5f$react$40$19$2e$2$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                            src: "images/REGISTER.svg",
+                            src: "images\\REGISTER.svg",
                             alt: "register image",
-                            className: ""
+                            className: "w-full h-full object-contain"
                         }, void 0, false, {
                             fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/signup/page.tsx",
                             lineNumber: 37,
-                            columnNumber: 12
+                            columnNumber: 9
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/all_6 Nov workabroadly/workabroadly/frontend_new/app/signup/page.tsx",

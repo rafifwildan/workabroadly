@@ -33,11 +33,11 @@ export default function SignUpPage() {
 
       <div className="flex flex-1">
         {/* Left Side - Decorative with Image */}
-        <div className="h-full w-full flex flex-col cover items-center justify-center">
-           <img
-              src="images/REGISTER.png"
+        <div className="hidden lg:flex flex-1 items-center justify-center bg-gray-50 aspect-[1508/1321]">
+        <img
+              src="images\REGISTER.svg"
               alt="register image"
-              className=""
+              className="w-full h-full object-contain"
             />
         </div>
 
