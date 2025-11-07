@@ -52,13 +52,11 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       
-      {/* --- PERUBAHAN DI SINI --- */}
       {/* Memanggil komponen Navbar */}
       <Navbar />
 
       {/* Spacer untuk kompensasi fixed navbar (Ini tetap di sini) */}
       <div className="h-[97px]" />
-      {/* --- AKHIR PERUBAHAN NAVBAR --- */}
 
 
       {/* Hero Section */}
@@ -186,16 +184,18 @@ export default function LandingPage() {
       {/* Features Section */}
       <section id="features" className="max-w-7xl mx-auto px-6 py-32 bg-white">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Powerful Features</h2>
-          <p className="text-xl text-gray-600">Two core solutions to help you succeed abroad</p>
+          <h2 className="text-5xl font-bold text-gray-900 mb-4">Role Play Simulation Features</h2>
+          <p className="text-xl text-gray-600">The core solutions to help you succeed abroad</p>
         </div>
 
         {/* Feature 1: Cultural Role-Play Simulation */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           <div className="relative rounded-2xl overflow-hidden shadow-xl">
-            <img
-              src="/person-practicing-business-conversation.jpg"
-              alt="Cultural Role-Play Simulation"
+            <video
+              src="/images/Role-Play.mp4"
+              autoPlay
+              loop
+              muted
               className="w-full h-full object-cover"
             />
           </div>
@@ -214,27 +214,6 @@ export default function LandingPage() {
         </div>
 
         {/* Feature 2: Expat AI Consultant */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="flex items-center gap-3 mb-4">
-              <h3 className="text-3xl font-bold text-gray-900">Feature 2</h3>
-              <ArrowRight className="w-6 h-6" />
-            </div>
-            <h4 className="text-2xl font-semibold text-gray-900 mb-4">Expat AI Consultant</h4>
-            <p className="text-gray-700 leading-relaxed text-justify">
-              Get 24/7 personalized guidance on visa requirements, job search strategies, workplace communication, and
-              cultural adaptation from our AI consultant trained on real expat experiences. Ask questions anytime and
-              receive expert advice tailored to your situation.
-            </p>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-            <img
-              src="/ai-consultant-helping-professional.jpg"
-              alt="Expat AI Consultant"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
       </section>
 
         {/* Pricing Section */}
@@ -263,11 +242,7 @@ export default function LandingPage() {
               Can't find the answer you're looking for? Feel free to contact our support team. 
               We're here to help you adapt and succeed abroad.
             </p>
-            <img
-              src="/person-looking-up-thoughtfully.jpg"
-              alt="FAQ"
-              className="rounded-2xl shadow-xl w-full h-full object-cover aspect-video"
-            />
+
           </div>
 
           {/* KOLOM KANAN: Accordion/FAQ List */}

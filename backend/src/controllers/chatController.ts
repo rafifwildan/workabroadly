@@ -83,8 +83,8 @@ Use the following structure for every response:
 `;
 
 const openai = new OpenAI({
-  apiKey: process.env.ELICE_API_KEY,
-  baseURL: "https://mlapi.run/0e6857e3-a90b-4c99-93ac-1f9f887a193e/v1",
+  apiKey: process.env.GPT_5_API_KEY,
+  baseURL: process.env.GPT_5_API_URL,
 });
 
 // CONSTANTS
@@ -96,11 +96,121 @@ const CREDIT_COST_PER_MESSAGE = 10; // 10 credits per chat message
  */
 export async function handleChatMessage(req: Request, res: Response) {
   try {
+    console.log(`[Chat] Stream handler called:`, req.body);
+
+    // =============== LANGUAGE SELECTION ===============
+    let languageInstruction = "\n\nIMPORTANT: ";
+    switch (req.body.language) {
+      case "id":
+        languageInstruction += "Respond in Indonesian (Bahasa Indonesia).";
+        break;
+      case "en":
+        languageInstruction += "Respond in English.";
+        break;
+      case "ja":
+        languageInstruction += "Respond in Japanese (日本語).";
+        break;
+      case "ko":
+        languageInstruction += "Respond in Korean (한국어).";
+        break;
+      default:
+        break;
+    }
+
+    // =============== CULTURE PROMPT SETUP ===============
+    let whichCulture = "";
+    let theReflection = "";
+    switch (req.body.culture) {
+      case "id":
+        whichCulture = "Indonesian";
+        theReflection =
+          "Reflect Indonesian values such as gotong royong (mutual cooperation), respect for hierarchy, religion, and harmony in social interactions.";
+        break;
+      case "en":
+        whichCulture = "English";
+        theReflection =
+          "Reflect English values such as directness balanced with tact, equality, fairness, and respect for individualism.";
+        break;
+      case "ja":
+        whichCulture = "Japanese";
+        theReflection =
+          "Reflect Japanese values such as humility, harmony (wa), politeness, and respect for hierarchy.";
+        break;
+      case "ko":
+        whichCulture = "Korean";
+        theReflection =
+          "Reflect Korean values such as respect for elders, collectivism, strong work ethic, education focus, avoiding public confrontation or embarrassment, emotional connection, empathy, loyalty among people, and maintaining social harmony.";
+        break;
+      default:
+        whichCulture = "English";
+    }
+
+    const new_EXPAT_AI_PROMPT = `You are a professional Culture Coach AI specialized in workplace communication and behavior. You can only operate within one culture: ${whichCulture}. You must NOT reference or discuss any other cultures outside this one.
+
+When explaining expressions or examples from non-English languages (Indonesian, Korean, or Japanese), you must ALWAYS:
+- Provide the ${whichCulture} transliteration (romanized spelling)
+- Provide the English translation in parentheses
+- NEVER leave text in another script without explanation
+
+Your goal is to help users understand, adapt, and respond appropriately according to ${whichCulture} cultural norms in professional settings.
+
+Always:
+- Explain the cultural reasoning behind each behavior or communication style.
+- Provide practical examples in workplace situations (meetings, feedback, greetings, teamwork, etc.).
+- Use a polite and educational tone.
+- Avoid stereotypes, and focus on values like ${theReflection}
+- If asked about cultures beyond ${whichCulture}, politely decline.
+
+Your answer format:
+1. Cultural Context
+2. Recommended Behavior or Phrasing
+3. Key Values`;
+
+    // =============== OPENAI STREAM REQUEST ===============
+    const apiMessages = [
+      { role: "system", content: new_EXPAT_AI_PROMPT },
+      { role: req.body.role, content: req.body.message + languageInstruction },
+    ];
+
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Transfer-Encoding", "chunked");
+    res.setHeader("Cache-Control", "no-cache");
+
+    const startTime = Date.now();
+    const completion = await openai.chat.completions.create({
+      model: process.env.GPT_5_MODEL || "gpt-5",
+      messages: apiMessages as any,
+      stream: true,
+    });
+
+    for await (const chunk of completion) {
+      const delta = chunk.choices[0]?.delta?.content || "";
+      if (delta) res.write(delta);
+    }
+
+    res.end(); // Tutup stream setelah selesai
+    console.log(`[Chat] Stream finished in ${Date.now() - startTime}ms`);
+
+  } catch (error: any) {
+    console.error("[Chat Error]:", error);
+    res.status(500).json({
+      error: "Failed to process chat message",
+      message: error.message || "An unexpected error occurred",
+    });
+  }
+}
+
+/**
+ * Handler untuk mengirim chat message
+ * POST /api/chat
+ *
+export async function handleChatMessage(req: Request, res: Response) {
+  try {
     // STEP 1: Validate authentication (req.user diset oleh authenticateToken middleware)
     if (!req.user) {
-      return res.status(401).json({ 
+      return res.status(401).json({
         error: "Unauthorized",
-        message: "Please login to use chat feature" 
+        message: "Please login to use chat feature"
       });
     }
 
@@ -109,9 +219,9 @@ export async function handleChatMessage(req: Request, res: Response) {
 
     // STEP 2: Validate request body
     if (!message || typeof message !== "string" || message.trim().length === 0) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: "Invalid message",
-        message: "Message is required and must be a non-empty string" 
+        message: "Message is required and must be a non-empty string"
       });
     }
 
@@ -120,15 +230,15 @@ export async function handleChatMessage(req: Request, res: Response) {
     // STEP 3: Get user from database
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         error: "User not found",
-        message: "User does not exist in database" 
+        message: "User does not exist in database"
       });
     }
 
     // STEP 4: Check if user has enough credits
     if (user.credits < CREDIT_COST_PER_MESSAGE) {
-      return res.status(403).json({ 
+      return res.status(403).json({
         error: "Insufficient credits",
         message: `You need at least ${CREDIT_COST_PER_MESSAGE} credits to send a message. Please purchase more credits.`,
         creditsNeeded: CREDIT_COST_PER_MESSAGE,
@@ -142,17 +252,17 @@ export async function handleChatMessage(req: Request, res: Response) {
       // Load existing session
       session = await ChatSession.findOne({ sessionId, userId });
       if (!session) {
-        return res.status(404).json({ 
+        return res.status(404).json({
           error: "Session not found",
-          message: "The specified session does not exist or does not belong to you" 
+          message: "The specified session does not exist or does not belong to you"
         });
       }
     } else {
       // Create new session
       const newSessionId = uuidv4();
       // Generate title from first message (take first 50 chars)
-      const title = message.length > 50 
-        ? message.substring(0, 50) + "..." 
+      const title = message.length > 50
+        ? message.substring(0, 50) + "..."
         : message;
 
       session = new ChatSession({
@@ -161,7 +271,7 @@ export async function handleChatMessage(req: Request, res: Response) {
         title,
         messages: [],
       });
-      
+
       console.log(`[Chat] Created new session: ${newSessionId}`);
     }
 
@@ -193,9 +303,9 @@ export async function handleChatMessage(req: Request, res: Response) {
       messages: apiMessages as any,
     });
 
-    const aiReply = completion.choices[0]?.message?.content || 
+    const aiReply = completion.choices[0]?.message?.content ||
       "Maaf, saya tidak bisa memproses permintaan Anda saat ini.";
-    
+
     const duration = Date.now() - startTime;
     console.log(`[Chat] AI responded in ${duration}ms`);
 
@@ -232,16 +342,16 @@ export async function handleChatMessage(req: Request, res: Response) {
 
     // Handle OpenAI API errors
     if (error.status === 401) {
-      return res.status(401).json({ 
+      return res.status(401).json({
         error: "Invalid API key",
-        message: "AI service configuration error. Please contact administrator." 
+        message: "AI service configuration error. Please contact administrator."
       });
     }
 
     if (error.status === 429) {
-      return res.status(429).json({ 
+      return res.status(429).json({
         error: "Rate limit exceeded",
-        message: "Too many requests to AI service. Please try again later." 
+        message: "Too many requests to AI service. Please try again later."
       });
     }
 
@@ -252,6 +362,7 @@ export async function handleChatMessage(req: Request, res: Response) {
     });
   }
 }
+*/
 
 /**
  * Get all chat sessions for logged-in user
@@ -281,9 +392,9 @@ export async function getChatSessions(req: Request, res: Response) {
 
   } catch (error: any) {
     console.error("[Get Sessions Error]:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to fetch sessions",
-      message: error.message 
+      message: error.message
     });
   }
 }
@@ -300,15 +411,15 @@ export async function getChatSession(req: Request, res: Response) {
 
     const { sessionId } = req.params;
 
-    const session = await ChatSession.findOne({ 
-      sessionId, 
-      userId: req.user.id 
+    const session = await ChatSession.findOne({
+      sessionId,
+      userId: req.user.id
     }).lean();
 
     if (!session) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         error: "Session not found",
-        message: "The specified session does not exist or does not belong to you" 
+        message: "The specified session does not exist or does not belong to you"
       });
     }
 
@@ -316,9 +427,9 @@ export async function getChatSession(req: Request, res: Response) {
 
   } catch (error: any) {
     console.error("[Get Session Error]:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to fetch session",
-      message: error.message 
+      message: error.message
     });
   }
 }
@@ -347,7 +458,7 @@ export async function createChatSession(req: Request, res: Response) {
 
     console.log(`[Chat] New session created: ${newSessionId}`);
 
-    res.status(201).json({ 
+    res.status(201).json({
       sessionId: session.sessionId,
       title: session.title,
       createdAt: session.createdAt,
@@ -355,9 +466,9 @@ export async function createChatSession(req: Request, res: Response) {
 
   } catch (error: any) {
     console.error("[Create Session Error]:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to create session",
-      message: error.message 
+      message: error.message
     });
   }
 }
@@ -374,30 +485,30 @@ export async function deleteChatSession(req: Request, res: Response) {
 
     const { sessionId } = req.params;
 
-    const result = await ChatSession.deleteOne({ 
-      sessionId, 
-      userId: req.user.id 
+    const result = await ChatSession.deleteOne({
+      sessionId,
+      userId: req.user.id
     });
 
     if (result.deletedCount === 0) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         error: "Session not found",
-        message: "The specified session does not exist or does not belong to you" 
+        message: "The specified session does not exist or does not belong to you"
       });
     }
 
     console.log(`[Chat] Session deleted: ${sessionId}`);
 
-    res.json({ 
+    res.json({
       message: "Session deleted successfully",
-      sessionId 
+      sessionId
     });
 
   } catch (error: any) {
     console.error("[Delete Session Error]:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to delete session",
-      message: error.message 
+      message: error.message
     });
   }
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Home, Drama, User, MessageSquare, Menu } from "lucide-react"
 //import { getMockUserUsage } from "@/lib/usage-calculator"  Untuk testing, nanti diganti dengan data dari database
 import { Button } from "@/components/ui/button"
@@ -26,7 +27,6 @@ export default function DashboardPage() {
 
       {/* Konten utama */}
       <div className="flex-1 flex flex-col md:ml-64">
-
         {/* HEADER sticky */}
         <div
           className={`bg-black p-8 sticky top-0 z-50 transition-shadow ${
@@ -96,28 +96,45 @@ export default function DashboardPage() {
                 </Button>
               </div> */}
 
-              {/* Expat AI Chat Bot Card */}
-              <div className="bg-white rounded-3xl p-10 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                      Expat AI Chat Bot
-                    </h3>
-                  </div>
-                  <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center">
-                    <MessageSquare className="w-8 h-8 text-gray-900" />
-                  </div>
+              {/* Expat AI Consultant Card */}
+              <div className="bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-200 overflow-hidden">
+                {/* Gambar sebagai header */}
+                <div className="relative w-full h-[170px] bg-gradient-to-br from-pink-100 to-pink-200 rounded-t-3xl overflow-hidden">
+                  <Image
+                    src="/images/expat-AI.png"
+                    alt="Illustration for Expat AI Consultant"
+                    fill
+                    style={{ 
+                      objectFit: 'cover',
+                      objectPosition: 'center 10%' // Fokus ke atas agar kepala terlihat
+                    }}
+                    className="rounded-t-3xl"
+                  />
                 </div>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  Get instant help with expat-life challenges, visa questions,
-                  and local adaptation advice.
-                </p>
-                <Button
-                  onClick={() => (window.location.href = "/expat-ai")}
-                  className="w-full rounded-full bg-black text-white hover:bg-gray-800 font-semibold"
-                >
-                  Start Chat
-                </Button>
+                
+                {/* Konten kartu di area putih */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        Expat AI Consultant
+                      </h3>
+                    </div>
+                    <div className="p-2 rounded-lg bg-gray-100 flex items-center justify-center">
+                      <MessageSquare className="w-6 h-6 text-gray-900" />
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-6 leading-relaxed text-sm">
+                    Get instant help with expat-life challenges, visa questions,
+                    and local adaptation advice.
+                  </p>
+                  <Button
+                    onClick={() => (window.location.href = "/expat-ai")}
+                    className="w-full rounded-full bg-black text-white hover:bg-gray-800 font-semibold"
+                  >
+                    Subscribe now
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -128,7 +145,7 @@ export default function DashboardPage() {
                   Recent Activity
                 </h3>
                 <Link
-                  href="/profile?tab=activity"
+                  href="/activity"
                   className="text-sm text-gray-900 hover:text-gray-700 font-medium"
                 >
                   View All

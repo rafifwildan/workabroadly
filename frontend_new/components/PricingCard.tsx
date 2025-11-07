@@ -93,6 +93,49 @@ const PricingCard: React.FC<PricingCardProps> = ({
     });
   }, [bgImages]);
 
+  // --- Penyiapan Style Dinamis ---
+  
+  let cardStyle = {}; 
+  let buttonClasses = "";
+  
+  const checkmarkClasses = "bg-gray-900 text-white"; 
+  const popularLabelClasses = "bg-gray-900 text-white"; 
+
+  if (isFree) {
+    // Starter (Hijau)
+    cardStyle = {
+      backgroundImage: `url('/images/card1.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+    buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+  } else if (pkg.popular) {
+    // Professional (Kuning)
+    cardStyle = {
+      backgroundImage: `url('/images/card2.png')`, 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+    buttonClasses = "bg-white text-gray-900 hover:bg-gray-100";
+  } else if (isEnterprise) {
+    // Enterprise (Pink)
+    cardStyle = {
+      backgroundImage: `url('/images/card4.png')`, 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+    buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+  } else {
+    // Premium (Ungu)
+    cardStyle = {
+      backgroundImage: `url('/images/card3.png')`, 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+    buttonClasses = "bg-gray-900 text-white hover:bg-gray-800";
+  }
+  // --- Akhir Penyiapan Style ---
+
   return (
     <div
       className={`

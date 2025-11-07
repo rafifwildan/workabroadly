@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { MessageSquare, Menu, X, Globe } from "lucide-react"
+import { MessageSquare, Menu, X, Globe, Users } from "lucide-react"
 import ChatSidebar from "@/components/ChatSidebar"
 import ChatArea from "@/components/ChatArea"
 import ChatInputBar from "@/components/ChatInputBar"
@@ -27,61 +27,94 @@ export default function AIExpatChatPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const [currentRole, setCurrentRole] = useState<string>("default")
+  const [currentRole, setCurrentRole] = useState<string>("user")
   const [selectedLanguage, setSelectedLanguage] = useState("en")
+  const [selectedCulture, setSelectedCulture] = useState("ko")
 
   const handleSendMessage = async (content: string) => {
-    const newMessage: Message = {
+    const timestamp = new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+
+    // 1️⃣ User message
+    const userMessage: Message = {
       id: Date.now().toString(),
       content,
       sender: "user",
-      timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+      timestamp,
     }
 
-    setMessages([...messages, newMessage])
+    // 2️⃣ AI placeholder message (kosong dulu)
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      content: "",
+      sender: "ai",
+      timestamp,
+    }
+
+    // Tambahkan dua pesan langsung (user + AI placeholder)
     setIsTyping(true)
+    setMessages((prev) => [...prev, userMessage, aiMessage])
 
     try {
-      const conversationHistory = messages.map((msg) => ({
-        role: msg.sender === "user" ? "user" : "assistant",
-        content: msg.content,
-      }))
+      const theBody = JSON.stringify({
+        message: content,
+        role: currentRole,
+        language: selectedLanguage,
+        culture: selectedCulture,
+      })
 
-      const response = await fetch("/api/chat", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          message: content,
-          role: currentRole,
-          language: selectedLanguage,
-          conversationHistory,
-        }),
+        body: theBody,
       })
 
       if (!response.ok) {
         const errorData = await response.json()
-        const userFriendlyMessage = errorData.userMessage || errorData.message || "An error occurred. Please try again."
+        const userFriendlyMessage =
+          errorData.userMessage ||
+          errorData.message ||
+          "An error occurred. Please try again."
         throw new Error(userFriendlyMessage)
       }
 
-      const data = await response.json()
+      if (!response.body) throw new Error("Response body is null")
 
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: data.reply,
-        sender: "ai",
-        timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let fullText = ""
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const chunk = decoder.decode(value)
+        fullText += chunk
+
+        // 3️⃣ Update hanya AI terakhir
+        setMessages((prev) => {
+          const updated = [...prev]
+          const lastIndex = updated.length - 1
+          updated[lastIndex] = { ...updated[lastIndex], content: fullText }
+          return updated
+        })
       }
-
-      setMessages((prev) => [...prev, aiMessage])
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: error instanceof Error ? error.message : "An unknown error occurred. Please try again.",
+        content:
+          error instanceof Error
+            ? error.message
+            : "An unknown error occurred. Please try again.",
         sender: "ai",
-        timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+        timestamp: new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       }
       setMessages((prev) => [...prev, errorMessage])
     } finally {
@@ -90,6 +123,7 @@ export default function AIExpatChatPage() {
   }
 
   const currentLanguage = languages.find((lang) => lang.code === selectedLanguage) || languages[0]
+  const currentCulture = languages.find((lang) => lang.code === selectedCulture) || languages[0]
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -107,6 +141,27 @@ export default function AIExpatChatPage() {
             </button>
             <MessageSquare className="w-5 h-5" />
             <h1 className="text-base font-semibold flex-1">Expat AI Consultant</h1>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2 rounded-full bg-transparent">
+                  <Users className="w-4 h-4" />
+                  <span className="hidden sm:inline">{currentCulture.name} Culture</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setSelectedCulture(lang.code)}
+                    className={`cursor-pointer ${selectedCulture === lang.code ? "bg-accent" : ""}`}
+                  >
+                    <span className="text-lg mr-2">{lang.flag}</span>
+                    <span>{lang.name}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -145,6 +200,27 @@ export default function AIExpatChatPage() {
               <MessageSquare className="w-5 h-5" />
               <h1 className="text-lg font-semibold">Expat AI Consultant</h1>
             </div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2 rounded-full bg-transparent">
+                  <Users className="w-4 h-4" />
+                  <span className="hidden sm:inline">{currentCulture.name} Culture</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setSelectedCulture(lang.code)}
+                    className={`cursor-pointer ${selectedCulture === lang.code ? "bg-accent" : ""}`}
+                  >
+                    <span className="text-lg mr-2">{lang.flag}</span>
+                    <span>{lang.name}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

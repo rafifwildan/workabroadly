@@ -19,7 +19,7 @@ dotenv.config()
 connectDB()
 
 const app: Express = express()
-const PORT = process.env.PORT || 3010 
+const PORT = process.env.PORT || 3010
 
 // Middleware
 app.use(
@@ -103,10 +103,8 @@ app._router.stack.forEach((middleware: any) => {
     });
   }
 });
-console.log("");
 
 // Start server
 app.listen(PORT, () => {
   console.log(`[Server] Running on http://localhost:${PORT}`)
-  console.log(`[Server] Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:3000"}`)
 })
