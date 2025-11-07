@@ -149,7 +149,6 @@ export async function handleChatMessage(req: Request, res: Response) {
 
 When explaining expressions or examples from non-English languages (Indonesian, Korean, or Japanese), you must ALWAYS:
 - Provide the ${whichCulture} transliteration (romanized spelling)
-- Provide the English translation in parentheses
 - NEVER leave text in another script without explanation
 
 Your goal is to help users understand, adapt, and respond appropriately according to ${whichCulture} cultural norms in professional settings.
