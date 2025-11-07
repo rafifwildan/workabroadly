@@ -32,28 +32,38 @@ export default function AIExpatChatPage() {
   const [selectedCulture, setSelectedCulture] = useState("ko")
 
   const handleSendMessage = async (content: string) => {
-    const newMessage: Message = {
+    const timestamp = new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+
+    // 1️⃣ User message
+    const userMessage: Message = {
       id: Date.now().toString(),
       content,
       sender: "user",
-      timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+      timestamp,
     }
 
-    setMessages([...messages, newMessage])
+    // 2️⃣ AI placeholder message (kosong dulu)
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      content: "",
+      sender: "ai",
+      timestamp,
+    }
+
+    // Tambahkan dua pesan langsung (user + AI placeholder)
     setIsTyping(true)
+    setMessages((prev) => [...prev, userMessage, aiMessage])
 
     try {
-      const conversationHistory = messages.map((msg) => ({
-        role: msg.sender === "user" ? "user" : "assistant",
-        content: msg.content,
-      }))
-
       const theBody = JSON.stringify({
         message: content,
         role: currentRole,
         language: selectedLanguage,
-        culture: selectedCulture
-      });
+        culture: selectedCulture,
+      })
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: "POST",
@@ -65,26 +75,46 @@ export default function AIExpatChatPage() {
 
       if (!response.ok) {
         const errorData = await response.json()
-        const userFriendlyMessage = errorData.userMessage || errorData.message || "An error occurred. Please try again."
+        const userFriendlyMessage =
+          errorData.userMessage ||
+          errorData.message ||
+          "An error occurred. Please try again."
         throw new Error(userFriendlyMessage)
       }
 
-      const data = await response.json()
+      if (!response.body) throw new Error("Response body is null")
 
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: data.reply,
-        sender: "ai",
-        timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let fullText = ""
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const chunk = decoder.decode(value)
+        fullText += chunk
+
+        // 3️⃣ Update hanya AI terakhir
+        setMessages((prev) => {
+          const updated = [...prev]
+          const lastIndex = updated.length - 1
+          updated[lastIndex] = { ...updated[lastIndex], content: fullText }
+          return updated
+        })
       }
-
-      setMessages((prev) => [...prev, aiMessage])
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: error instanceof Error ? error.message : "An unknown error occurred. Please try again.",
+        content:
+          error instanceof Error
+            ? error.message
+            : "An unknown error occurred. Please try again.",
         sender: "ai",
-        timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+        timestamp: new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       }
       setMessages((prev) => [...prev, errorMessage])
     } finally {
