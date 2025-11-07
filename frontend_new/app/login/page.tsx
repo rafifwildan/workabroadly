@@ -40,24 +40,12 @@ export default function LoginPage() {
 
       <div className="flex flex-1">
         {/* Left Side - Decorative with Image */}
-        <div className="hidden lg:flex lg:w-1/2 bg-black relative overflow-hidden items-center justify-center p-12">
-          {/* Large Gray Organic Blob Shape */}
-          <div
-            className="absolute w-[600px] h-[600px] bg-gray-300"
-            style={{
-              borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%",
-              transform: "rotate(-15deg)",
-            }}
-          />
-
-          {/* Black Oval Frame with Image */}
-          <div className="relative z-10 w-[400px] h-[500px] bg-black rounded-[50%] flex items-center justify-center shadow-2xl">
-            <img
-              src="/colorful-hot-air-balloon-in-sky.jpg"
-              alt="Hot air balloon"
-              className="w-[90%] h-[90%] object-cover rounded-[50%]"
+        <div className="hidden lg:flex flex-1 items-center justify-center bg-gray-50 aspect-[1508/1321]">
+        <img
+              src="images\LOGIN.svg"
+              alt="login image"
+              className="w-full h-full object-contain"
             />
-          </div>
         </div>
 
         {/* Right Side - Form */}
@@ -70,7 +58,7 @@ export default function LoginPage() {
                 <p className="text-gray-600">Sign in to continue your journey</p>
               </div>
 
-              <div className="mb-6 p-4 bg-gray-100 border border-gray-300 rounded-full">
+              <div className="flex-1 w-full lg:w-1/2 flex flex-col justify-center px-6 py-12">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 mt-0.5">
                     <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 20 20">

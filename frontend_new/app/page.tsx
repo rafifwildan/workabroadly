@@ -5,9 +5,11 @@ import Link from "next/link"
 import { useState } from "react"
 import { ArrowRight } from "lucide-react"
 import Footer from "@/components/Footer"
-import { Navbar } from "@/components/Navbar" 
+import { Navbar } from "@/components/Navbar"
 import PricingCard from "@/components/PricingCard"
 import { CREDIT_PACKAGES } from "@/lib/products"
+import ButtonPill from "@/components/ButtonPill"
+import type { CardType } from '@/components/PricingCard';
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -39,9 +41,17 @@ export default function LandingPage() {
     },
   ]
 
+  // Define package type mapping
+  const PACKAGE_TYPES: Record<string, CardType> = {
+    'free-tier': 'cyan',
+    'professional-pack': 'yellow',
+    'premium-pack': 'purple',
+    'enterprise-pack': 'pink'
+  };
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-      
+
       {/* Memanggil komponen Navbar */}
       <Navbar />
 
@@ -68,23 +78,9 @@ export default function LandingPage() {
               Help global talent enhance their careers without getting overwhelmed by cross-cultural barriers
             </p>
             <Link href="/signup">
-           <Button
-              size="lg"
-              className="group 
-                        bg-black text-white 
-                        hover:bg-white hover:text-black 
-                        border-2 border-gray-300 
-                        rounded-full px-10 py-7 text-lg font-semibold 
-                        flex items-center 
-                        transition-colors duration-300 ease-in-out"
-            >
-              Start Now
-              <ArrowRight 
-                className="w-0 opacity-0 
-                          group-hover:w-5 group-hover:opacity-100 group-hover:ml-3 
-                          transition-all duration-300 ease-in-out"
-              />
-            </Button>
+              <ButtonPill type="type1" size="lg">
+                Start Now
+              </ButtonPill>
             </Link>
           </div>
 
@@ -241,14 +237,14 @@ export default function LandingPage() {
             </div>
           </div>
           {/* --- AKHIR PERUBAHAN --- */}
-          
+
         </div>
       </section>
 
       {/* FAQ Section (Layout 2 kolom) */}
       <section id="faq" className="max-w-7xl mx-auto px-6 py-24 bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          
+
           {/* KOLOM KIRI: Teks dan Gambar */}
           <div>
             <div className="mb-12">
@@ -256,7 +252,7 @@ export default function LandingPage() {
               <h2 className="text-5xl font-bold text-gray-900 mb-4">Questions</h2>
             </div>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Can't find the answer you're looking for? Feel free to contact our support team. 
+              Can't find the answer you're looking for? Feel free to contact our support team.
               We're here to help you adapt and succeed abroad.
             </p>
 

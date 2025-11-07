@@ -4,14 +4,14 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Home, Drama, User, MessageSquare, Menu } from "lucide-react"
-import { getMockUserUsage } from "@/lib/usage-calculator"
+//import { getMockUserUsage } from "@/lib/usage-calculator"  Untuk testing, nanti diganti dengan data dari database
 import { Button } from "@/components/ui/button"
 import AppSidebar from "@/components/AppSidebar"
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
-  const userUsage = getMockUserUsage()
+  //const userUsage = getMockUserUsage()  Untuk testing, nanti diganti dengan data dari database
 
   // Deteksi scroll untuk efek shadow header
   useEffect(() => {
@@ -29,9 +29,8 @@ export default function DashboardPage() {
       <div className="flex-1 flex flex-col md:ml-64">
         {/* HEADER sticky */}
         <div
-          className={`bg-black p-8 sticky top-0 z-50 transition-shadow ${
-            isScrolled ? "shadow-lg shadow-gray-800/30" : ""
-          }`}
+          className={`bg-black p-8 sticky top-0 z-50 transition-shadow ${isScrolled ? "shadow-lg shadow-gray-800/30" : ""
+            }`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -80,14 +79,14 @@ export default function DashboardPage() {
                     src="/images/role-play.png"
                     alt="Illustration for role-play practice"
                     fill
-                    style={{ 
+                    style={{
                       objectFit: 'cover',
                       objectPosition: 'center 10%' // Fokus ke bagian atas-tengah
                     }}
                     className="rounded-t-3xl"
                   />
                 </div>
-                
+
                 {/* Konten kartu di area putih */}
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
@@ -121,14 +120,14 @@ export default function DashboardPage() {
                     src="/images/expat-AI.png"
                     alt="Illustration for Expat AI Consultant"
                     fill
-                    style={{ 
+                    style={{
                       objectFit: 'cover',
                       objectPosition: 'center 10%' // Fokus ke atas agar kepala terlihat
                     }}
                     className="rounded-t-3xl"
                   />
                 </div>
-                
+
                 {/* Konten kartu di area putih */}
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
