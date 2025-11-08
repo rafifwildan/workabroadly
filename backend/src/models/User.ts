@@ -7,7 +7,7 @@ export interface IUser extends Document {
   name: string;            // Nama lengkap
   picture?: string;        // URL foto profile
   credits: number;         // Jumlah credits yang dimiliki user
-  tokens: number;          // 🔥 FIXED: Added tokens field for premium features
+  tokens: number;          // Jumlah tokens yang dimiliki user
   createdAt: Date;         // Kapan user dibuat
   updatedAt: Date;         // Kapan terakhir diupdate
 }
@@ -38,20 +38,18 @@ const UserSchema = new Schema<IUser>(
       default: 50,
       min: 0,
     },
-    tokens: { // 🔥 FIXED: Added tokens field to the database schema
+    tokens: {
       type: Number,
-      default: 10, // Default 10 tokens for new users
+      default: 10,
       min: 0,
     },
   },
   {
-    timestamps: true, // Otomatis add createdAt & updatedAt
-    
-    // 🔥 FIXED: Add a virtual 'id' property and clean up the JSON output 
-    // This makes it compatible with Passport and other libraries.
+    timestamps: true,
     toJSON: {
       virtuals: true,
-      transform(doc, ret) {
+      // Use a generic transform signature to avoid strict type checking issues on 'ret'
+      transform: (doc: any, ret: any) => {
         ret.id = ret._id; // Remap _id to id
         delete ret._id;   // Delete the old _id
         delete ret.__v;   // Delete the version key

@@ -2,39 +2,45 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User, { IUser } from "../models/User";
 
-// KONFIGURASI GOOGLE OAUTH STRATEGY
+// Define a plain User type for Passport
+// This will not have Mongoose-specific methods or properties.
+type PlainUser = {
+  id: string;
+  googleId?: string;
+  email: string;
+  name: string;
+  picture?: string;
+  credits: number;
+  tokens: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 passport.use(
   new GoogleStrategy(
     {
-      // Credentials dari Google Console (dari .env)
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: process.env.GOOGLE_CALLBACK_URL!,
     },
-    
-    // CALLBACK FUNCTION - dipanggil setelah user berhasil login di Google
     async (accessToken, refreshToken, profile, done) => {
       try {
-        // STEP 1: Cek apakah user sudah ada di database
-        let user = await User.findOne({ googleId: profile.id });
+        let userDoc = await User.findOne({ googleId: profile.id });
 
-        if (user) {
-          // User sudah ada - RETURNING USER
-          console.log("✅ Returning user:", user.email);
-          // ✅ Return full user object, bukan plain object
-          return done(null, user);
+        if (!userDoc) {
+          userDoc = await User.create({
+            googleId: profile.id,
+            email: profile.emails?.[0]?.value,
+            name: profile.displayName,
+            picture: profile.photos?.[0]?.value,
+          });
+          console.log("🆕 New user created:", userDoc.email);
+        } else {
+          console.log("✅ Returning user:", userDoc.email);
         }
 
-        // STEP 2: User belum ada - CREATE NEW USER
-        user = await User.create({
-          googleId: profile.id,                      // dari Google
-          email: profile.emails?.[0]?.value,         // dari Google
-          name: profile.displayName,                 // dari Google
-          picture: profile.photos?.[0]?.value,       // dari Google
-        });
-
-        console.log("🆕 New user created:", user.email);
-        // ✅ Return full user object
+        // 🔥 FIXED: Convert the Mongoose document to a plain object before passing to done()
+        const user = userDoc.toObject() as PlainUser;
         return done(null, user);
 
       } catch (error) {
@@ -45,25 +51,23 @@ passport.use(
   )
 );
 
-// SERIALIZE USER - simpan user ke session
-// Dipanggil setelah user berhasil login
+// Serialize: Save user.id to the session
 passport.serializeUser((user: any, done) => {
-  // Simpan hanya user ID ke session (bukan seluruh object)
-  done(null, user._id || user.id);
+  done(null, user.id);
 });
 
-// DESERIALIZE USER - ambil user dari session
-// Dipanggil di setiap request untuk get user data
+// Deserialize: Fetch user from DB using the id from the session
 passport.deserializeUser(async (id: string, done) => {
   try {
-    const user = await User.findById(id);
-    if (!user) {
-      return done(null, null);
+    const userDoc = await User.findById(id);
+    if (!userDoc) {
+      return done(null, false);
     }
-    // ✅ Return full user document
+    // 🔥 FIXED: Convert the Mongoose document to a plain object for consistency
+    const user = userDoc.toObject() as PlainUser;
     done(null, user);
   } catch (error) {
-    done(error, null);
+    done(error, false);
   }
 });
 
