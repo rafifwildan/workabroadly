@@ -84,3 +84,26 @@ export function getUsagePercentage(usage: UserUsage): number {
   if (limit === -1) return 0
   return (usage.sessionsUsed / limit) * 100
 }
+
+export function getCreditUsage(usage: UserUsage) {
+  // Placeholder implementation
+  return {
+    creditsUsed: 0,
+    creditsRemaining: 0,
+  }
+}
+
+export function getMockUserUsage(plan: UserPlan = "starter"): UserUsage {
+  const now = new Date()
+  const nextResetDate = new Date(now)
+  nextResetDate.setMonth(nextResetDate.getMonth() + 1)
+  nextResetDate.setDate(1)
+  nextResetDate.setHours(0, 0, 0, 0)
+
+  return {
+    userId: "mock-user",
+    plan: plan,
+    sessionsUsed: 0,
+    resetDate: nextResetDate,
+  }
+}
