@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Globe, Users } from "lucide-react"
 import ChatSidebar from "@/components/ChatSidebar"
@@ -14,6 +14,8 @@ import { getAuthHeader } from "@/lib/auth"
 import { Language } from "@/lib/clara-menu-config"
 import { formatSelectionMessage, getTranslation } from "@/lib/translations"
 import { getCategoryById, getScenarioById, getRoleById } from "@/lib/clara-menu-config"
+
+export const dynamic = 'force-dynamic';
 
 interface Message {
   id: string
@@ -41,7 +43,7 @@ const cultures = [
   { code: "ko", name: "Korean", flag: "🇰🇷" },
 ]
 
-export default function AIExpatChatPage() {
+function AIExpatChatPage() {
   const searchParams = useSearchParams()
   const sessionIdFromUrl = searchParams.get("session")
 
@@ -553,5 +555,13 @@ export default function AIExpatChatPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function AIExpatChatPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AIExpatChatPage />
+    </Suspense>
   )
 }
