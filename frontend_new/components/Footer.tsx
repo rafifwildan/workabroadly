@@ -15,7 +15,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="/#features" className="text-gray-400 hover:text-white transition-colors">
-                  Expat AI Consultant
+                  Cultural Inteligence Coach
                 </a>
               </li>
               <li>

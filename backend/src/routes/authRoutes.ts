@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "../config/passport";
-import { googleCallback, getCurrentUser, logout } from "../controllers/authController";
+import { googleCallback, getCurrentUser, logout, registerWithEmail, loginWithEmail } from "../controllers/authController";
 import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router();
@@ -20,7 +20,7 @@ const router = express.Router();
 router.get(
   "/google",
   passport.authenticate("google", {
-    scope: ["profile", "email"],  // Data apa yang kita minta dari Google
+    scope: ["profile", "email"]  // Data apa yang kita minta dari Google
   })
 );
 
@@ -41,5 +41,11 @@ router.get("/me", authenticateToken, getCurrentUser);
 
 // ROUTE 4: Logout
 router.post("/logout", authenticateToken, logout);
+
+// ROUTE 5: Register with Email/Password
+router.post("/register", registerWithEmail);
+
+// ROUTE 6: Login with Email/Password
+router.post("/login", loginWithEmail);
 
 export default router;

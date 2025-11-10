@@ -16,62 +16,60 @@ export interface CreditPackage {
 export const CREDIT_PACKAGES: CreditPackage[] = [
   {
     id: "free-tier",
-    name: "Starter",
-    description: "Perfect for getting started",
+    name: "Free-tier",
+    description: "Try it, it's free",
     credits: 0,
     priceInCents: 0,
     chatSessions: 3,
     rolePlayPractices: 3,
     rolePlayType: "basic",
     reportType: "basic",
-    features: ["3 Chat sessions", "3 Role-play practices", "Basic feedback"],
+    features: ["3 chat sessions with AI Coaches", "3 cultural role-play scenarios"],
+  },
+  {
+    id: "starter-pack",
+    name: "Starter",
+    description: "Most popular choice for serious learners",
+    credits: 10,
+    priceInCents: 300, // $3
+    popular: true,
+    chatSessions: 10,
+    rolePlayPractices: 5,
+    rolePlayType: "premium",
+    reportType: "comprehensive",
+    features: [
+      "10 chat sessions with AI Coaches", 
+      "5 cultural role-play scenarios"
+    ],
   },
   {
     id: "professional-pack",
     name: "Professional",
-    description: "Most popular choice for serious learners",
-    credits: 400,
-    priceInCents: 1500, // $15
-    popular: true,
-    chatSessions: 20,
-    rolePlayPractices: 10,
-    rolePlayType: "premium",
-    reportType: "comprehensive",
-    features: [
-      "20 Chat sessions (200 credits)",
-      "10 Role-play practices (200 credits)",
-      "Comprehensive feedback",
-      "Practice reports",
-    ],
-  },
-  {
-    id: "premium-pack",
-    name: "Premium",
     description: "Best value for dedicated learners",
-    credits: 900,
-    priceInCents: 2000, // $20
+    credits: 30,
+    priceInCents: 700, // $7
     chatSessions: 50,
     rolePlayPractices: 20,
     rolePlayType: "premium",
     reportType: "comprehensive-plus",
     features: [
-      "50 Chat sessions (500 credits)",
-      "20+ Role-play practices (400 credits)",
-      "Advanced feedback",
-      "Personalized roadmap",
+      "20 chat sessions with AI Coaches", 
+      "10 cultural role-play scenarios"
     ],
   },
   {
-    id: "enterprise-pack",
-    name: "Enterprise",
+    id: "premium-pack",
+    name: "Premium",
     description: "Custom solution for teams",
-    credits: 0,
-    priceInCents: 0,
+    credits: 50,
+    priceInCents: 1000,
     chatSessions: 999,
     rolePlayPractices: 999,
     rolePlayType: "premium",
     reportType: "comprehensive-plus",
-    features: ["Unlimited sessions", "Custom scenarios", "Team management", "Priority support"],
+    features: [
+      "30 chat sessions with AI Coaches", 
+      "15 cultural role-play scenarios"],
   },
 ]
 

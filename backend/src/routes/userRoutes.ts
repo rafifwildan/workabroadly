@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authenticateToken } from "../middleware/auth";
 import User from "../models/User";
 import type { Request, Response } from "express";
+import { saveOnboarding, updateProfile, getPlanInfo, changePassword, deleteAccount } from "../controllers/userController";
 
 const router = Router();
 
@@ -67,11 +68,41 @@ router.get("/profile", async (req: Request, res: Response) => {
 
   } catch (error: any) {
     console.error("[Get Profile Error]:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to fetch profile",
-      message: error.message 
+      message: error.message
     });
   }
 });
+
+/**
+ * Save onboarding data
+ * PATCH /api/user/onboarding
+ */
+router.patch("/onboarding", saveOnboarding);
+
+/**
+ * Update user profile
+ * PUT /api/user/profile
+ */
+router.put("/profile", updateProfile);
+
+/**
+ * Get user plan information
+ * GET /api/user/plan
+ */
+router.get("/plan", getPlanInfo);
+
+/**
+ * Change user password
+ * PUT /api/user/change-password
+ */
+router.put("/change-password", changePassword);
+
+/**
+ * Delete user account
+ * DELETE /api/user/account
+ */
+router.delete("/account", deleteAccount);
 
 export default router;

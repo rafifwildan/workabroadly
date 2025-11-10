@@ -210,7 +210,7 @@ export async function handleNotification(req: Request, res: Response) {
     if (transaction.status === "settlement") {
       const user = await User.findById(transaction.userId);
       if (user) {
-        user.tokens += transaction.tokens;
+        user.tokens = (user.tokens || 0) + transaction.tokens;
         await user.save();
         console.log(`[Midtrans] Added ${transaction.tokens} tokens to user ${user.email}`);
       }
@@ -284,7 +284,7 @@ export async function manualTriggerWebhook(req: Request, res: Response) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.tokens += transaction.tokens;
+    user.tokens = (user.tokens || 0) + transaction.tokens;
     await user.save();
     
     console.log(`[Manual Webhook] Transaction ${orderId} status updated to settlement`);

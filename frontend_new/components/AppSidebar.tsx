@@ -74,7 +74,7 @@ export default function AppSidebar() {
         {/* Bottom section: Plan + Logout */}
         <div className={`p-6 border-t border-gray-200 space-y-4 ${isOpen ? "opacity-100" : "opacity-0 md:opacity-100"} transition-opacity`}>
           <div>
-            <UserPlanBadge usage={userUsage} showDetails={true} />
+            {/* <UserPlanBadge usage={userUsage} showDetails={true} /> */}
             <Link
               href="/my-plan"
               className="block mt-2 text-center text-sm text-gray-900 hover:text-gray-700 hover:underline"

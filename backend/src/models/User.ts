@@ -3,10 +3,17 @@ import mongoose, { Document, Schema } from "mongoose";
 // Interface untuk TypeScript - mendefinisikan struktur data User
 export interface IUser extends Document {
   googleId?: string;        // ID unik dari Google (contoh: "106538359435685394857")
-  email: string;           // Email dari Google (contoh: "user@gmail.com")
+  email: string;           // Email dari Google atau email signup (contoh: "user@gmail.com")
   name: string;            // Nama lengkap (contoh: "John Doe")
+  password?: string;       // Hashed password (untuk email/password login)
   picture?: string;        // URL foto profile (dari Google)
   credits: number;         // Jumlah credits yang dimiliki user (untuk career coaching & roleplay)
+  tokens?: number;         // Token balance for purchases/transactions
+  planTier?: string;       // Subscription plan tier (free, pro, premium)
+  targetCountry?: string;  // Target country for work abroad
+  careerGoals?: string;    // Career goals and aspirations
+  experienceLevel?: string;// Professional experience level
+  isOnboarded?: boolean;   // Whether user completed onboarding
   createdAt: Date;         // Kapan user dibuat
   updatedAt: Date;         // Kapan terakhir diupdate
 }
@@ -29,6 +36,10 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    password: {
+      type: String,        // Hashed password (bcrypt)
+      select: false,       // Don't include password in queries by default
+    },
     picture: {
       type: String,        // Optional, boleh kosong
     },
@@ -36,6 +47,29 @@ const UserSchema = new Schema<IUser>(
       type: Number,
       default: 50,         // Default 50 credits untuk user baru (FREE!)
       min: 0,              // Credits tidak boleh negatif
+    },
+    tokens: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    planTier: {
+      type: String,
+      enum: ["free", "pro", "premium"],
+      default: "free",
+    },
+    targetCountry: {
+      type: String,
+    },
+    careerGoals: {
+      type: String,
+    },
+    experienceLevel: {
+      type: String,
+    },
+    isOnboarded: {
+      type: Boolean,
+      default: false,
     },
   },
   {

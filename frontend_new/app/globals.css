@@ -168,3 +168,115 @@
     @apply bg-black hover:bg-black/80 transition-all shadow-md hover:shadow-lg;
   }
 }
+
+/* -------------------------------------------------
+ ✅ FLOAT — gentle vertical drifting
+--------------------------------------------------*/
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+/* -------------------------------------------------
+ ✅ SHIMMER — subtle brightness glow
+--------------------------------------------------*/
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.75;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.25);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 5s ease-in-out infinite;
+}
+
+/* -------------------------------------------------
+ ✅ FLOAT + SHIMMER COMBO
+--------------------------------------------------*/
+.animate-float-shimmer {
+  animation:
+    float 8s ease-in-out infinite,
+    shimmer 5s ease-in-out infinite;
+}
+
+/* -------------------------------------------------
+ ✅ SLOW ROTATION
+--------------------------------------------------*/
+@keyframes rotate-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-rotate-slow {
+  animation: rotate-slow 24s linear infinite;
+}
+
+/* -------------------------------------------------
+ ✅ SCALE PULSE
+--------------------------------------------------*/
+@keyframes pulse-2 {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.animate-pulse-2 {
+  animation: pulse-2 6s ease-in-out infinite;
+}
+
+/* -------------------------------------------------
+ ✅ WIGGLE / SWAY (side-to-side drift)
+--------------------------------------------------*/
+@keyframes sway {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(8px) rotate(1deg);
+  }
+}
+.animate-sway {
+  animation: sway 10s ease-in-out infinite;
+}
+
+/* -------------------------------------------------
+ ✅ STAGGER DELAYS (helper utility classes)
+--------------------------------------------------*/
+.animation-delay-500  { animation-delay: 0.5s; }
+.animation-delay-1000 { animation-delay: 1s; }
+.animation-delay-1500 { animation-delay: 1.5s; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-2500 { animation-delay: 2.5s; }
+.animation-delay-3000 { animation-delay: 3s; }
+
+/* -------------------------------------------------
+ ✅ OPTIONAL — Combined floating path
+     (more organic curve)
+--------------------------------------------------*/
+@keyframes float-path {
+  0%   { transform: translate(0,0); }
+  25%  { transform: translate(8px, -10px); }
+  50%  { transform: translate(0, -18px); }
+  75%  { transform: translate(-8px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+.animate-float-path {
+  animation: float-path 10s ease-in-out infinite;
+}
+

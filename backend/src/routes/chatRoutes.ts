@@ -1,18 +1,17 @@
 import { Router } from "express";
-import { 
-  handleChatMessage, 
-  getChatSessions, 
+import {
+  handleChatMessage,
+  getChatSessions,
   getChatSession,
   createChatSession,
   deleteChatSession
 } from "../controllers/chatController";
-// TODO: need to create the middleware auth
-// import { authenticateToken } from "../middleware/auth";
+import { authenticateToken } from "../middleware/auth";
 
 const router = Router();
 
 // Apply authentication middleware to ALL chat routes
-// router.use(authenticateToken);
+router.use(authenticateToken);
 
 // POST /api/chat - Send a chat message (create or continue conversation)
 router.post("/", handleChatMessage);

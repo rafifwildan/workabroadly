@@ -26,6 +26,8 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
+    // ⚡ CRITICAL FIX: Expose custom headers for Clara's dual-response system
+    exposedHeaders: ["X-Insight", "X-Has-Insight", "X-Conversation-State"],
   }),
 )
 app.use(express.json())
