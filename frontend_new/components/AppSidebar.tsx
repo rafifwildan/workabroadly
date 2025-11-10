@@ -5,11 +5,11 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Drama, User, MessageSquare, LogOut, Menu, X } from "lucide-react"
 import UserPlanBadge from "@/components/UserPlanBadge"
-import { getMockUserUsage } from "@/lib/usage-calculator"
+ // import { getMockUserUsage } from "@/lib/usage-calculator" diganti yang sudah ada di database
 
 export default function AppSidebar() {
   const pathname = usePathname()
-  const userUsage = getMockUserUsage()
+ // const userUsage = getMockUserUsage()  diganti yang sudah ada di database
   const [isOpen, setIsOpen] = useState(true) // <--- Tambah state
 
   const navItems = [

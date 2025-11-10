@@ -53,6 +53,10 @@ app.use(passport.session());
 // Auth Routes (routes buat login/logout)
 app.use("/auth", authRoutes)
 
+app.get("/", (req: Request, res: Response) => {
+  res.json({ status: "ok", message: "Hello you" })
+})
+
 // Health check endpoint
 app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok", message: "WorkAbroadly API is running" })

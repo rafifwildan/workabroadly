@@ -57,3 +57,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts.next/
+next-env.d.ts
+backend.zip
+frontend/components.zip
+.gitignore
+.DS_Store

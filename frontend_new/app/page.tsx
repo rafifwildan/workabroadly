@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { ArrowRight } from "lucide-react"
 import Footer from "@/components/Footer"
-import { Navbar } from "@/components/Navbar" 
+import { Navbar } from "@/components/Navbar"
 import PricingCard from "@/components/PricingCard"
 import { CREDIT_PACKAGES } from "@/lib/products"
 import ButtonPill from "@/components/ButtonPill"
@@ -227,7 +227,7 @@ export default function LandingPage() {
 
 
           {/* --- AKHIR PERUBAHAN --- */}
-          
+
         </div>
       </section>
 

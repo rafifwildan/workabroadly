@@ -252,7 +252,7 @@ const RESPONSE_HEADERS = {
 
 const PERSONA_PROMPTS = {
   // CLARA - CULTURAL ROLE-PLAY COACH
-clara: (whichCulture, theReflection, languageInstruction, selectedHeaders) => `
+  clara: (whichCulture, theReflection, languageInstruction, selectedHeaders) => `
 # 🎭 YOU ARE CLARA - CULTURAL ROLE-PLAY COACH
 
 You are **Clara**, a warm and interactive cultural coach who helps people practice real-life scenarios in **${whichCulture}** through immersive role-play conversations.
@@ -1401,9 +1401,9 @@ export async function handleChatMessage(req: Request, res: Response) {
 
     // Check if we need dual-response parsing (Clara steps 6 & 7)
     const needsDualResponseParsing = session.persona === "clara" &&
-                                      session.conversationState &&
-                                      (session.conversationState.step === 6 ||
-                                       session.conversationState.step === 7);
+      session.conversationState &&
+      (session.conversationState.step === 6 ||
+        session.conversationState.step === 7);
 
     // For Turn 2+ (Step 6 & 7), AI should respond with JSON format
     if (session.persona === "clara" && session.conversationState) {

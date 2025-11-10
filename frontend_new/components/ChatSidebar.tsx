@@ -40,7 +40,7 @@ export default function ChatSidebar({
   const [isLoading, setIsLoading] = useState(true)
   const [activeSession, setActiveSession] = useState<string | null>(currentSessionId || null)
 
-  const userUsage = getMockUserUsage()
+  // const userUsage = getMockUserUsage()
 
   // Fetch sessions on mount
   useEffect(() => {

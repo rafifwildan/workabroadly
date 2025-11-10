@@ -1,7 +1,7 @@
 "use client"
 
 import { Shield, Crown, Zap, Building2 } from "lucide-react"
-import { PLAN_LIMITS, type UserUsage, getCreditUsage } from "@/lib/usage-calculator"
+import { PLAN_LIMITS, type UserUsage } from "@/lib/usage-calculator" // getCreditUsage
 
 interface UserPlanBadgeProps {
   usage: UserUsage
@@ -10,7 +10,7 @@ interface UserPlanBadgeProps {
 
 export default function UserPlanBadge({ usage, showDetails = true }: UserPlanBadgeProps) {
   const planInfo = PLAN_LIMITS[usage.plan]
-  const creditUsage = getCreditUsage(usage)
+  // const creditUsage = getCreditUsage(usage)
 
   const getPlanIcon = () => {
     switch (usage.plan) {
@@ -40,22 +40,22 @@ export default function UserPlanBadge({ usage, showDetails = true }: UserPlanBad
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span>Credits Used:</span>
-            <span className="font-medium">{creditUsage.creditsUsed}</span>
+            {/* <span className="font-medium">{creditUsage.creditsUsed}</span> */}
           </div>
           <div className="flex justify-between">
             <span>Remaining Credits:</span>
             <span className="font-medium">
-              {creditUsage.creditsRemaining === "Unlimited" ? "Unlimited" : creditUsage.creditsRemaining}
+              {/* {creditUsage.creditsRemaining === "Unlimited" ? "Unlimited" : creditUsage.creditsRemaining} */}
             </span>
           </div>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <span>Chat Sessions:</span>
             <span className="font-medium">{usage.chatSessions}</span>
           </div>
           <div className="flex justify-between">
             <span>Role-Plays:</span>
             <span className="font-medium">{usage.rolePlays}</span>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

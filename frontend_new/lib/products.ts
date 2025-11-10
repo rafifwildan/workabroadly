@@ -1,18 +1,17 @@
+
 export interface CreditPackage {
   id: string
   name: string
   description: string
   credits: number
   priceInCents: number
+  estimatedSessions: number
   popular?: boolean
   bonus?: number
-  chatSessions: number
-  rolePlayPractices: number
-  rolePlayType: "basic" | "premium"
-  reportType: "basic" | "comprehensive" | "comprehensive-plus"
   features: string[]
 }
 
+// ✅ Data
 export const CREDIT_PACKAGES: CreditPackage[] = [
   {
     id: "free-tier",
@@ -73,10 +72,5 @@ export const CREDIT_PACKAGES: CreditPackage[] = [
   },
 ]
 
-// Credit costs for each activity
-export const CREDIT_COSTS = {
-  CHAT_SESSION: 10,
-  ROLE_PLAY: 20,
-}
-
+// optional re-export
 export const TOKEN_PACKAGES = CREDIT_PACKAGES
