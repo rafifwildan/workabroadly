@@ -4,6 +4,8 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { saveToken } from "@/lib/auth";
 
+export const dynamic = 'force-dynamic';
+
 function AuthCallback() {
   const searchParams = useSearchParams();
   const router = useRouter();
