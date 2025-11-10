@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_1 = require("../middleware/auth");
 const User_1 = __importDefault(require("../models/User"));
+const userController_1 = require("../controllers/userController");
 const router = (0, express_1.Router)();
 // Apply authentication to all routes
 router.use(auth_1.authenticateToken);
@@ -67,4 +68,29 @@ router.get("/profile", async (req, res) => {
         });
     }
 });
+/**
+ * Save onboarding data
+ * PATCH /api/user/onboarding
+ */
+router.patch("/onboarding", userController_1.saveOnboarding);
+/**
+ * Update user profile
+ * PUT /api/user/profile
+ */
+router.put("/profile", userController_1.updateProfile);
+/**
+ * Get user plan information
+ * GET /api/user/plan
+ */
+router.get("/plan", userController_1.getPlanInfo);
+/**
+ * Change user password
+ * PUT /api/user/change-password
+ */
+router.put("/change-password", userController_1.changePassword);
+/**
+ * Delete user account
+ * DELETE /api/user/account
+ */
+router.delete("/account", userController_1.deleteAccount);
 exports.default = router;

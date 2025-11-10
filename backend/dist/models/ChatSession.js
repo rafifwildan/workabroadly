@@ -49,6 +49,50 @@ const MessageSchema = new mongoose_1.Schema({
         type: Date,
         default: Date.now, // Auto-set ke waktu sekarang
     },
+    metadata: {
+        type: {
+            insight: {
+                type: String,
+                required: false,
+            },
+            hasInsight: {
+                type: Boolean,
+                required: false,
+            },
+        },
+        required: false, // Metadata is optional (only for Clara dual-response)
+    },
+}, { _id: false } // Tidak perlu _id untuk sub-document
+);
+// Sub-schema untuk ConversationState (Clara's menu system)
+const ConversationStateSchema = new mongoose_1.Schema({
+    step: {
+        type: Number,
+        required: true,
+        default: 1, // Start at step 1 (culture selection)
+        min: 1,
+        max: 7,
+    },
+    selectedCulture: {
+        type: String,
+        required: false,
+    },
+    selectedCategory: {
+        type: String,
+        required: false,
+    },
+    selectedScenario: {
+        type: String,
+        required: false,
+    },
+    selectedRole: {
+        type: String,
+        required: false,
+    },
+    isInRoleplay: {
+        type: Boolean,
+        default: false,
+    },
 }, { _id: false } // Tidak perlu _id untuk sub-document
 );
 // Main ChatSession Schema
@@ -79,6 +123,10 @@ const ChatSessionSchema = new mongoose_1.Schema({
     messages: {
         type: [MessageSchema], // Array of messages
         default: [], // Start dengan empty array
+    },
+    conversationState: {
+        type: ConversationStateSchema, // Clara's interactive menu state
+        required: false, // Optional - only for Clara persona
     },
 }, {
     timestamps: true, // Auto-add createdAt & updatedAt

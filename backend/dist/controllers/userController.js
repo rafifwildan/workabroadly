@@ -64,37 +64,51 @@ const updateProfile = async (req, res) => {
 };
 exports.updateProfile = updateProfile;
 // ============================================================
-// POST /api/user/onboarding - Save onboarding data
+// PATCH /api/user/onboarding - Save onboarding data
 // ============================================================
 const saveOnboarding = async (req, res) => {
     try {
+        // ⚡ CRITICAL: Strict authentication guard
         const userId = req.user?.id;
-        const { targetCountry, careerGoals, experienceLevel } = req.body;
-        if (!userId) {
+        const userEmail = req.user?.email;
+        // ⚡ GUARD CLAUSE: Prevent "Ghost User" onboarding
+        if (!userId || !userEmail) {
+            console.error("[Onboarding API Error] FAILED: No user session found. Possible 'Ghost User'.");
             return res.status(401).json({
-                error: "Unauthorized",
-                message: "User not authenticated",
+                error: "Not authenticated. User session is missing. Please sign in again.",
             });
         }
-        if (!targetCountry || targetCountry.trim().length === 0) {
+        console.log("[Onboarding API] User authenticated:", userEmail);
+        // Extract new onboarding fields
+        const { primaryInterest, originCountry, targetCulture, employeeType, educationLevel, industry, occupation, yearsOfExperience } = req.body;
+        // Validate required fields
+        if (!originCountry || !targetCulture || !employeeType || !educationLevel) {
             return res.status(400).json({
-                error: "Invalid input",
-                message: "Target country is required",
+                error: "Missing required fields",
+                message: "originCountry, targetCulture, employeeType, and educationLevel are required",
             });
         }
+        // ⚡ UPDATE: Use userId to find the correct user
         const updatedUser = await User_1.default.findByIdAndUpdate(userId, {
-            targetCountry: targetCountry.trim(),
-            careerGoals: careerGoals?.trim() || undefined,
-            experienceLevel: experienceLevel?.trim() || undefined,
-            isOnboarded: true,
+            $set: {
+                primaryInterest: primaryInterest?.trim(),
+                originCountry: originCountry.trim(),
+                targetCulture: targetCulture.trim(),
+                employeeType: employeeType.trim(),
+                educationLevel: educationLevel.trim(),
+                industry: industry?.trim() || undefined,
+                occupation: occupation?.trim() || undefined,
+                yearsOfExperience: yearsOfExperience?.trim() || undefined,
+                hasCompletedOnboarding: true,
+            }
         }, { new: true, runValidators: true }).select("-password");
         if (!updatedUser) {
+            console.error("[Onboarding API Error] User not found in database for userId:", userId);
             return res.status(404).json({
-                error: "User not found",
-                message: "User does not exist",
+                error: "User not found in database.",
             });
         }
-        console.log("✅ Onboarding completed:", updatedUser.email);
+        console.log("✅ [Onboarding Success] Completed for:", updatedUser.email);
         res.status(200).json({
             message: "Onboarding completed successfully",
             user: {
@@ -102,17 +116,18 @@ const saveOnboarding = async (req, res) => {
                 name: updatedUser.name,
                 email: updatedUser.email,
                 picture: updatedUser.picture,
-                credits: updatedUser.credits,
-                planTier: updatedUser.planTier,
-                targetCountry: updatedUser.targetCountry,
-                careerGoals: updatedUser.careerGoals,
-                experienceLevel: updatedUser.experienceLevel,
-                isOnboarded: updatedUser.isOnboarded,
+                primaryInterest: updatedUser.primaryInterest,
+                originCountry: updatedUser.originCountry,
+                targetCulture: updatedUser.targetCulture,
+                employeeType: updatedUser.employeeType,
+                educationLevel: updatedUser.educationLevel,
+                industry: updatedUser.industry,
+                hasCompletedOnboarding: updatedUser.hasCompletedOnboarding,
             },
         });
     }
     catch (error) {
-        console.error("❌ Onboarding error:", error);
+        console.error("❌ [Onboarding API Error]:", error);
         res.status(500).json({
             error: "Server error",
             message: error.message,

@@ -292,6 +292,16 @@ export default function ChatArea({
     return null;
   };
 
+  // Map culture codes to display names
+  const cultureNames: Record<string, string> = {
+    "ja": "Japanese",
+    "ko": "Korean",
+    "id": "Indonesian",
+    "en": "Western"
+  };
+
+  const cultureName = cultureNames[selectedCulture] || "Western";
+
   const personas = [
     {
       id: "clara",
@@ -310,11 +320,15 @@ export default function ChatArea({
       description: "Workplace & Career strategy",
       fullTitle: "Workplace Culture Strategist",
       details: "Get actionable frameworks and strategic scripts for negotiation, feedback, and navigating complex workplace dynamics.",
-      welcomeMessage: "I'm Sora. I deliver the strategic framework and sample script for workplace dynamics in **Japan, Korea, Indonesia, and Western** contexts. Specify your target culture in your question, and I'll give you the game plan.",
+      welcomeMessage: `Welcome.
+
+I am Sora, your Workplace Strategist for **${cultureName}** culture.
+
+I can provide cultural analysis, strategic frameworks, and sample scripts for professional situations. How can I assist you today?`,
       suggestions: [
-        "What's a strategic script for negotiating a higher salary in Korean workplace culture?",
-        "Give me a framework for handling conflict with a senior colleague in Japan.",
-        "How do I ask for feedback from my manager in Indonesian work culture?"
+        "How do I ask for feedback from my manager?",
+        "What's the best way to present an idea in a team meeting?",
+        "Can you help me draft an email to request a deadline extension?"
       ]
     },
     {
@@ -324,11 +338,15 @@ export default function ChatArea({
       description: "Daily Life & Social Etiquette",
       fullTitle: "Daily Life Cultural Guide",
       details: "Your helpful \"local friend.\" Get practical Do's & Don'ts for social etiquette, invitations, dining, and navigating daily life with confidence.",
-      welcomeMessage: "I'm Arlo, your \"local friend.\" I'll give you simple Do's & Don'ts for social etiquette in **Japan, Korea, Indonesia, or Western** culture. Just tell me which culture you're navigating!",
+      welcomeMessage: `Welcome!
+
+I'm Arlo, your "local friend." I'm here to give you simple Do's & Don'ts for social etiquette in **${cultureName}** culture.
+
+What's on your mind?`,
       suggestions: [
-        "What are the Do's and Don'ts when visiting a Japanese colleague's home for dinner?",
-        "My Korean neighbor gave me a gift. How do I respond appropriately?",
-        "How do I politely decline an invitation in Indonesian culture?"
+        "What are the Do's and Don'ts when visiting a colleague's home for dinner?",
+        "My neighbor gave me a gift. How do I respond appropriately?",
+        "How do I politely decline an invitation?"
       ]
     }
   ]

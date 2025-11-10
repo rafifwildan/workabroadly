@@ -120,12 +120,21 @@ export default function ChatSidebar({
     }
   }
 
-  const getPersonaEmoji = (persona: string) => {
+  const getPersonaImage = (persona: string) => {
     switch (persona) {
-      case "clara": return "🤝"
-      case "sora": return "💼"
-      case "arlo": return "📋"
-      default: return "💬"
+      case "clara": return "/images/Frame 123.svg"
+      case "sora": return "/images/Frame 123.svg" // TODO: Add Frame 121.svg for Sora
+      case "arlo": return "/images/Frame 122.svg"
+      default: return "/images/Frame 123.svg"
+    }
+  }
+
+  const getPersonaName = (persona: string) => {
+    switch (persona) {
+      case "clara": return "Clara"
+      case "sora": return "Sora"
+      case "arlo": return "Arlo"
+      default: return "Chat"
     }
   }
 
@@ -205,7 +214,15 @@ export default function ChatSidebar({
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-base">{getPersonaEmoji(session.persona)}</span>
+                        <div className="w-5 h-5 flex-shrink-0 relative">
+                          <Image
+                            src={getPersonaImage(session.persona)}
+                            alt={getPersonaName(session.persona)}
+                            width={20}
+                            height={20}
+                            className="object-contain"
+                          />
+                        </div>
                         <p className="text-sm text-foreground font-medium truncate">{session.title}</p>
                       </div>
                       <p className="text-xs text-muted-foreground">

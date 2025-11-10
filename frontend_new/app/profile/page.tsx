@@ -4,7 +4,6 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Footer from "@/components/Footer"
 import AppSidebar from "@/components/AppSidebar"
-import { useAuth } from "@/contexts/AuthContext"
 import {
   Menu,
   Drama,
@@ -18,52 +17,39 @@ import {
   CreditCard,
 } from "lucide-react"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { getMockUserUsage, getCreditUsage, getRemainingUsage } from "@/lib/usage-calculator"
+import { useSearchParams, useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/AuthContext"
+import { getAuthHeader } from "@/lib/auth"
+import { CurrentPlanCard } from "@/components/profile/billing/CurrentPlanCard"
+import { PaymentMethodCard } from "@/components/profile/billing/PaymentMethodCard"
+import { BillingHistoryTable } from "@/components/profile/billing/BillingHistoryTable"
+
+type SettingsTab = "profile" | "billing"
 
 export default function ProfilePage() {
-  const { user, isLoading } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [activeTab, setActiveTab] = useState<SettingsTab>("profile")
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [showProfilePictureModal, setShowProfilePictureModal] = useState(false)
 
-  // ✅ Use dynamic user data from auth context
+  // ✅ UPDATED formData
   const [formData, setFormData] = useState({
-    fullName: user?.name || "",
-    email: user?.email || "",
+    fullName: "Sarah Johnson",
+    email: "sarah.johnson@example.com",
 
-    // ✅ Cultural + work profile from user data
-    originCountry: user?.originCountry || "",
-    targetCulture: user?.targetCulture || "",
-    employeeType: user?.employeeType || "",
-    educationLevel: user?.educationLevel || "",
-    industry: user?.industry || "",
-    primaryInterest: user?.primaryInterest || "",
+    // ✅ NEW cultural + work profile
+    originCountry: "indonesia",
+    targetCulture: "japan",
+    employeeType: "expat",
+    educationLevel: "bachelor",
+    industry: "technology",
+    primaryInterest: "both",
 
     // ✅ account
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   })
-
-  // ✅ Update formData when user data loads
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        fullName: user.name || "",
-        email: user.email || "",
-        originCountry: user.originCountry || "",
-        targetCulture: user.targetCulture || "",
-        employeeType: user.employeeType || "",
-        educationLevel: user.educationLevel || "",
-        industry: user.industry || "",
-        primaryInterest: user.primaryInterest || "",
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      })
-    }
-  }, [user])
 
   const [notifications, setNotifications] = useState({
     email: true,
@@ -72,9 +58,64 @@ export default function ProfilePage() {
     newFeatures: true,
   })
 
-  const userUsage = getMockUserUsage()
-  const creditUsage = getCreditUsage(userUsage)
-  const remainingUsage = getRemainingUsage(userUsage)
+  // Auth and routing
+  const { user, isLoading: authLoading, refreshUser } = useAuth()
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
+
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const tab = searchParams.get("tab")
+    if (tab && ["profile", "billing"].includes(tab)) {
+      setActiveTab(tab as SettingsTab)
+    }
+  }, [searchParams])
+
+  // Auth guard and profile fetching
+  useEffect(() => {
+    if (authLoading) return
+
+    if (!user) {
+      router.push("/login")
+      return
+    }
+
+    fetchUserProfile()
+  }, [user, authLoading])
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/profile`, {
+        headers: getAuthHeader()
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch profile")
+      }
+
+      const data = await response.json()
+
+      setFormData({
+        fullName: data.user.name || "",
+        email: data.user.email || "",
+        originCountry: data.user.originCountry || "indonesia",
+        targetCulture: data.user.targetCulture || "japan",
+        employeeType: data.user.employeeType || "expat",
+        educationLevel: data.user.educationLevel || "bachelor",
+        industry: data.user.industry || "",
+        primaryInterest: data.user.primaryInterest || "both",
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      })
+    } catch (error) {
+      console.error("Failed to fetch profile:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -92,9 +133,54 @@ export default function ProfilePage() {
     }
   }
 
+  const handleSave = async () => {
+    setIsSaving(true)
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/profile`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeader()
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          // Add other fields that the backend accepts
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to save profile")
+      }
+
+      await refreshUser()
+      alert("Profile updated successfully!")
+    } catch (error) {
+      console.error("Failed to save profile:", error)
+      alert("Failed to save profile. Please try again.")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   const handleDeleteAccount = () => {
     console.log("Deleting account...")
     setShowDeleteConfirm(false)
+  }
+
+  // Loading and auth guards
+  if (authLoading || isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading profile...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null // Will redirect to login
   }
 
   return (
@@ -123,9 +209,35 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 pb-8">
-          <div className="space-y-6">
-            <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
+        <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 pb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            {/* LEFT NAV */}
+            <div className="lg:col-span-1">
+              <div className="soft-card rounded-2xl bg-white shadow-md p-4 space-y-2">
+                {["profile", "billing"].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab as SettingsTab)}
+                    className={`w-full text-left rounded-xl p-3 transition-colors ${
+                      activeTab === tab ? "bg-black text-white font-medium" : "hover:bg-black/5 text-black"
+                    }`}
+                  >
+                    {tab
+                      .replace("-", " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+
+            {/* RIGHT CONTENT */}
+            <div className="lg:col-span-3 space-y-6">
+
+              {activeTab === "profile" && (
+                <>
+                  <div className="soft-card rounded-2xl bg-white shadow-lg p-8">
 
                     {/* Profile picture + name */}
                     <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-200">
@@ -158,8 +270,8 @@ export default function ProfilePage() {
                           type="text"
                           name="fullName"
                           value={formData.fullName}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         />
                       </div>
 
@@ -171,8 +283,8 @@ export default function ProfilePage() {
                             type="email"
                             name="email"
                             value={formData.email}
-                            disabled
-                            className="flex-1 rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                            onChange={handleInputChange}
+                            className="flex-1 rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                           />
                           <span className="text-xs bg-green-100 text-green-800 rounded-full px-3 py-1 flex items-center gap-1">
                             <CheckCircle className="w-3 h-3" />
@@ -187,8 +299,8 @@ export default function ProfilePage() {
                         <select
                           name="originCountry"
                           value={formData.originCountry}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         >
                           <option value="">Select country</option>
                           <option value="indonesia">Indonesia</option>
@@ -207,8 +319,8 @@ export default function ProfilePage() {
                         <select
                           name="targetCulture"
                           value={formData.targetCulture}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         >
                           <option value="">Select a culture</option>
                           <option value="japan">Japan</option>
@@ -227,8 +339,8 @@ export default function ProfilePage() {
                         <select
                           name="employeeType"
                           value={formData.employeeType}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         >
                           <option value="">Select one</option>
                           <option value="expat">Expat (working / studying abroad)</option>
@@ -245,8 +357,8 @@ export default function ProfilePage() {
                         <select
                           name="educationLevel"
                           value={formData.educationLevel}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         >
                           <option value="">Select education level</option>
                           <option value="high-school">High School</option>
@@ -266,8 +378,8 @@ export default function ProfilePage() {
                         <select
                           name="industry"
                           value={formData.industry}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         >
                           <option value="">Not specified</option>
                           <option value="technology">Technology</option>
@@ -287,8 +399,8 @@ export default function ProfilePage() {
                         <select
                           name="primaryInterest"
                           value={formData.primaryInterest}
-                          disabled
-                          className="w-full rounded-xl border-2 border-black/20 bg-gray-50 p-3 cursor-not-allowed"
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border-2 border-black/20 bg-white p-3 focus:border-black focus:outline-none"
                         >
                           <option value="expat-ai">AI Expat Consultant</option>
                           <option value="roleplay">Cultural Role-Play Simulation</option>
@@ -297,7 +409,38 @@ export default function ProfilePage() {
                       </div>
 
                     </div>
+
+                    <button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="mt-6 rounded-full bg-black text-white px-6 py-2 shadow-md hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSaving ? "Saving..." : "Save Changes"}
+                    </button>
                   </div>
+                </>
+              )}
+
+              {/* ===== BILLING TAB ===== */}
+              {activeTab === "billing" && (
+                <div className="space-y-6">
+                  <CurrentPlanCard />
+                  <PaymentMethodCard />
+                  <BillingHistoryTable />
+                </div>
+              )}
+
+              {/* ===== OTHER TABS LEFT UNMODIFIED ===== */}
+              {/*
+                activity
+                account
+                notifications
+                privacy
+                help
+                remain unchanged
+              */}
+
+            </div>
           </div>
         </main>
       </div>

@@ -45,7 +45,8 @@ const googleCallback = (req, res) => {
         const token = (0, exports.generateToken)(user);
         console.log("✅ Login successful:", user.email);
         console.log("🎫 Token generated:", token.substring(0, 20) + "...");
-        // REDIRECT ke frontend dengan token di URL
+        // REDIRECT ke callback page dengan token di URL
+        // Callback page akan menyimpan token dan user data, lalu redirect ke /home
         res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${token}`);
     }
     catch (error) {

@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Home, User, MessageSquare, LogOut, ChevronDown } from "lucide-react"
-import { getMockUserUsage } from "@/lib/usage-calculator"
+// import { getMockUserUsage } from "@/lib/usage-calculator"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -31,7 +31,7 @@ function DashboardContent() {
   const [sessions, setSessions] = useState<ChatSession[]>([])
   const [isLoadingSessions, setIsLoadingSessions] = useState(true)
   const { user, isLoading } = useAuth()
-  const userUsage = getMockUserUsage()
+  // const userUsage = getMockUserUsage()
   const router = useRouter()
 
   // ⚡ CRITICAL: Protect page - redirect to login if not authenticated
@@ -68,12 +68,16 @@ function DashboardContent() {
     }
   }
 
-  const getPersonaEmoji = (persona: string) => {
+  const getPersonaImage = (persona: string) => {
     switch (persona) {
-      case "clara": return "🤝"
-      case "sora": return "💼"
-      case "arlo": return "📋"
-      default: return "💬"
+      case "clara":
+        return "/images/Frame 123.svg"
+      case "sora":
+        return "/images/Frame 123.svg" // TODO: Add Frame 121.svg for Sora
+      case "arlo":
+        return "/images/Frame 122.svg"
+      default:
+        return "/images/Frame 123.svg"
     }
   }
 
@@ -107,7 +111,7 @@ function DashboardContent() {
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             <div className="flex items-center">
               <Link href="/home" className="flex items-center gap-2">
-                <img src="/images/logoIMG_BLACK.png" alt="WorkAbroadly" className="h-16 w-auto" />
+                <img src="/images/logo web png 800x200 (2).png" alt="WorkAbroadly" className="h-16 w-auto" />
               </Link>
               <div className="ml-4">
                 <h2 className="text-3xl font-bold text-white mb-1">Home</h2>
@@ -120,7 +124,7 @@ function DashboardContent() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                    <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                    <div className="w-12 h-6 rounded-full bg-white flex items-center justify-center overflow-hidden">
                       {user?.picture ? (
                         <img src={user.picture} alt={user.name} className="w-full h-full object-cover" />
                       ) : (
@@ -244,7 +248,15 @@ function DashboardContent() {
                         >
                           <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all cursor-pointer border border-gray-200 hover:border-gray-300 hover:shadow-md">
                             <div className="flex items-start gap-3">
-                              <div className="text-2xl flex-shrink-0">{getPersonaEmoji(session.persona)}</div>
+                              <div className="w-8 h-8 flex-shrink-0 relative">
+                                <Image
+                                  src={getPersonaImage(session.persona)}
+                                  alt={getPersonaName(session.persona)}
+                                  width={32}
+                                  height={32}
+                                  className="object-contain"
+                                />
+                              </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-start justify-between gap-2 mb-1">
                                   <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-black">

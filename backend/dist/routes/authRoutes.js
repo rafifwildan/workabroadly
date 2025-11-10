@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 // ROUTE 1: Initiate Google OAuth
 // User klik "Login with Google" → hit endpoint ini
 router.get("/google", passport_1.default.authenticate("google", {
-    scope: ["profile", "email"], // Data apa yang kita minta dari Google
+    scope: ["profile", "email"] // Data apa yang kita minta dari Google
 }));
 // ROUTE 2: Google OAuth Callback
 // Google redirect user ke sini setelah login berhasil

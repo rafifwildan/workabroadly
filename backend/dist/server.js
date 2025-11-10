@@ -27,6 +27,8 @@ const PORT = process.env.PORT || 3010;
 app.use((0, cors_1.default)({
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
+    // ⚡ CRITICAL FIX: Expose custom headers for Clara's dual-response system
+    exposedHeaders: ["X-Insight", "X-Has-Insight", "X-Conversation-State"],
 }));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -45,6 +47,9 @@ app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 // Auth Routes (routes buat login/logout)
 app.use("/auth", authRoutes_1.default);
+app.get("/", (req, res) => {
+    res.json({ status: "ok", message: "Hello you" });
+});
 // Health check endpoint
 app.get("/health", (req, res) => {
     res.json({ status: "ok", message: "WorkAbroadly API is running" });

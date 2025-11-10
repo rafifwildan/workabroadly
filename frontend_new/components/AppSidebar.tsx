@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Drama, User, MessageSquare, LogOut, Menu, X } from "lucide-react"
+import { Home, User, MessageSquare, LogOut, Menu, X } from "lucide-react"
 import UserPlanBadge from "@/components/UserPlanBadge"
  // import { getMockUserUsage } from "@/lib/usage-calculator" diganti yang sudah ada di database
 
@@ -15,7 +15,6 @@ export default function AppSidebar() {
   const navItems = [
     { href: "/home", icon: Home, label: "Home" },
     { href: "/expat-ai", icon: MessageSquare, label: "Expat AI Chat Bot" },
-    { href: "/role-play", icon: Drama, label: "Cultural Role-Play" },
     { href: "/profile", icon: User, label: "Profile" },
   ]
 

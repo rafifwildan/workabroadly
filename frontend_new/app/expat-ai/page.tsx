@@ -6,6 +6,7 @@ import { Globe, Users } from "lucide-react"
 import ChatSidebar from "@/components/ChatSidebar"
 import ChatArea from "@/components/ChatArea"
 import ChatInputBar from "@/components/ChatInputBar"
+import CultureSelector from "@/components/CultureSelector"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -20,6 +21,8 @@ interface Message {
   sender: "user" | "ai"
   timestamp: string
   messageType?: "normal" | "selection" | "navigation"
+  insight?: string
+  hasInsight?: boolean
 }
 
 interface ConversationState {
@@ -32,10 +35,10 @@ interface ConversationState {
 }
 
 const cultures = [
-  { code: "en", name: "Western Culture", flag: "🌎" },
-  { code: "id", name: "Indonesian Culture", flag: "🇮🇩" },
-  { code: "ja", name: "Japanese Culture", flag: "🇯🇵" },
-  { code: "ko", name: "Korean Culture", flag: "🇰🇷" },
+  { code: "en", name: "English", flag: "🌎" },
+  { code: "id", name: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "ja", name: "Japanese", flag: "🇯🇵" },
+  { code: "ko", name: "Korean", flag: "🇰🇷" },
 ]
 
 export default function AIExpatChatPage() {
@@ -50,6 +53,7 @@ export default function AIExpatChatPage() {
   const [selectedPersona, setSelectedPersona] = useState("clara")
   const [showPersonaModal, setShowPersonaModal] = useState(true) // Show modal on initial load
   const [hasSelectedPersona, setHasSelectedPersona] = useState(false) // Track if persona has been selected
+  const [hasCultureSelected, setHasCultureSelected] = useState(false) // Track if culture selected (for Sora/Arlo)
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null) // Track current session
   const [conversationState, setConversationState] = useState<ConversationState>({
     step: 1,
@@ -234,7 +238,29 @@ export default function AIExpatChatPage() {
         setMessages((prev) => {
           const updated = [...prev]
           const lastIndex = updated.length - 1
-          updated[lastIndex] = { ...updated[lastIndex], content: fullText }
+
+          // Try to parse JSON for Clara responses
+          let messageUpdate: Partial<Message> = { content: fullText }
+
+          if (selectedPersona === "clara") {
+            try {
+              const parsed = JSON.parse(fullText)
+
+              // Check if it's Clara's dialog/insight format
+              if (parsed && typeof parsed === 'object' && parsed.dialog && parsed.insight) {
+                messageUpdate = {
+                  content: parsed.dialog,
+                  insight: parsed.insight,
+                  hasInsight: true
+                }
+              }
+            } catch (error) {
+              // Not valid JSON yet (streaming incomplete) or not Clara format
+              // Keep as plain text
+            }
+          }
+
+          updated[lastIndex] = { ...updated[lastIndex], ...messageUpdate }
           return updated
         })
       }
@@ -263,6 +289,7 @@ export default function AIExpatChatPage() {
     setCurrentSessionId(null)
     setShowPersonaModal(true)
     setHasSelectedPersona(false)
+    setHasCultureSelected(false)
     // Reset conversation state
     setConversationState({
       step: 1,
@@ -282,7 +309,16 @@ export default function AIExpatChatPage() {
         step: 1,
         isInRoleplay: false,
       })
+      setHasCultureSelected(true) // Clara uses multi-step flow, doesn't need culture selector
+    } else {
+      // For Sora/Arlo, culture must be selected first
+      setHasCultureSelected(false)
     }
+  }
+
+  const handleCultureSelect = (cultureCode: string) => {
+    setSelectedCulture(cultureCode)
+    setHasCultureSelected(true)
   }
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -310,6 +346,7 @@ export default function AIExpatChatPage() {
       setSelectedPersona(session.persona)
       setHasSelectedPersona(true)
       setShowPersonaModal(false)
+      setHasCultureSelected(true) // If loading a session, culture was already selected
 
       // Load conversation state for Clara
       if (session.persona === "clara" && session.conversationState) {
@@ -342,25 +379,25 @@ export default function AIExpatChatPage() {
       id: "clara",
       name: "Clara",
       image: "/images/Group 240.svg",
-      title: "CultureFit Navigator",
+      title: "Cultural Role-Play Coach",
       description: "Social & Cultural adaptation",
-      details: "Get help with understanding cultural norms, social etiquette, and building relationships in your new country."
+      details: "Get help with understanding cultural norms, social etiquette, and building relationships by role-play practices."
     },
     {
       id: "sora",
       name: "Sora",
-      image: "/images/Group 123.svg",
-      title: "Workplace Strategy Coach",
+      image: "/images/Frame 123.svg",
+      title: "Multi-Cultural Workplace Strategist",
       description: "Workplace & Career strategy",
       details: "Navigate workplace dynamics, negotiate offers, manage conflicts, and advance your career strategically."
     },
     {
       id: "arlo",
       name: "Arlo",
-      image: "/images/Group 122.svg",
-      title: "LifeAdmin Ally",
-      description: "Immigration & Life admin",
-      details: "Handle visas, housing, banking, healthcare, and all the bureaucratic tasks of living abroad."
+      image: "/images/Frame 122.svg",
+      title: "Multi-Cultural Daily Life Guide",
+      description: "Daily Life & Social Etiquette",
+      details: "Your friendly guide for navigating daily social life. Get help with etiquette, invitations, dining, and building casual friendships."
     }
   ]
 
@@ -423,31 +460,45 @@ export default function AIExpatChatPage() {
 
         {/* 🔴 PERUBAHAN 3: Scrollable Chat Area - HANYA ini yang scroll */}
         <div className="flex-1 overflow-y-auto">
-          <ChatArea
-            messages={messages}
-            isTyping={isTyping}
-            showPersonaSelection={false}
-            selectedPersona={selectedPersona}
-            onPersonaSelect={handlePersonaSelect}
-            selectedCulture={selectedCulture}
-            selectedLanguage={selectedLanguage as Language}
-            onSuggestionClick={handleSuggestionClick}
-            conversationState={conversationState}
-            onMenuSelect={handleMenuSelect}
-          />
+          {/* Show CultureSelector for Sora/Arlo if culture not selected yet */}
+          {!hasCultureSelected && (selectedPersona === "sora" || selectedPersona === "arlo") && hasSelectedPersona ? (
+            <div className="flex items-center justify-center h-full p-8">
+              <CultureSelector
+                onCultureSelect={handleCultureSelect}
+                selectedLanguage={selectedLanguage}
+                disabled={isTyping}
+              />
+            </div>
+          ) : (
+            <ChatArea
+              messages={messages}
+              isTyping={isTyping}
+              showPersonaSelection={false}
+              selectedPersona={selectedPersona}
+              onPersonaSelect={handlePersonaSelect}
+              selectedCulture={selectedCulture}
+              selectedLanguage={selectedLanguage as Language}
+              onSuggestionClick={handleSuggestionClick}
+              conversationState={conversationState}
+              onMenuSelect={handleMenuSelect}
+            />
+          )}
         </div>
 
         {/* 🔴 PERUBAHAN 4: Fixed Input Bar - tidak scroll */}
-        <div className="flex-shrink-0">
-          <ChatInputBar
-            onSendMessage={(msg) => handleSendMessage(msg)}
-            disabled={isTyping || !hasSelectedPersona}
-            currentRole={currentRole}
-            conversationStep={conversationState.step}
-            language={selectedLanguage as Language}
-            selectedPersona={selectedPersona}
-          />
-        </div>
+        {/* Hide input bar for Sora/Arlo until culture is selected */}
+        {(hasCultureSelected || selectedPersona === "clara" || !hasSelectedPersona) && (
+          <div className="flex-shrink-0">
+            <ChatInputBar
+              onSendMessage={(msg) => handleSendMessage(msg)}
+              disabled={isTyping || !hasSelectedPersona}
+              currentRole={currentRole}
+              conversationStep={conversationState.step}
+              language={selectedLanguage as Language}
+              selectedPersona={selectedPersona}
+            />
+          </div>
+        )}
       </div>
 
       {/* Persona Selection Overlay */}
