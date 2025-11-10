@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { saveToken } from "@/lib/auth";
 
+// This export tells Next.js not to pre-render this page at build time.
 export const dynamic = 'force-dynamic';
 
 function AuthCallback() {
@@ -14,11 +15,9 @@ function AuthCallback() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      // Get token from URL query parameter
       const token = searchParams.get("token");
       const error = searchParams.get("error");
 
-      // Handle error cases
       if (error) {
         setStatus("error");
         switch (error) {
@@ -31,62 +30,34 @@ function AuthCallback() {
           default:
             setErrorMessage("An unknown error occurred. Please try again.");
         }
-
-        // Redirect to login after 3 seconds
-        setTimeout(() => {
-          router.push("/login");
-        }, 3000);
+        setTimeout(() => router.push("/login"), 3000);
         return;
       }
 
-      // Handle success case
       if (token) {
         try {
-          // Save token to localStorage
           saveToken(token);
-
-          // Fetch user data to verify token
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           });
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch user data");
-          }
+          if (!response.ok) throw new Error("Failed to fetch user data");
 
           const user = await response.json();
-
-          // Save user data to localStorage
           if (typeof window !== "undefined") {
             localStorage.setItem("auth_user", JSON.stringify(user));
           }
-
           setStatus("success");
-
-          // Redirect to home page after brief delay
-          setTimeout(() => {
-            router.push("/home");
-          }, 1500);
+          setTimeout(() => router.push("/home"), 1500);
         } catch (error) {
           console.error("Auth callback error:", error);
           setStatus("error");
           setErrorMessage("Failed to complete authentication. Please try again.");
-
-          // Redirect to login after 3 seconds
-          setTimeout(() => {
-            router.push("/login");
-          }, 3000);
+          setTimeout(() => router.push("/login"), 3000);
         }
       } else {
-        // No token or error parameter
         setStatus("error");
         setErrorMessage("Invalid callback. Missing authentication token.");
-
-        setTimeout(() => {
-          router.push("/login");
-        }, 3000);
+        setTimeout(() => router.push("/login"), 3000);
       }
     };
 
@@ -103,44 +74,22 @@ function AuthCallback() {
             <p className="text-gray-600">Please wait while we set up your account.</p>
           </>
         )}
-
         {status === "success" && (
           <>
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg
-                className="w-8 h-8 text-green-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
+              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign In Successful!</h2>
             <p className="text-gray-600">Redirecting you to the dashboard...</p>
           </>
         )}
-
         {status === "error" && (
           <>
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg
-                className="w-8 h-8 text-red-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Authentication Failed</h2>
@@ -153,11 +102,11 @@ function AuthCallback() {
   );
 }
 
-
+// Wrap the client component in Suspense for the initial load.
 export default function AuthCallbackPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <AuthCallback />
     </Suspense>
-  )
+  );
 }
