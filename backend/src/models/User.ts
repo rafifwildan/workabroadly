@@ -13,9 +13,17 @@ export interface IUser extends Document {
   targetCountry?: string;  // Target country for work abroad
   careerGoals?: string;    // Career goals and aspirations
   experienceLevel?: string;// Professional experience level
-  isOnboarded?: boolean;   // Whether user completed onboarding
+  hasCompletedOnboarding?: boolean; // Whether user completed onboarding
   createdAt: Date;         // Kapan user dibuat
   updatedAt: Date;         // Kapan terakhir diupdate
+  primaryInterest?: string;
+  originCountry?: string;
+  targetCulture?: string;
+  employeeType?: string;
+  educationLevel?: string;
+  industry?: string;
+  occupation?: string;
+  yearsOfExperience?: string;
 }
 
 // Schema MongoDB - definisi struktur di database
@@ -67,9 +75,33 @@ const UserSchema = new Schema<IUser>(
     experienceLevel: {
       type: String,
     },
-    isOnboarded: {
+    hasCompletedOnboarding: {
       type: Boolean,
       default: false,
+    },
+    primaryInterest: {
+        type: String,
+    },
+    originCountry: {
+        type: String,
+    },
+    targetCulture: {
+        type: String,
+    },
+    employeeType: {
+        type: String,
+    },
+    educationLevel: {
+        type: String,
+    },
+    industry: {
+        type: String,
+    },
+    occupation: {
+        type: String,
+    },
+    yearsOfExperience: {
+        type: String,
     },
   },
   {

@@ -1,5 +1,5 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GoogleStrategy, Profile, VerifyCallback } from "passport-google-oauth20";
 import User, { IUser } from "../models/User";
 
 // KONFIGURASI GOOGLE OAUTH STRATEGY
@@ -10,18 +10,12 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: process.env.GOOGLE_CALLBACK_URL!,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-          select_account: "true" // Memaksa pemilihan akun
-        }
-      }
+      prompt: "consent",
+      accessType: "offline",
     },
     
     // CALLBACK FUNCTION - dipanggil setelah user berhasil login di Google
-    async (accessToken, refreshToken, profile, done) => {
+    async (accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) => {
       console.log("[Passport] Google Strategy callback dipanggil.");
 
       const email = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
@@ -34,12 +28,12 @@ passport.use(
         const userData = {
           name: profile.displayName,
           email: email,
-          picture: profile.photos && profile.photos[0] ? profile.photos[0].value : null,
+          picture: profile.photos && profile.photos[0] ? profile.photos[0].value : undefined,
           googleId: profile.id
           // JANGAN atur hasCompletedOnboarding di sini
         };
 
-        // Ini adalah logika 'upsert' yang membunuh "User Hantu"
+        // Ini adalah logika 'upsert' yang membunuh \"User Hantu\"
         const user = await User.findOneAndUpdate(
           { email: email },
           { $set: userData }, // Update data jika user sudah ada
@@ -55,7 +49,7 @@ passport.use(
 
       } catch (error) {
         console.error("[Passport Error] Gagal upsert user ke MongoDB:", error);
-        return done(error, null);
+        return done(error as Error, null);
       }
     }
   )
